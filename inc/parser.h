@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:32:10 by paribeir          #+#    #+#             */
-/*   Updated: 2024/06/25 22:16:34 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:05:52 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,27 @@ typedef struct s_ast
 
 typedef struct s_cmd_list 
 {
-	t_token_type	type;
-	t_token_subtype	subtype;
-	char			*cmd_word;
-	char			**arguments;
-	char			**flags;
-	struct s_command	*prev;
-	struct s_command	*next;
+	t_token_type		type; //IO_FILE
+	t_token_subtype		subtype; //REDIN HEREDOC
+	char				*cmd_word; //"<<"
+	char				**arguments; //temp_heredoc
+	char				**flags; //NULL
+	struct s_cmd_list	*prev; 
+	struct s_cmd_list	*next;
 }	t_cmd_list;
+
+typedef struct s_vars
+{
+	char	**var;
+	char	**content;
+}	t_vars;
+
+/*** Functions ***/
+//quotes.c
+int	quotes_check(t_token *token);
+int	quotes_find_pair(char *str, int *i, char q);
+
+
+
 
 #endif

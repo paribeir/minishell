@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:06:59 by paribeir          #+#    #+#             */
-/*   Updated: 2024/06/25 22:49:50 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:22:07 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	subtype_check(char q, char *input)
 		return (AND_IF);
 	else if (input[1] && q == '|' && input[1] == '|')
 		return (OR_IF);
+	else if (q == '|' && (!input[1] || (input[1] && input[1] != '|')))
+		return (T_PIPE);
 	return (UNKNOWN);
 }
 
@@ -84,14 +86,14 @@ int	check_syntax(t_token **head)
 	while (current)
 	{
 		if (i == 0 && current->type < CMD_WORD)
-			ft_printf("Syntax Error: after a pipe or operator must be either a cmd or io_redirect\n"); //1st element in the beginning or after a pipe or operator must be either a cmd or io_redirect
+			ft_printf("Syntax Error: after a pipe or operator must be either a cmd or io_redirect\n");
 		else if (current->type == IO_FILE && (!current->next || current->next->type != CMD_WORD))
-			ft_printf("Syntax Error: redirect must be followed by FILE name bzw heredoc delimiter\n"); //redirect must be followed by FILE name bzw heredoc delimiter
+			ft_printf("Syntax Error: redirect must be followed by FILE name bzw heredoc delimiter\n");
 		if (current->type == CMD_WORD)
 		{
-			if (i == 0 && (!current->prev || current->prev->type == OPERATOR) && ft_strchr(current->str, '=')) //If an equal means assignable variable
-			
-			var_expansion(current);
+			if (i == 0 && (!current->prev || current->prev->type == OPERATOR) && ft_strchr(current->str, '='))
+				get_variable(current->str);
+			//var_expansion(current);
 		}
 		if (current->type < CMD_WORD)
 			i = 0;
@@ -103,3 +105,4 @@ int	check_syntax(t_token **head)
 }
 
 /*If a complete command ends with a pipe or an operator, it will ask for stdin input*/
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:11:46 by paribeir          #+#    #+#             */
-/*   Updated: 2024/06/25 22:50:35 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:17:10 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum s_token_type {
 
 typedef enum s_token_subtype {
 	UNKNOWN,
+	T_PIPE,
 	SQUOTE,
 	DQUOTE,
 	REDIR_IN,
@@ -40,7 +41,6 @@ typedef enum s_token_subtype {
 	TOKEN_EOF,
 	WILDCARD,
 }	t_token_subtype;
-
 
 /*** Linked list - Tokens ***/
 typedef struct s_token {
@@ -64,6 +64,7 @@ t_token	*create_token(void);
 void	token_add_back(t_token **head, t_token *new_node);
 int	subtype_check(char q, char *input);
 int	check_syntax(t_token **head);
+
 
 
 /*

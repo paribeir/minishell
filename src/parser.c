@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/06/26 13:55:44 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/06/27 20:37:29 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,89 +16,95 @@
 
 t_cmd_list	*parse_tokens(t_token *token)
 {
-	t_token *current;
-	t_cmd_list *node;
+	t_token		*current;
+	t_cmd_list	*node;
 
 	current = token_fusion(token);
 	if (!current)
 		return (NULL);
 	while (current)
 	{
-		node = create_ast_node(current);
+		node = create_node(current);
 	}
-	node = create_ast_node(current);
-	if (!head)
-		return NULL;
-	
-	return (head);
+	return (node);
 }
 
+//heredoc's delimiter is also stored in the str variable
+//expansion was already taken of, I suppose
 t_token	*token_fusion(t_token	*token)
 {
+	t_token	*temp;
+
 	if (token->type == IO_FILE && token->subtype != HEREDOC)
 	{
 		token->str = ft_strdup(token->next->str);
-
+		temp = token->next->next;
+		//delete next token;
+		token->next = temp;
 	}
+	else if (token->subtype == HEREDOC)
+	{
+		
+	}
+
+
 	
 
 }
 
+//Store VAR= in a linked list
+void	get_variable(char *str)
+{
+	char *start;
 
-void var_expansion(t_token *token)
+	start = ft_strchr(str, '=');
+
+}
+
+
+
+void expansions(t_token *token, char *str)
 {
 	int	i;
-	int	q_count;
 	char	*new_str;
 
 	i = 0;
-	q_count = 0;
-	if (token->subtype == SQUOTE || token->subtype == DQUOTE)
+	if (token)
+		str = token->str;
+	heredoc_handler(token);
+	if (ft_strchr(str, '$'))
 	{
-		if (check_quotes(token))
-			return (ft_print("Syntax error: unclosed quotes\n"));
-		
+		//expand
 	}
-
+	here_handler(token);
 }
 
-//how and when remove quotes?
-int	check_quotes(t_token *token)
+//--> Add return value if gnl fails
+int	heredoc_handler(t_token *token)
 {
-	int	i;
-	int	q_count;
+	char	*read_str;
+	char	*final_str;
+	int		fd;
 
-	i = 0;
-	q_count = 0;
-	while (token->str[i])
+	final_str = "";
+	read_str = ft_get_next_line(0);
+	while (read_str)
 	{
-		if (token->str[i] == '\'' || token->str[i] == '\"')
-			q_count = count_quotes(token->str, &i, token->str[i]);
-		//if (strchr(token->str, '$'))
-		if (token->str[i] == '\'')
+		if (ft_strncmp(token->next->str, read_str, \
+		ft_strlen(token->next->str)) == 0 && \
+		read_str[ft_strlen(token->next->str) + 1] == '\0')
 		{
-			//IF (token->str[i]) AND sq_count % 2 == 0
-				//DONT EXPAND, i++;
+			fd = open("here_doc_temp", O_WRONLY | O_CREAT | O_TRUNC, 0666);
+			ft_putstr_fd(final_str, fd);
+			free(final_str);
+			free(read_str);
+			close(fd);
+			return ("here_doc_temp");
 		}
-		else 
-			i++;
+		ft_strjoin(final_str, read_str);
+		free (read_str);
+		read_str = ft_get_next_line(0);
+		expand_var();
+		//EXPAND: VARIABLES ONLY! $VAR
 	}
-	if (q_count % 2 != 0)
-		return (1);
-	return (0);
-}
-
-int	count_quotes(char *str, int *i, char q)
-{
-	int	q_count;
-
-	q_count = 1;
-	(*i)++;
-	while (str[*i] && q_count % 2 != 0)
-	{
-		if (str[*i] == q)
-			q_count++;
-		(*i)++;
-	}
-	return (q_count);
 }
