@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:06:59 by paribeir          #+#    #+#             */
-/*   Updated: 2024/06/27 19:22:07 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:28:08 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	token_add_back(t_token **head, t_token *new_node)
 	new_node->prev = temp;
 }
 
-int	subtype_check(char q, char *input)
+int	add_subtype(char q, char *input)
 {
 	if (q == '\'')
 		return (SQUOTE);
@@ -75,7 +75,9 @@ int	subtype_check(char q, char *input)
 /*Small syntax check.
 A simple command can either be one or many IO_FILE(s) or CMD_WORD(s), or both.
 A pipe or operator must be followed by a IO_FILE or CMD_WORD 
-(no consecutive pipes or operators allowed)*/
+(no consecutive pipes or operators allowed)
+Quotes must be closed*/
+//TO DO--> error! 
 int	check_syntax(t_token **head)
 {
 	int	i;
@@ -86,15 +88,11 @@ int	check_syntax(t_token **head)
 	while (current)
 	{
 		if (i == 0 && current->type < CMD_WORD)
-			ft_printf("Syntax Error: after a pipe or operator must be either a cmd or io_redirect\n");
+			return (ft_printf("Syntax Error: a pipe or operator must be followed by either a cmd or redirect\n"));
 		else if (current->type == IO_FILE && (!current->next || current->next->type != CMD_WORD))
-			ft_printf("Syntax Error: redirect must be followed by FILE name bzw heredoc delimiter\n");
-		if (current->type == CMD_WORD)
-		{
-			if (i == 0 && (!current->prev || current->prev->type == OPERATOR) && ft_strchr(current->str, '='))
-				get_variable(current->str);
-			//var_expansion(current);
-		}
+			return (ft_printf("Syntax Error: redirect must be followed by FILE name bzw heredoc DELIMITER\n"));
+		if ((current->subtype == SQUOTE || current->subtype == DQUOTE) && quotes_check(current))
+			return (ft_printf("Syntax Error: unclosed quotes\n"));
 		if (current->type < CMD_WORD)
 			i = 0;
 		else 

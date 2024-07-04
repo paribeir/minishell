@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:06:04 by paribeir          #+#    #+#             */
-/*   Updated: 2024/06/26 14:59:08 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:41:32 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 
 /*
 - Assign each lexeme of the input string into a token
-- This is a normative approach 
+- check syntax
+- return head of linked list on success, NULL on failure.
 */
 t_token	*tokenizer(char *input)
 {
@@ -44,10 +45,13 @@ t_token	*tokenizer(char *input)
 			i += token_big(start, token);
 		add_token(start, &head, token);
 	}
-	if (head)
+	if (head && check_syntax(&head) == 0)
+	{
+		variable_expansion(&head);
 		TEST_printf_stuff(&head);
-		//check_syntax(&head);
-	return (head);
+		return (head);
+	}
+	return (NULL);
 }
 
 int	token_small(char *input, t_token *token)
@@ -70,10 +74,10 @@ int	token_small(char *input, t_token *token)
 		i++;
 	if (i > 1)
 	{
-		ft_printf("Syntax error: not a valid operator\n");
-		//exit (EXIT_FAILURE); //more than 2 operators
+		ft_printf("Syntax error: invalid operator\n");
+		//exit (EXIT_FAILURE); //invalid operator
 	}
-	token->subtype = subtype_check(input[i], input);
+	token->subtype = add_subtype(input[i], input);
 	token->length = i + 1;
 	return (i + 1);
 }
@@ -88,9 +92,6 @@ int	token_big(char *start, t_token *token)
 	{
 		while (start[i] && !ft_strchr(IFS"\"\'"SPECIAL_CHARS, start[i]))
 			i++;
-		if (!start[i] || ft_strchr(IFS, start[i]) || \
-		ft_strchr(SPECIAL_CHARS, start[i]))
-			break ;
 		if (start[i] && (start[i] == '\"' || start[i] == '\''))
 		{
 			q = start[i++];
@@ -99,12 +100,20 @@ int	token_big(char *start, t_token *token)
 			if (start[i] == q)
 				i++;
 		}
+		else
+			break;
 	}
-	token->subtype = subtype_check(q, start);
+	token->subtype = add_subtype(q, start); //idk if this make sense tbh
 	token->type = CMD_WORD;
 	token->length = i;
 	return (i);
 }
+
+/*
+		if (!start[i] || ft_strchr(IFS, start[i]) || \
+		ft_strchr(SPECIAL_CHARS, start[i]))
+			break ;
+*/
 
 void	add_token(char *start, t_token **head, t_token *token)
 {

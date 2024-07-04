@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:32:10 by paribeir          #+#    #+#             */
-/*   Updated: 2024/06/27 19:05:52 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:11:39 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,13 @@ typedef struct s_vars
 }	t_vars;
 
 /*** Functions ***/
+//heredoc.c
+char	*heredoc_handler(t_token *token);
+
 //quotes.c
 int	quotes_check(t_token *token);
 int	quotes_find_pair(char *str, int *i, char q);
+void	quotes_remove(t_token *token);
 
 
 

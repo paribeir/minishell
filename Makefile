@@ -6,7 +6,7 @@
 #    By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/06/24 17:39:06 by paribeir         ###   ########.fr        #
+#    Updated: 2024/07/04 16:52:20 by paribeir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ joh.c \
 main.c \
 pat.c \
 tokenizer.c \
-tokenizer_utils.c
+tokenizer_utils.c \
+quotes.c
 
 SRCS_MINISHELL = $(addprefix $(SRC_DIR), $(SRC_MINISHELL))
 
