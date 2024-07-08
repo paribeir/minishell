@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:11:46 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/04 17:41:01 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/08 23:46:51 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*** Macros ***/
 //IFS stands for Internal Field Separator
 # define IFS		" \t\n"
-# define SPECIAL_CHARS	"|&<>();#!"
+# define SPECIAL_CHARS	"|&<>"
 
 /*** enum ***/
 typedef enum s_token_type {
@@ -26,20 +26,20 @@ typedef enum s_token_type {
 	IO_FILE = 104,
 }	t_token_type;
 
-typedef enum s_token_subtype {
-	UNKNOWN,
-	SQUOTE,
+typedef enum s_token_subtype 
+{
+	ARGUMENT,
+	AND_IF,
+	BINARY,
+	BLTIN,
 	DQUOTE,
+	OR_IF,
+	T_PIPE, //change name to "PIPE"
+	HEREDOC,
 	REDIR_IN,
 	REDIR_OUT,
 	REDIR_APPEND,
-	HEREDOC,
-	AND_IF,
-	OR_IF,
-	VAR,
-	TOKEN_EOF,
-	T_PIPE,
-	WILDCARD,
+	SQUOTE,
 }	t_token_subtype;
 
 /*** Linked list - Tokens ***/
@@ -58,7 +58,6 @@ t_token	*tokenizer(char *input);
 int		token_small(char *input, t_token *token);
 int		token_big(char *start, t_token *token);
 void	add_token(char *start, t_token **head, t_token *token);
-void	TEST_printf_stuff(t_token **head);
 
 //tokenizer_utils.c
 t_token	*create_token(void);

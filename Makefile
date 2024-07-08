@@ -6,7 +6,7 @@
 #    By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/07/04 16:52:20 by paribeir         ###   ########.fr        #
+#    Updated: 2024/07/08 22:43:35 by paribeir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,9 +41,14 @@ exe/exe.c \
 joh.c \
 main.c \
 pat.c \
-tokenizer.c \
-tokenizer_utils.c \
-quotes.c
+parsing/env_variables.c \
+parsing/expansions.c \
+parsing/heredoc.c \
+parsing/parser.c \
+parsing/quotes.c \
+parsing/tokenizer_utils.c \
+parsing/tokenizer.c \
+parsing/wildcard.c 
 
 SRCS_MINISHELL = $(addprefix $(SRC_DIR), $(SRC_MINISHELL))
 
