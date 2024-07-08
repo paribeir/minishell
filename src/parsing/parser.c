@@ -1,0 +1,274 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
+/*   Updated: 2024/07/09 00:03:39 by paribeir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+#include "tokenizer.h"
+#include "parser.h"
+
+
+//TO DO: End function "create cmd node" by afinishing "get_arguments"
+t_cmd_list	*parse_tokens(t_token **token)
+{
+	t_token		*current;
+	t_cmd_list	*head;
+	t_cmd_list	*node;
+
+	head = NULL;
+	current = token_fusion(*token);
+	if (!current)
+		return (NULL);
+	while (current)
+	{
+		reorder_tokens(current, &head, REDIR_IN); //creates nodes for all redirs in a simple command
+		reorder_tokens(current, &head, BINARY);
+		reorder_tokens(current, &head, REDIR_OUT);
+		while (current && current->type != PIPE && current->type != OPERATOR)
+			current = current->next;
+		if (current)
+		{
+			node_add_back(&head, create_cmd_node(current));
+			current = current->next;
+		}
+	}
+	free_tokens(token);
+	return (head);
+}
+
+void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
+{
+
+	t_token	*current;
+	t_cmd_list	*node;
+
+	current = token;
+	if (current->subtype == HEREDOC && type == REDIR_IN)
+		type = HEREDOC;
+	else if (current->subtype == REDIR_APPEND && type == REDIR_OUT)
+		type = REDIR_APPEND;
+	else if (current->subtype == BLTIN && type == BINARY)
+		type == BLTIN;
+	while (current && current->type > PIPE)
+	{
+		if (current->subtype == type)
+		{
+			node = create_cmd_node(current);
+			if (!node)
+			{
+				ft_printf("Failed to create node\n");
+				break ;
+			}
+			node_add_back(head, node);
+		}
+		current = current->next;
+	}
+}
+
+/*free the initial linked list of tokens*/
+void	free_tokens(t_token **head) 
+{
+	t_token *current;
+	t_token *temp;
+	
+	current = *head;
+	while (current)
+	{
+		temp = current;
+		current = current->next;
+		if (temp->str)
+			free(temp->str);
+		free(temp);
+	}
+	*head = NULL;
+}
+
+void	node_add_back(t_cmd_list **head, t_cmd_list *new_node)
+{
+	t_cmd_list	*temp;
+
+
+	if (!*head)
+		*head = new_node;
+	else
+	{
+		temp = *head;
+		while (temp->next)
+			temp = temp->next;
+	}
+	temp->next = new_node;
+	new_node->prev = temp;
+}
+
+t_token	*token_fusion(t_token	*t)
+{
+	t_token	*token;
+
+	token = t;
+	while (token)
+	{
+		if (token->type == IO_FILE || token->subtype == HEREDOC) // no need to check for token->next since that is one of the checks in parsing (a redirect must be followed by a filename)
+			redir_token_fusion(&token);
+		else if (token->type == CMD_WORD)
+		{
+			is_bltin(&token);
+			while (token->next && token->next->type == CMD_WORD)
+				token = token->next;
+		}
+		token = token->next;
+	}
+	return (t);
+}
+
+//cat redirs
+void	redir_token_fusion(t_token **t)
+{	t_token *token;
+	t_token *temp;
+
+	token = *t;
+	temp = NULL;
+	free (token->str);
+	if (token->subtype == HEREDOC)
+		token->str = ft_strdup("here_doc_temp");
+	else
+		token->str = ft_strdup(token->next->str);
+	if (token->next->next)
+	{
+		temp = token->next->next;
+		temp->prev = token;
+	}
+	free (token->next);
+	token->next = temp;
+}
+
+
+//is this command a builtin?
+void is_bltin(t_token **token)
+{
+	char **bltins;
+	int	i;
+
+	bltins = malloc(7 * sizeof(char *));
+	if (!bltins)
+	{
+		ft_printf("malloc error\n");
+		return ;
+	}
+	bltins[0] = "echo";
+	bltins[1] = "cd";
+	bltins[2] = "pwd";
+	bltins[3] = "export";
+	bltins[4] = "unset";
+	bltins[5] = "env";
+	bltins[6] = "exit";
+	i = 0;
+	(*token)->subtype = BINARY;
+	while (i < 7)
+	{
+		if (!ft_strncmp(bltins[i], (*token)->str, strlen(bltins[i]) + 1))
+			(*token)->subtype = BLTIN;
+		i++;
+	}
+}
+
+t_cmd_list	*create_cmd_node(t_token *token)
+{
+	t_cmd_list *node;
+
+	node = (t_cmd_list *)malloc(sizeof(t_cmd_list));
+	if (!node)
+		return (NULL);
+	node->type = token->subtype;
+	node->binary = NULL;
+	if (token->subtype == BINARY || token->subtype == BLTIN)
+	{
+		node->binary = ft_strdup(token->str);
+		if (!node->binary)
+		{
+			ft_printf("Memory allocation error\n");
+			return (NULL);
+		}
+	}
+	if (token->subtype == BLTIN || token->subtype == BINARY || token->type == IO_FILE)
+		add_arguments(token, &node); // assign or use pointers?
+	node->prev = NULL;
+	node->next = NULL;
+	return (node);
+}
+
+//get and assign arguments, delete argument tokens 
+void	add_arguments(t_token *token, t_cmd_list **node)
+{
+	int	nbr_args;
+	t_token	*current;
+	t_token	*temp;
+	int	i;
+
+	nbr_args = 0;
+	temp = NULL;
+	if (token->type == IO_FILE)
+	{
+		(*node)->arguments = (char **)malloc(2 * sizeof(char *));
+		if (!(*node)->arguments)
+		{
+			ft_printf("Malloc error");
+			return ;
+		}
+		(*node)->arguments[0] = ft_strdup(token->str);
+		if (!(*node)->arguments[0])
+		{
+			ft_printf("String duplication error");
+			return ;
+			free((*node)->arguments);
+			(*node)->arguments = NULL;
+		}
+		(*node)->arguments[1] = NULL;
+		return ;
+	}
+	else if (token->next) //if its a binary and there is something afterwards
+	{
+		current = token->next;
+		while (current && current->subtype == 0)
+		{
+			nbr_args++;
+        		current = current->next;
+		}
+	}
+	(*node)->arguments = (char **)malloc((nbr_args + 1) * sizeof(char *));
+	if (!(*node)->arguments)
+	{
+		ft_printf("Malloc error\n");
+		return ;
+	}
+	current = token->next;
+	i = 0;
+	while (current && current->subtype == 0)
+	{
+		(*node)->arguments[i] = ft_strdup(current->str);
+		if (!(*node)->arguments[i])
+		{
+			ft_printf("String duplication error\n");
+			while (i > 0)
+				free((*node)->arguments[i - 1]);
+			free ((*node)->arguments);
+			(*node)->arguments = NULL;
+			return ;
+		}
+		if (current->next)
+		{
+			temp = current->next;
+			temp->prev = current->prev;
+		}
+		free (current);
+		current = temp;
+		i++;
+	}
+	(*node)->arguments[i] = NULL;
+}
