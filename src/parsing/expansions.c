@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:38:33 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/09 00:11:12 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:50:33 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	variable_expansion(t_token **head)
 	{
 		if (current->subtype == HEREDOC)
 			current->next->str = heredoc_handler(current);
-		else if (current->type == CMD_WORD)
+		else if (current->type == CMD_WORD && current->prev->subtype != HEREDOC)
 		{
 			if (strchr(current->str, '$')) //check for env_variables ($)
 				expand_env_vars(current);

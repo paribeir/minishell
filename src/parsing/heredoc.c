@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/08 23:47:54 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:28:42 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ char	*heredoc_handler(t_token *token)
 {
 	char	*read_str;
 	char	*final_str;
+	char	*temp_str;
 	int		fd;
 
+	ft_putstr_fd(">>> ", STDOUT_FILENO);
 	final_str = ft_strdup("");
 	read_str = ft_get_next_line(0);
     quotes_remove(&token->next);
@@ -39,12 +41,22 @@ char	*heredoc_handler(t_token *token)
 			close(fd);
 			return ("here_doc_temp");
 		}
-		ft_strjoin(final_str, read_str);
+		else if (ft_strchr(read_str, '$') && (token->next->subtype != SQUOTE && token->next->subtype != DQUOTE))
+        {
+			read_str = expand_heredoc(read_str);
+			if (read_str)
+				read_str[ft_strlen(read_str)] = '\n';
+		}
+		if (!read_str)
+			read_str = "\n";
+		temp_str = ft_strjoin(final_str, read_str);
+		free(final_str);
+		final_str = temp_str;
 		free(read_str);
+		ft_putstr_fd(">>> ", STDOUT_FILENO);
 		read_str = ft_get_next_line(0);
-		if (token->next->subtype != SQUOTE || token->next->subtype != DQUOTE)
-            read_str = expand_heredoc(read_str);
-	}
+		}
+	free(final_str);
 	return (NULL);
 }
 
@@ -53,11 +65,14 @@ char	*expand_heredoc(char *str)
 {
 	char	*sum;
 	char	*before_var;
+	char	*dollar;
 
 	sum = ft_strdup("");
-	while (*str)
+	dollar = str;
+	while (dollar)
 	{
-		if (!ft_strchr(str, '$'))
+		dollar = ft_strchr(str, '$');
+		if (!dollar)
 		{
 			sum = aux_str_join(sum, str);
 			break ;
@@ -66,9 +81,11 @@ char	*expand_heredoc(char *str)
 		{
 			before_var = ft_substr(str, 0, ft_strchr(str, '$') - str);
 			sum = aux_str_join(sum, before_var);
-			sum = aux_str_join(sum, get_var(&str));
+			sum = aux_str_join(sum, get_var(&dollar));
 		}
-		str = ft_strchr(str, '$') + 1;
+		dollar = ft_strchr(dollar, '$');
+		if (dollar)
+			dollar++;
 	}
 	return (sum);
 }
@@ -78,9 +95,10 @@ char *aux_str_join(char *str1, char *str2)
 	char *temp;
 
 	temp = ft_strjoin(str1, str2);
+
 	if (str1)
 		free(str1);
-	if (str2)
-		free(str2);
+	//if (str2)
+	//	free(str2);
 	return (temp);
 }

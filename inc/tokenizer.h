@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:11:46 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/08 23:46:51 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/11 14:48:49 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,20 @@ typedef enum s_token_type {
 
 typedef enum s_token_subtype 
 {
-	ARGUMENT,
-	AND_IF,
-	BINARY,
-	BLTIN,
-	DQUOTE,
-	OR_IF,
-	T_PIPE, //change name to "PIPE"
-	HEREDOC,
-	REDIR_IN,
-	REDIR_OUT,
-	REDIR_APPEND,
+	ARGUMENT, //0
+	AND_IF, //1
+	BINARY, //2
+	BLTIN, //3
+	DQUOTE, //4
+	OR_IF, //5
+	T_PIPE, //6
+	HEREDOC, //7
+	REDIR_IN, //8
+	REDIR_OUT, //9
+	REDIR_APPEND, //10
 	SQUOTE,
 }	t_token_subtype;
+
 
 /*** Linked list - Tokens ***/
 typedef struct s_token {

@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:37:53 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/08 23:48:05 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/11 14:57:19 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	quotes_check(t_token *token)
 	i = 0;
 	while (token->str[i])
 	{
-		if (token->str[i] == '\'' || token->str[i] == '\"' \
+		if ((token->str[i] == '\'' || token->str[i] == '\"') \
 		&& quotes_find_pair(token->str, &i, token->str[i]))
 			return (1);
 		i++;
@@ -56,7 +56,7 @@ void	quotes_remove(t_token **token)
 	int	in_dquote;
 	t_token	*current;
 
-	(*token)->subtype == 0;
+	(*token)->subtype = ARGUMENT;
 	current = *token;
 	new_str = (char *)ft_calloc(ft_strlen(current->str) + 1, sizeof(char));
 	if (!new_str)

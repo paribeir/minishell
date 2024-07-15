@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/09 00:03:39 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:09:13 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 
 //TO DO: End function "create cmd node" by afinishing "get_arguments"
+//pipes and operators are not being correctly added to the linked list
 t_cmd_list	*parse_tokens(t_token **token)
 {
 	t_token		*current;
@@ -48,17 +49,21 @@ void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 
 	t_token	*current;
 	t_cmd_list	*node;
+	int	flag;
 
 	current = token;
-	if (current->subtype == HEREDOC && type == REDIR_IN)
-		type = HEREDOC;
-	else if (current->subtype == REDIR_APPEND && type == REDIR_OUT)
-		type = REDIR_APPEND;
-	else if (current->subtype == BLTIN && type == BINARY)
-		type == BLTIN;
 	while (current && current->type > PIPE)
 	{
+		flag = 0;
 		if (current->subtype == type)
+			flag = 1;
+		else if (current->subtype == HEREDOC && type == REDIR_IN)
+			flag = 1;
+		else if (current->subtype == REDIR_APPEND && type == REDIR_OUT)
+			flag = 1;
+		else if (current->subtype == BLTIN && type == BINARY)
+			flag = 1;
+		if (flag)
 		{
 			node = create_cmd_node(current);
 			if (!node)
@@ -135,10 +140,7 @@ void	redir_token_fusion(t_token **t)
 	token = *t;
 	temp = NULL;
 	free (token->str);
-	if (token->subtype == HEREDOC)
-		token->str = ft_strdup("here_doc_temp");
-	else
-		token->str = ft_strdup(token->next->str);
+	token->str = ft_strdup(token->next->str);
 	if (token->next->next)
 	{
 		temp = token->next->next;
@@ -173,7 +175,10 @@ void is_bltin(t_token **token)
 	while (i < 7)
 	{
 		if (!ft_strncmp(bltins[i], (*token)->str, strlen(bltins[i]) + 1))
+		{
 			(*token)->subtype = BLTIN;
+			return ;
+		}
 		i++;
 	}
 }
@@ -265,10 +270,15 @@ void	add_arguments(t_token *token, t_cmd_list **node)
 		{
 			temp = current->next;
 			temp->prev = current->prev;
+			temp->next = current->next->next;
 		}
+		if (current->str)
+			free(current->str);
 		free (current);
 		current = temp;
+		temp = NULL;
 		i++;
 	}
 	(*node)->arguments[i] = NULL;
+	token->next = current;
 }

@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/08 23:47:44 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:54:37 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	expand_env_vars(t_token	*token)
 	char *str;
 	char *current;
 
-	if (!strchr(token->str, '\''))
+	if (!ft_strchr(token->str, '\''))
 		token->str = expand_heredoc(token->str);
 	else
 	{
@@ -37,8 +37,6 @@ void	expand_env_vars(t_token	*token)
 		token->str = current; //overwrite token->str with new string. Do I need to alloc more memory?
 	}
 }
-
-
 
 void	add_expanded_var(char **current, char **str)
 {
@@ -93,9 +91,11 @@ char	*get_var(char **str)
 
 	(*str)++;
 	start = *str;
+	if (!start || (!ft_isalnum(*start) && *start != '_'))
+		return ("$");
 	while (**str && (ft_isalnum(**str) || **str == '_'))
 		(*str)++;
-	var_name = ft_substr(start, 0, *str - start);
+	var_name = ft_substr(start + 1, 0, *str - (start + 1));
 	if (!var_name)
 		return (NULL);
 	var_content = getenv(var_name);

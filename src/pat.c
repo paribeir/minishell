@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 18:41:03 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/09 00:07:02 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:52:21 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,19 @@ void	pat(void)
 void	TEST_printf_stuff(t_cmd_list **head)
 {
 	t_cmd_list	*current;
+	int i;
 
 	current = *head;
 	while (current)
 	{
-		ft_printf("%s		Arguments:%s Type: %d\n", current->binary, current->arguments[0], current->type);
+		i = 0;
+		ft_printf("Type: %d\n\n", current->type);
+		ft_printf("	Binary: %s\n", current->binary);
+		if (current->type != T_PIPE && current->type != AND_IF && current->type != OR_IF)
+		{
+			while (current->arguments[i])
+				ft_printf("	Argument %d: %s\n", i, current->arguments[i++]);
+		}
 		current = current->next;
 	}
 }

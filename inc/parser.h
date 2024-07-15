@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:32:10 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/08 23:59:36 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:56:31 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_cmd_list
 	t_token_subtype		type; //REDIN HEREDOC
 	char				*binary; //"<<"
 	char				**arguments; //temp_heredoc
-	char				**flags; //NULL
 	struct s_cmd_list	*prev; 
 	struct s_cmd_list	*next;
 }	t_cmd_list;
