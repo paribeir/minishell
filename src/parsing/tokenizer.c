@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:06:04 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/16 17:07:20 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:23:29 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "tokenizer.h"
-
 
 //The tokenizer's role is to break the input into meaningful tokens
 //The parser analyzes the tokens to form syntactically valid commands
@@ -65,7 +63,7 @@ int	token_small(char *input, t_token *token)
 		token->type = IO_FILE;
 	else if (input[i] == '&' || input[i] == '|')
 		token->type = OPERATOR;
-	else 
+	else
 	{
 		ft_printf("Syntax error: invalid chars\n");
 		//exit (EXIT_FAILURE); //unrequired chars

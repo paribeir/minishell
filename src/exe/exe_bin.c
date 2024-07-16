@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 01:10:21 by jdach             #+#    #+#             */
-/*   Updated: 2024/05/26 23:01:06 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/17 00:25:28 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_binary_path_search(char *binary)
 
 	appendix = "/";
 	paths = ft_split(getenv("PATH"), ':');
-	while (paths)
+	while (*paths != NULL)
 	{
 		path = ft_strjoin(*paths, appendix);
 		cached_ptr = path;
@@ -31,8 +31,8 @@ char	*get_binary_path_search(char *binary)
 			return (path);
 		paths++;
 	}
-	ft_putstr_fd("No such bin", 2);
-	exit (1);
+	ft_putstr_fd("No such bin\n", 2);
+	return ("");
 }
 
 char	*get_binary_path_direct(char *binary)
@@ -46,20 +46,39 @@ char	*get_binary_path_direct(char *binary)
 	}
 }
 
+char	**set_execve_args(char **original_args, char *binary)
+{
+	int		i;
+	int		j;
+	char	**execve_args;
 
-void	exe_bin(t_list *cmd_list_item, t_cmd *cmd)
+	i = 0;
+	j = 0;
+	while (original_args[i] != NULL)
+		i++;
+	execve_args = (char **)malloc((i + 2) * sizeof(char *));
+	execve_args[j++] = binary;
+	while (j <= i)
+	{
+		execve_args[j] = original_args[j - 1];
+		j++;
+	}
+	execve_args[j] = NULL;
+	return (execve_args);
+}
+
+void	exe_bin(t_cmd_list *cmd_list_item, t_cmd *cmd)
 {
 	char	*path;
+	char	**args;
 	int		pid;
-	t_node	*node;
 
-	node = cmd_list_item->content;
-	exe_look_ahead(cmd_list_item, cmd);
-	if (ft_strchr(node->binary, '/') > 0)
-		path = get_binary_path_direct(node->binary);
+	if (ft_strchr(cmd_list_item->binary, '/') > 0)
+		path = get_binary_path_direct(cmd_list_item->binary);
 	else
-		path = get_binary_path_search(node->binary);
+		path = get_binary_path_search(cmd_list_item->binary);
+	args = set_execve_args(cmd_list_item->arguments, cmd_list_item->binary);
 	pid = fork();
 	if (pid == 0)
-		execve(path, node->params, NULL);
+		execve(path, args, NULL);
 }

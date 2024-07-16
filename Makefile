@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/07/08 22:43:35 by paribeir         ###   ########.fr        #
+#    Updated: 2024/07/16 22:46:15 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,15 +32,11 @@ exe/exe_cleanup.c \
 exe/exe_err.c \
 exe/exe_get_in_out.c \
 exe/exe_here_doc_fd.c \
-exe/exe_init.c \
 exe/exe_look_ahead.c \
 exe/exe_redir_in.c \
 exe/exe_redir_out.c \
 exe/exe_run.c \
-exe/exe.c \
-joh.c \
 main.c \
-pat.c \
 parsing/env_variables.c \
 parsing/expansions.c \
 parsing/heredoc.c \
@@ -48,7 +44,7 @@ parsing/parser.c \
 parsing/quotes.c \
 parsing/tokenizer_utils.c \
 parsing/tokenizer.c \
-parsing/wildcard.c 
+parsing/wildcard.c
 
 SRCS_MINISHELL = $(addprefix $(SRC_DIR), $(SRC_MINISHELL))
 
@@ -75,7 +71,7 @@ $(NAME): $(OBJS_MINISHELL)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	mkdir -p $(dir $@)
-	$(CC) $(FLAGS) $(INCS) $(OPTIONS) $< -o $@
+	$(CC) $(INCS) $(OPTIONS) $< -o $@
 
 clean:
 	make clean -C $(LIB_DIR)libft

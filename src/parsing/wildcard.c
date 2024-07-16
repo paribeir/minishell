@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 18:02:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/08 23:48:23 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:23:27 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "tokenizer.h"
-#include "parser.h"
 
 /*void	expand_wildcards(t_token *token)
 {

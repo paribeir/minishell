@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:06:59 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/08 23:48:10 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:23:18 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "tokenizer.h"
-#include "parser.h"
 
 t_token	*create_token(void)
 {
@@ -74,10 +72,10 @@ int	add_subtype(char q, char *input)
 
 /*Small syntax check.
 A simple command can either be one or many IO_FILE(s) or CMD_WORD(s), or both.
-A pipe or operator must be followed by a IO_FILE or CMD_WORD 
+A pipe or operator must be followed by a IO_FILE or CMD_WORD
 (no consecutive pipes or operators allowed)
 Quotes must be closed*/
-//TO DO--> error! 
+//TO DO--> error!
 int	check_syntax(t_token **head)
 {
 	int	i;
@@ -95,7 +93,7 @@ int	check_syntax(t_token **head)
 			return (ft_printf("Syntax Error: unclosed quotes\n"));
 		if (current->type < CMD_WORD)
 			i = 0;
-		else 
+		else
 			i++;
 		current = current->next;
 	}

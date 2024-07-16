@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/16 17:57:27 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:23:12 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "tokenizer.h"
-#include "parser.h"
-
 
 //TO DO: End function "create cmd node" by afinishing "get_arguments"
 //pipes and operators are not being correctly added to the linked list
@@ -78,11 +75,11 @@ void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 }
 
 /*free the initial linked list of tokens*/
-void	free_tokens(t_token **head) 
+void	free_tokens(t_token **head)
 {
 	t_token *current;
 	t_token *temp;
-	
+
 	current = *head;
 	while (current)
 	{
@@ -196,7 +193,7 @@ t_cmd_list	*create_cmd_node(t_token *token)
 	return (node);
 }
 
-//get and assign arguments, delete argument tokens 
+//get and assign arguments, delete argument tokens
 void	add_arguments(t_token *token, t_cmd_list **node)
 {
 	int	nbr_args;

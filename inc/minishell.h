@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/06/24 17:43:31 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 22:17:32 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,10 @@
 # include "../lib/libft/libft.h"
 # include "exe.h"
 # include "tokenizer.h"
-
-/*** Macros ***/
+# include "parser.h"
 
 // Colors
 # define BLUE	"\033[1;36m"
 # define NS	"\033[0m"
-
-
-/*** Functions ***/
-
-void	exe(void);
-void	joh(void);
-void	pat(void);
 
 #endif

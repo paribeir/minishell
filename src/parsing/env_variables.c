@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/16 16:48:41 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:22:59 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "tokenizer.h"
-#include "parser.h"
 
 //check mem management
 void	expand_env_vars(t_token	*token)

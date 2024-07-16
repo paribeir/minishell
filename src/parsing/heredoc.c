@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/16 16:58:52 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:23:05 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "tokenizer.h"
-#include "parser.h"
 
 //--> TO-DO: Add return value if gnl fails
 //eval if we need a check before quote removal

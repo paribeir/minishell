@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   exe.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/06/26 16:19:17 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 22:17:16 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXE_H
 # define EXE_H
 
-/*** Error Messages ***/
+/* Need to include parser.h again to be able to use t_cmd_list struct*/
+# include "parser.h"
 
+/*** Error Messages ***/
 # define ERR_ECHO_FLAGS "Only flag '-n' may be used with echo command\n"
 
 /*** Enums ***/
@@ -66,19 +68,18 @@ typedef struct s_cmd
 
 /*** Functions ***/
 
-void	exe(void);
-void	exe_append(t_list *cmd_list_item, t_cmd *cmd);
-void	exe_bin(t_list *cmd_list_item, t_cmd *cmd);
-void	exe_bltn_echo(t_list *cmd_list_item, t_cmd *cmd);
+void	exe_append(t_cmd_list *cmd_list_item, t_cmd *cmd);
+void	exe_bin(t_cmd_list *cmd_list_item, t_cmd *cmd);
+void	exe_bltn_echo(t_cmd_list *cmd_list_item, t_cmd *cmd);
 void	cleanup(t_cmd *cmd);
 void	exe_err(char *err_msg, t_err_actn err_actn, t_cmd *cmd);
-void	exe_get_in_out(t_list *cmd_list_item, t_cmd *cmd);
-void	exe_here_doc(t_list *cmd_list_item, t_cmd *cmd);
+void	exe_get_in_out(t_cmd_list *cmd_list_item, t_cmd *cmd);
+void	exe_here_doc(t_cmd_list *cmd_list_item, t_cmd *cmd);
 int		exe_here_doc_fd(t_node *node, t_cmd *cmd, char	*dlmtr);
-void	exe_init(t_cmd *cmd);
-void	exe_look_ahead(t_list *cmd_list_item, t_cmd *cmd);
-void	exe_redir_in(t_list *cmd_list_item, t_cmd *cmd);
-void	exe_redir_out(t_list *cmd_list_item, t_cmd *cmd);
-void	exe_run(t_cmd *cmd);
+void	exe_init(t_cmd_list *cmd);
+void	exe_look_ahead(t_cmd_list *cmd_list_item, t_cmd *cmd);
+void	exe_redir_in(t_cmd_list *cmd_list_item, t_cmd *cmd);
+void	exe_redir_out(t_cmd_list *cmd_list_item, t_cmd *cmd);
+void	exe_run(t_cmd_list	*cmd_list);
 
 #endif

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:37:53 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/11 14:57:19 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:23:15 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "tokenizer.h"
-#include "parser.h"
 
 /*If we find a quote, we look for its pair.
 If there is no pair, return 1.
@@ -32,7 +30,7 @@ int	quotes_check(t_token *token)
 	return (0);
 }
 
-//&& token->str[i + 1] && !(ft_strchr(&token->str[i + 1], token->str[i])))		
+//&& token->str[i + 1] && !(ft_strchr(&token->str[i + 1], token->str[i])))
 
 /*Advance in the string until it finds a matching quote (q).
 Return 0 on success, return 1 on failure.*/

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expansions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:38:33 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/16 17:07:20 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:23:02 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "tokenizer.h"
-#include "parser.h"
 
 //TO DO: Wildcard
 void	variable_expansion(t_token **head)
@@ -20,7 +18,7 @@ void	variable_expansion(t_token **head)
 	t_token	*current;
 
 	current = *head;
-	while (current) 
+	while (current)
 	{
 		if (current->subtype == HEREDOC)
 			current->next->str = heredoc_handler(current);

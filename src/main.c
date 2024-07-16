@@ -6,24 +6,70 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/05/28 18:48:27 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/16 23:09:58 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+/*
+- initialize history.
+- start minishell loop.
+- if there is input, add it to the history.
+- else, print a new line.
+*/
+
+#include "minishell.h"
+
+void	TEST_printf_stuff(t_cmd_list **head)
+{
+	t_cmd_list	*current;
+	int			i;
+
+	current = *head;
+	while (current)
+	{
+		i = 0;
+		ft_printf("Type: %d\n", current->type);
+		if (current->binary)
+			ft_printf("	Binary: %s\n", current->binary);
+		if (current->type != T_PIPE && current->type != AND_IF && current->type != OR_IF)
+		{
+			while (current->arguments[i])
+			{
+				ft_printf("	Argument %d: %s\n", i, current->arguments[i]);
+				i++;
+			}
+		}
+		current = current->next;
+	}
+}
+
+
 int	main(int argc, char *argv[])
 {
-	if (argc == 2)
+	char		*input;
+	t_token		*tokens;
+	t_cmd_list	*cmd_list;
+
+	while (1)
 	{
-		if (ft_strncmp(argv[1], "pat", 3) == 0)
-			pat();
-		else if (ft_strncmp(argv[1], "joh", 3) == 0)
-			joh();
+		input = readline(BLUE "Mini🐚 > " NS);
+		if (*input)
+		{
+			add_history(input);
+			tokens = tokenizer(input);
+			cmd_list = parse_tokens(&tokens);
+			if (cmd_list && (argc > 1 && ft_strncmp(argv[1], "pat", 3) == 0))
+				TEST_printf_stuff(&cmd_list);
+			else
+			{
+				TEST_printf_stuff(&cmd_list);
+				exe_run(cmd_list);
+			}
+		}
 		else
-			ft_putstr_fd("Use './minishell pat' or './minishell joh'\n", 2);
+			write(1, "\n", 1);
 	}
-	else
-		ft_putstr_fd("Use './minishell pat' or './minishell joh'\n", 2);
-	return (0);
 }
