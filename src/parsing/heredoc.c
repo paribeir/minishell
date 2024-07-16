@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/11 17:28:42 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:58:52 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*heredoc_handler(t_token *token)
 	ft_putstr_fd(">>> ", STDOUT_FILENO);
 	final_str = ft_strdup("");
 	read_str = ft_get_next_line(0);
-    quotes_remove(&token->next);
+    	quotes_remove(&token->next);
 	while (read_str)
 	{
 		if (ft_strncmp(token->next->str, read_str, \
@@ -42,7 +42,7 @@ char	*heredoc_handler(t_token *token)
 			return ("here_doc_temp");
 		}
 		else if (ft_strchr(read_str, '$') && (token->next->subtype != SQUOTE && token->next->subtype != DQUOTE))
-        {
+        	{
 			read_str = expand_heredoc(read_str);
 			if (read_str)
 				read_str[ft_strlen(read_str)] = '\n';

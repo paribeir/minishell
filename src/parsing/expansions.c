@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:38:33 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/11 15:50:33 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:07:20 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	variable_expansion(t_token **head)
 	t_token	*current;
 
 	current = *head;
-	while (current)
+	while (current) 
 	{
 		if (current->subtype == HEREDOC)
 			current->next->str = heredoc_handler(current);

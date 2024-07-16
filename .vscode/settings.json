@@ -1,16 +1,20 @@
 {
     "files.associations": {
-        "tokenizer.h": "c",
-        "minishell.h": "c",
-        "random": "c",
-        "parser.h": "c",
-        "string": "c",
-        "array": "c",
-        "compare": "c",
-        "functional": "c",
-        "tuple": "c",
-        "type_traits": "c",
-        "utility": "c",
-        "algorithm": "c"
-    }
+	"tokenizer.h": "c",
+	"minishell.h": "c",
+	"random": "c",
+	"parser.h": "c",
+	"string": "c",
+	"array": "c",
+	"compare": "c",
+	"functional": "c",
+	"tuple": "c",
+	"type_traits": "c",
+	"utility": "c",
+	"algorithm": "c",
+	"string_view": "c",
+	"initializer_list": "c",
+	"ranges": "c",
+	"span": "c"
+}
 }

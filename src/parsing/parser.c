@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/11 16:09:13 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:23:07 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ void	node_add_back(t_cmd_list **head, t_cmd_list *new_node)
 		temp = *head;
 		while (temp->next)
 			temp = temp->next;
+		temp->next = new_node;
+		new_node->prev = temp;
 	}
-	temp->next = new_node;
-	new_node->prev = temp;
 }
 
 t_token	*token_fusion(t_token	*t)
