@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/16 17:23:07 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:57:27 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 			flag = 1;
 		else if (current->subtype == REDIR_APPEND && type == REDIR_OUT)
 			flag = 1;
-		else if (current->subtype == BLTIN && type == BINARY)
+		else if (current->subtype >= BLTIN && type == BINARY)
 			flag = 1;
 		if (flag)
 		{
@@ -152,35 +152,23 @@ void	redir_token_fusion(t_token **t)
 
 
 //is this command a builtin?
-void is_bltin(t_token **token)
+void	is_bltin(t_token **token)
 {
-	char **bltins;
-	int	i;
-
-	bltins = malloc(7 * sizeof(char *));
-	if (!bltins)
-	{
-		ft_printf("malloc error\n");
-		return ;
-	}
-	bltins[0] = "echo";
-	bltins[1] = "cd";
-	bltins[2] = "pwd";
-	bltins[3] = "export";
-	bltins[4] = "unset";
-	bltins[5] = "env";
-	bltins[6] = "exit";
-	i = 0;
 	(*token)->subtype = BINARY;
-	while (i < 7)
-	{
-		if (!ft_strncmp(bltins[i], (*token)->str, strlen(bltins[i]) + 1))
-		{
-			(*token)->subtype = BLTIN;
-			return ;
-		}
-		i++;
-	}
+	if (!ft_strncmp("echo", (*token)->str, ft_strlen("echo") + 1))
+		(*token)->subtype = BLTIN_ECHO;
+	else if (!ft_strncmp("cd", (*token)->str, ft_strlen("cd") + 1))
+		(*token)->subtype = BLTIN_CD;
+	else if (!ft_strncmp("pwd", (*token)->str, ft_strlen("pwd") + 1))
+		(*token)->subtype = BLTIN_PWD;
+	else if (!ft_strncmp("export", (*token)->str, ft_strlen("export") + 1))
+		(*token)->subtype = BLTIN_EXPORT;
+	else if (!ft_strncmp("unset", (*token)->str, ft_strlen("unset") + 1))
+		(*token)->subtype = BLTIN_UNSET;
+	else if (!ft_strncmp("env", (*token)->str, ft_strlen("env") + 1))
+		(*token)->subtype = BLTIN_ENV;
+	else if (!ft_strncmp("exit", (*token)->str, ft_strlen("exit") + 1))
+		(*token)->subtype = BLTIN_EXIT;
 }
 
 t_cmd_list	*create_cmd_node(t_token *token)
@@ -201,7 +189,7 @@ t_cmd_list	*create_cmd_node(t_token *token)
 			return (NULL);
 		}
 	}
-	if (token->subtype == BLTIN || token->subtype == BINARY || token->type == IO_FILE)
+	if (token->subtype >= BLTIN || token->subtype == BINARY || token->type == IO_FILE)
 		add_arguments(token, &node); // assign or use pointers?
 	node->prev = NULL;
 	node->next = NULL;

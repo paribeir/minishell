@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:11:46 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/11 14:48:49 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:04:09 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,22 @@ typedef enum s_token_subtype
 	ARGUMENT, //0
 	AND_IF, //1
 	BINARY, //2
-	BLTIN, //3
-	DQUOTE, //4
-	OR_IF, //5
-	T_PIPE, //6
-	HEREDOC, //7
-	REDIR_IN, //8
-	REDIR_OUT, //9
-	REDIR_APPEND, //10
-	SQUOTE,
+	DQUOTE, //3
+	OR_IF, //4
+	T_PIPE, //5
+	HEREDOC, //6
+	REDIR_IN, //7
+	REDIR_OUT, //8
+	REDIR_APPEND, //9
+	SQUOTE, //10
+	BLTIN, //11
+	BLTIN_ECHO, //12
+ 	BLTIN_CD, //13
+	BLTIN_PWD, //14
+	BLTIN_EXPORT, //15
+	BLTIN_UNSET, //16
+	BLTIN_ENV, //17
+	BLTIN_EXIT //18
 }	t_token_subtype;
 
 

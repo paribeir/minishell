@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 18:41:03 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/11 12:52:21 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:22:46 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ void	TEST_printf_stuff(t_cmd_list **head)
 	while (current)
 	{
 		i = 0;
-		ft_printf("Type: %d\n\n", current->type);
-		ft_printf("	Binary: %s\n", current->binary);
+		ft_printf("Type: %d\n", current->type);
+		if (current->binary)
+			ft_printf("	Binary: %s\n", current->binary);
 		if (current->type != T_PIPE && current->type != AND_IF && current->type != OR_IF)
 		{
 			while (current->arguments[i])
