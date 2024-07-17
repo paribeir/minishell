@@ -6,7 +6,7 @@
 #    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/07/17 17:53:59 by jdach            ###   ########.fr        #
+#    Updated: 2024/07/17 21:50:45 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,6 @@ exe/exe_get_in_out.c \
 exe/exe_here_doc_fd.c \
 exe/exe_look_ahead.c \
 exe/exe_redir_in.c \
-exe/exe_redir_out.c \
 exe/exe_run.c \
 exe/exe_set_execve_args.c \
 main.c \

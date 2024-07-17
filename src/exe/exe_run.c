@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/17 18:21:37 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/17 21:49:45 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	exe_run(t_cmd_list	*cmd_list)
 	while (wait(NULL) > 0)
 		;
 	dup2(cmd_env.saved_stdin, STDIN_FILENO);
+	dup2(cmd_env.saved_stdout, STDOUT_FILENO);
 	close(cmd_env.saved_stdin);
 	close(cmd_env.saved_stdout);
 }
