@@ -6,32 +6,41 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/17 10:02:07 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/17 18:01:00 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	exe_init_cmd_env(t_cmd *cmd_env)
+{
+	cmd_env->saved_stdin = dup(STDIN_FILENO);
+	cmd_env->saved_stdout = dup(STDOUT_FILENO);
+	cmd_env->saved_pipe_read_fd = -1;
+	cmd_env->pipe[0] = -1;
+	cmd_env->pipe[0] = -1;
+}
+
 void	exe_run(t_cmd_list	*cmd_list)
 {
-	t_cmd	cmd;
+	t_cmd	cmd_env;
 
-	cmd.saved_stdin = dup(STDIN_FILENO);
-	cmd.saved_stdout = dup(STDOUT_FILENO);
+	exe_init_cmd_env(&cmd_env);
 	while (cmd_list)
 	{
 		if (cmd_list->type == BINARY)
-			exe_bin(cmd_list, &cmd);
+			exe_bin(cmd_list, &cmd_env);
 		else if (cmd_list->type == HEREDOC)
-			exe_here_doc(cmd_list, &cmd);
+			exe_here_doc(cmd_list, &cmd_env);
 		else if (cmd_list->type == REDIR_IN)
-			exe_redir_in(cmd_list, &cmd);
+			exe_redir_in(cmd_list, &cmd_env);
 		else if (cmd_list->type == BLTIN_ECHO)
-			exe_bltn_echo(cmd_list, &cmd);
+			exe_bltn_echo(cmd_list, &cmd_env);
 		cmd_list = cmd_list->next;
 	}
 	while (wait(NULL) > 0)
 		;
-	close(cmd.saved_stdin);
-	close(cmd.saved_stdout);
+	dup2(cmd_env.saved_stdin, STDIN_FILENO);
+	close(cmd_env.saved_stdin);
+	close(cmd_env.saved_stdout);
 }

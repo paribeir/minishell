@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/17 09:35:24 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/17 17:53:34 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_cmd
 {
 	t_list	*nodes;
 	int		pipe[2];
+	int		saved_pipe_read_fd;
 	int		saved_stdout;
 	int		saved_stdin;
 }	t_cmd;
@@ -83,5 +84,6 @@ void	exe_look_ahead(t_cmd_list *cmd_list_item, t_cmd *cmd);
 void	exe_redir_in(t_cmd_list *cmd_list_item, t_cmd *cmd);
 void	exe_redir_out(t_cmd_list *cmd_list_item, t_cmd *cmd);
 void	exe_run(t_cmd_list	*cmd_list);
+char	**exe_set_execve_args(char **original_args, char *binary);
 
 #endif
