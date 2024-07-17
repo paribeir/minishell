@@ -6,7 +6,7 @@
 #    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/07/16 22:46:15 by jdach            ###   ########.fr        #
+#    Updated: 2024/07/17 08:45:59 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ exe/exe_bin.c \
 exe/exe_bltn_echo.c \
 exe/exe_cleanup.c \
 exe/exe_err.c \
+exe/exe_get_bin_path.c \
 exe/exe_get_in_out.c \
 exe/exe_here_doc_fd.c \
 exe/exe_look_ahead.c \

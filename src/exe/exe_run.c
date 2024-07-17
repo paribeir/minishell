@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/16 22:05:56 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/17 10:02:07 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	exe_run(t_cmd_list	*cmd_list)
 {
 	t_cmd	cmd;
 
+	cmd.saved_stdin = dup(STDIN_FILENO);
+	cmd.saved_stdout = dup(STDOUT_FILENO);
 	while (cmd_list)
 	{
 		if (cmd_list->type == BINARY)
@@ -30,4 +32,6 @@ void	exe_run(t_cmd_list	*cmd_list)
 	}
 	while (wait(NULL) > 0)
 		;
+	close(cmd.saved_stdin);
+	close(cmd.saved_stdout);
 }
