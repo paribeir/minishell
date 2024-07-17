@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 11:17:44 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/17 18:21:20 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/17 18:58:58 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	exe_get_in(t_cmd_list *cmd_list_item, t_cmd *cmd_env)
 		dup2(cmd_env->pipe[0], STDIN_FILENO);
 		close(cmd_env->pipe[0]);
 	}
+	else if (cmd_list_item->prev && cmd_list_item->prev->type == HEREDOC)
+		;
 	else
 		dup2(cmd_env->saved_stdin, STDIN_FILENO);
 }
