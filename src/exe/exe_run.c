@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/21 14:28:44 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/21 15:55:05 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,30 @@ void	exe_init_cmd_env(t_cmd *cmd_env)
 	cmd_env->pipe[0] = -1;
 }
 
-void	exe_run(t_cmd_list	*c)
+void	exe_run_map(t_cmd_list *cmd_list_item, t_cmd *cmd_env)
+{
+	t_token_subtype	t;
+
+	t = cmd_list_item->type;
+	if (t == BINARY)
+		exe_bin(cmd_list_item, cmd_env);
+	else if (t == HEREDOC || t == REDIR_IN || t == REDIR_OUT || \
+	t == REDIR_APPEND || t == T_PIPE)
+		exe_directs(cmd_list_item, cmd_env);
+	else if (t == BLTIN_ECHO || t == BLTIN_CD || t == BLTIN_PWD || \
+	t == BLTIN_EXPORT || t == BLTIN_UNSET || t == BLTIN_ENV || t == BLTIN_EXIT)
+		exe_bltns(cmd_list_item, cmd_env);
+}
+
+void	exe_run(t_cmd_list	*cmd_list_item)
 {
 	t_cmd	cmd_env;
 
 	exe_init_cmd_env(&cmd_env);
-	while (c)
+	while (cmd_list_item)
 	{
-		if (c->type == BINARY)
-			exe_bin(c, &cmd_env);
-		else if (c->type == HEREDOC || c->type == REDIR_IN || c->type == \
-		REDIR_OUT || c->type == REDIR_APPEND || c->type == T_PIPE)
-			exe_directs(c, &cmd_env);
-		else if (c->type == BLTIN_ECHO)
-			exe_bltn_echo(c, &cmd_env);
-		c = c->next;
+		exe_run_map(cmd_list_item, &cmd_env);
+		cmd_list_item = cmd_list_item->next;
 	}
 	while (wait(NULL) > 0)
 		;
