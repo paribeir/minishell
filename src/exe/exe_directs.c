@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 11:17:44 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/21 11:10:17 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/21 16:32:30 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,6 @@ void	exe_directs(t_cmd_list *cmd_list_item, t_cmd *cmd_env)
 		exe_directs_redir_in(cmd_list_item);
 	else if (cmd_list_item->type == REDIR_OUT)
 		exe_directs_redir_out(cmd_list_item);
+	else if (cmd_list_item->type == REDIR_APPEND)
+		exe_directs_append(cmd_list_item);
 }

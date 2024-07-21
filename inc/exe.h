@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/21 15:57:05 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/21 16:33:12 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	exe_bltns_echo(t_cmd_list *cmd_list_item, t_cmd *cmd);
 void	cleanup(t_cmd *cmd);
 void	exe_err(char *err_msg, t_err_actn err_actn, t_cmd *cmd);
 void	exe_directs(t_cmd_list *cmd_list_item, t_cmd *cmd);
-void	exe_directs_append(t_cmd_list *cmd_list_item, t_cmd *cmd);
+void	exe_directs_append(t_cmd_list *cmd_list_item);
 void	exe_directs_here_doc(t_cmd_list *cmd_list_item);
 void	exe_directs_pipe_in(t_cmd *cmd_env);
 void	exe_directs_redir_in(t_cmd_list *cmd_list_item);

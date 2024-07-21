@@ -6,13 +6,13 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 22:16:55 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/21 10:59:08 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/21 16:32:54 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_directs_append(t_cmd_list *cmd_list_item, t_cmd *cmd)
+void	exe_directs_append(t_cmd_list *cmd_list_item)
 {
 	int		fd;
 
