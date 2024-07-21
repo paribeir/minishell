@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe_redir_in.c                                     :+:      :+:    :+:   */
+/*   exe_bin_args.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 22:16:55 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/16 22:41:16 by jdach            ###   ########.fr       */
+/*   Created: 2024/07/17 17:52:59 by jdach             #+#    #+#             */
+/*   Updated: 2024/07/21 10:57:26 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_redir_in(t_cmd_list *cmd_list_item, t_cmd *cmd)
+char	**exe_bin_args(char **original_args, char *binary)
 {
-	int		fd;
+	int		i;
+	int		j;
+	char	**execve_args;
 
-	fd = open(cmd_list_item->arguments[0], O_RDONLY);
-	dup2(fd, STDIN_FILENO);
-	close(fd);
+	i = 0;
+	j = 0;
+	while (original_args[i] != NULL)
+		i++;
+	execve_args = (char **)malloc((i + 2) * sizeof(char *));
+	execve_args[j++] = binary;
+	while (j <= i)
+	{
+		execve_args[j] = original_args[j - 1];
+		j++;
+	}
+	execve_args[j] = NULL;
+	return (execve_args);
 }

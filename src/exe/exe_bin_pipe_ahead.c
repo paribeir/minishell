@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe_look_ahead.c                                   :+:      :+:    :+:   */
+/*   exe_bin_pipe_ahead.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 22:48:29 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/17 07:41:41 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/21 11:24:58 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_look_ahead(t_cmd_list *cmd_list_item, t_cmd *cmd)
+void	exe_bin_pipe_ahead(t_cmd_list *cmd_list_item, t_cmd *cmd_env)
 {
-	int			fd;
-	t_cmd_list	*next_node;
-
-	fd = 1;
-	next_node = cmd_list_item->next;
-	if (next_node && next_node->type == REDIR_OUT)
-		fd = open(next_node->arguments[0], O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	else if (next_node && next_node->type == T_PIPE)
+	if (cmd_list_item->next && cmd_list_item->next->type == T_PIPE)
 	{
-		pipe(cmd->pipe);
-		fd = cmd->pipe[1];
+		pipe(cmd_env->pipe);
+		dup2(cmd_env->pipe[1], STDOUT_FILENO);
+		close(cmd_env->pipe[1]);
 	}
-	else if (next_node && next_node->type == REDIR_APPEND)
-		fd = open(next_node->arguments[0], O_WRONLY | O_CREAT | O_APPEND, 0666);
-	dup2(fd, STDOUT_FILENO);
 }

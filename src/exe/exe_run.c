@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/17 21:49:45 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/21 14:28:44 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,25 @@ void	exe_init_cmd_env(t_cmd *cmd_env)
 {
 	cmd_env->saved_stdin = dup(STDIN_FILENO);
 	cmd_env->saved_stdout = dup(STDOUT_FILENO);
-	cmd_env->saved_pipe_read_fd = -1;
 	cmd_env->pipe[0] = -1;
 	cmd_env->pipe[0] = -1;
 }
 
-void	exe_run(t_cmd_list	*cmd_list)
+void	exe_run(t_cmd_list	*c)
 {
 	t_cmd	cmd_env;
 
 	exe_init_cmd_env(&cmd_env);
-	while (cmd_list)
+	while (c)
 	{
-		if (cmd_list->type == BINARY)
-			exe_bin(cmd_list, &cmd_env);
-		else if (cmd_list->type == HEREDOC)
-			exe_here_doc(cmd_list, &cmd_env);
-		else if (cmd_list->type == REDIR_IN)
-			exe_redir_in(cmd_list, &cmd_env);
-		else if (cmd_list->type == BLTIN_ECHO)
-			exe_bltn_echo(cmd_list, &cmd_env);
-		cmd_list = cmd_list->next;
+		if (c->type == BINARY)
+			exe_bin(c, &cmd_env);
+		else if (c->type == HEREDOC || c->type == REDIR_IN || c->type == \
+		REDIR_OUT || c->type == REDIR_APPEND || c->type == T_PIPE)
+			exe_directs(c, &cmd_env);
+		else if (c->type == BLTIN_ECHO)
+			exe_bltn_echo(c, &cmd_env);
+		c = c->next;
 	}
 	while (wait(NULL) > 0)
 		;

@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe_set_execve_args.c                              :+:      :+:    :+:   */
+/*   exe_directs_here_doc.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 17:52:59 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/17 17:53:20 by jdach            ###   ########.fr       */
+/*   Created: 2024/05/26 13:37:18 by jdach             #+#    #+#             */
+/*   Updated: 2024/07/17 22:11:37 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**exe_set_execve_args(char **original_args, char *binary)
+void	exe_directs_here_doc(t_cmd_list *cmd_list_item)
 {
-	int		i;
-	int		j;
-	char	**execve_args;
+	int	fd;
 
-	i = 0;
-	j = 0;
-	while (original_args[i] != NULL)
-		i++;
-	execve_args = (char **)malloc((i + 2) * sizeof(char *));
-	execve_args[j++] = binary;
-	while (j <= i)
-	{
-		execve_args[j] = original_args[j - 1];
-		j++;
-	}
-	execve_args[j] = NULL;
-	return (execve_args);
+	fd = open(cmd_list_item->arguments[0], O_RDONLY);
+	dup2(fd, STDIN_FILENO);
+	close(fd);
 }

@@ -6,7 +6,7 @@
 #    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/07/17 21:50:45 by jdach            ###   ########.fr        #
+#    Updated: 2024/07/21 14:30:29 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,18 +25,20 @@ SRC_DIR = src/
 
 #SOURCEFILES
 SRC_MINISHELL = \
-exe/exe_append.c \
 exe/exe_bin.c \
+exe/exe_bin_args.c \
+exe/exe_bin_get_bin_path.c \
+exe/exe_bin_pipe_ahead.c \
 exe/exe_bltn_echo.c \
 exe/exe_cleanup.c \
 exe/exe_err.c \
-exe/exe_get_bin_path.c \
-exe/exe_get_in_out.c \
-exe/exe_here_doc_fd.c \
-exe/exe_look_ahead.c \
-exe/exe_redir_in.c \
+exe/exe_directs.c \
+exe/exe_directs_append.c \
+exe/exe_directs_here_doc.c \
+exe/exe_directs_pipe_in.c \
+exe/exe_directs_redir_in.c \
+exe/exe_directs_redir_out.c \
 exe/exe_run.c \
-exe/exe_set_execve_args.c \
 main.c \
 parsing/env_variables.c \
 parsing/expansions.c \

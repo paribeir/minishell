@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe_bin.c                                          :+:      :+:    :+:   */
+/*   exe_directs_append.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 01:10:21 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/21 11:29:26 by jdach            ###   ########.fr       */
+/*   Created: 2024/05/26 22:16:55 by jdach             #+#    #+#             */
+/*   Updated: 2024/07/21 10:59:08 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_bin(t_cmd_list *cmd_list_item, t_cmd *cmd_env)
+void	exe_directs_append(t_cmd_list *cmd_list_item, t_cmd *cmd)
 {
-	char	*path;
-	char	**args;
-	int		pid;
+	int		fd;
 
-	exe_bin_pipe_ahead(cmd_list_item, cmd_env);
-	path = exe_bin_get_bin_path(cmd_list_item);
-	args = exe_bin_args(cmd_list_item->arguments, cmd_list_item->binary);
-	pid = fork();
-	if (pid == 0)
-		execve(path, args, NULL);
-	dup2(cmd_env->saved_stdout, STDOUT_FILENO);
-	dup2(cmd_env->saved_stdin, STDIN_FILENO);
+	fd = 0;
+	fd = open(cmd_list_item->arguments[0], O_WRONLY | O_CREAT | O_APPEND, 0666);
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
 }

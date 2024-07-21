@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe_get_bin_path.c                                 :+:      :+:    :+:   */
+/*   exe_bin_get_bin_path.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 08:43:25 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/17 08:48:21 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/21 10:54:59 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*get_binary_path_direct(char *binary)
 	}
 }
 
-char	*exe_get_bin_path(t_cmd_list *cmd_list_item)
+char	*exe_bin_get_bin_path(t_cmd_list *cmd_list_item)
 {
 	char	*path;
 

@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/16 20:23:12 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/21 10:55:58 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ t_cmd_list	*parse_tokens(t_token **token)
 		return (NULL);
 	while (current)
 	{
-		reorder_tokens(current, &head, REDIR_IN); //creates nodes for all redirs in a simple command
-		reorder_tokens(current, &head, BINARY);
+		reorder_tokens(current, &head, REDIR_IN);
 		reorder_tokens(current, &head, REDIR_OUT);
+		reorder_tokens(current, &head, BINARY);
 		while (current && current->type != PIPE && current->type != OPERATOR)
 			current = current->next;
 		if (current)
