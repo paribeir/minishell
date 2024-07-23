@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/16 23:09:58 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/23 16:07:36 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	TEST_printf_stuff(t_cmd_list **head)
 }
 
 
-int	main(int argc, char *argv[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	char		*input;
 	t_token		*tokens;
@@ -66,7 +66,7 @@ int	main(int argc, char *argv[])
 			else
 			{
 				TEST_printf_stuff(&cmd_list);
-				exe_run(cmd_list);
+				exe_run(cmd_list, envp);
 			}
 		}
 		else

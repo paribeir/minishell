@@ -6,7 +6,7 @@
 #    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/07/21 15:56:26 by jdach            ###   ########.fr        #
+#    Updated: 2024/07/23 17:44:07 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ exe/exe_bin_get_bin_path.c \
 exe/exe_bin_pipe_ahead.c \
 exe/exe_bltns.c \
 exe/exe_bltns_echo.c \
+exe/exe_bltns_env.c \
 exe/exe_cleanup.c \
 exe/exe_err.c \
 exe/exe_directs.c \
