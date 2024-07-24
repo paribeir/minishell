@@ -65,7 +65,7 @@
 			]
 		},
 		{
-			"name": "(lldb) Starten",
+			"name": "(lldb) Trisha",
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/minishell",
@@ -73,9 +73,8 @@
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
-			"externalConsole": false,
-			"console": "integratedTerminal",
-			"MIMode": "lldb"
+			"externalConsole": true,
+			"MIMode": "lldb",
 		}
 
 	]

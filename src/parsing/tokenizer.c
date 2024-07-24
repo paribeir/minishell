@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:06:04 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/16 20:23:29 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/24 23:59:35 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ t_token	*tokenizer(char *input)
 	char	*start;
 
 	i = 0;
-	head = create_token();
+	head = NULL;
+	while (input[i] && ft_strchr(IFS, input[i]))
+		i++;
+	if (input[i])
+		head = create_token();
 	while (input[i])
 	{
 		while (input[i] && ft_strchr(IFS, input[i]))
@@ -44,12 +48,8 @@ t_token	*tokenizer(char *input)
 		add_token(start, &head, token);
 	}
 	if (head && check_syntax(&head) == 0)
-	{
 		variable_expansion(&head);
-		//TEST_printf_stuff(&head);
-		return (head);
-	}
-	return (NULL);
+	return (head);
 }
 
 int	token_small(char *input, t_token *token)
