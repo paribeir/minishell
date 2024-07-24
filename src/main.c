@@ -6,12 +6,11 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/23 16:07:36 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/24 16:07:55 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 /*
 - initialize history.
@@ -19,8 +18,6 @@
 - if there is input, add it to the history.
 - else, print a new line.
 */
-
-#include "minishell.h"
 
 void	TEST_printf_stuff(t_cmd_list **head)
 {
@@ -52,7 +49,9 @@ int	main(int argc, char *argv[], char *envp[])
 	char		*input;
 	t_token		*tokens;
 	t_cmd_list	*cmd_list;
+	t_cmd		cmd_env;
 
+	exe_init(&cmd_env, envp);
 	while (1)
 	{
 		input = readline(BLUE "Mini🐚 > " NS);
@@ -66,7 +65,7 @@ int	main(int argc, char *argv[], char *envp[])
 			else
 			{
 				TEST_printf_stuff(&cmd_list);
-				exe_run(cmd_list, envp);
+				exe(cmd_list, &cmd_env);
 			}
 		}
 		else

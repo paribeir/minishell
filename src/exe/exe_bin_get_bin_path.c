@@ -6,13 +6,13 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 08:43:25 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/21 10:54:59 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/24 16:45:30 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_binary_path_search(char *binary)
+char	*get_binary_path_search(char *binary, t_cmd *cmd_env)
 {
 	char	*appendix;
 	char	**paths;
@@ -20,7 +20,7 @@ char	*get_binary_path_search(char *binary)
 	char	*path;
 
 	appendix = "/";
-	paths = ft_split(getenv("PATH"), ':');
+	paths = ft_split(exe_env_get_var("PATH", cmd_env), ':');
 	while (*paths != NULL)
 	{
 		path = ft_strjoin(*paths, appendix);
@@ -46,13 +46,13 @@ char	*get_binary_path_direct(char *binary)
 	}
 }
 
-char	*exe_bin_get_bin_path(t_cmd_list *cmd_list_item)
+char	*exe_bin_get_bin_path(t_cmd_list *cmd_list_item, t_cmd *cmd_env)
 {
 	char	*path;
 
 	if (ft_strchr(cmd_list_item->binary, '/') > 0)
 		path = get_binary_path_direct(cmd_list_item->binary);
 	else
-		path = get_binary_path_search(cmd_list_item->binary);
+		path = get_binary_path_search(cmd_list_item->binary, cmd_env);
 	return (path);
 }

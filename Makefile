@@ -6,7 +6,7 @@
 #    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/07/23 17:44:07 by jdach            ###   ########.fr        #
+#    Updated: 2024/07/24 17:16:29 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,10 @@ exe/exe_bin_args.c \
 exe/exe_bin_get_bin_path.c \
 exe/exe_bin_pipe_ahead.c \
 exe/exe_bltns.c \
+exe/exe_bltns_cd.c \
 exe/exe_bltns_echo.c \
 exe/exe_bltns_env.c \
+exe/exe_bltns_pwd.c \
 exe/exe_cleanup.c \
 exe/exe_err.c \
 exe/exe_directs.c \
@@ -40,7 +42,11 @@ exe/exe_directs_here_doc.c \
 exe/exe_directs_pipe_in.c \
 exe/exe_directs_redir_in.c \
 exe/exe_directs_redir_out.c \
-exe/exe_run.c \
+exe/exe_env_get_var.c \
+exe/exe_env_get_var_address.c \
+exe/exe_env_set_var.c \
+exe/exe_init.c \
+exe/exe.c \
 main.c \
 parsing/env_variables.c \
 parsing/expansions.c \
