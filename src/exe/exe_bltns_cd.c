@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:24:36 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/25 17:14:44 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/25 18:33:39 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*exe_bltns_cd_get_target(char *parameter, t_cmd *cmd_env)
 	target = exe_env_get_var("PWD", cmd_env);
 	if (parameter[0] == '/')
 		target = ft_strdup(parameter);
-	else if (parameter[0] == '-' && parameter[0] != NULL)
+	else if (parameter[0] == '-' && parameter[1] == '\0')
 		target = exe_env_get_var("OLDPWD", cmd_env);
 	else
 	{
