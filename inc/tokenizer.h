@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:11:46 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/16 18:04:09 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:37:23 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ int	check_syntax(t_token **head);
 
 //variable_expansion.c
 void	variable_expansion(t_token **head);
+
+char	*hex_to_dec(void *ptr);
+char *ptr_to_str(unsigned long number);
 
 /*
 	COMMAND,

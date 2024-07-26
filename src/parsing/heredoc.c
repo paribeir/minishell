@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/16 20:23:05 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/26 18:44:39 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,25 @@ char	*heredoc_handler(t_token *token)
 	char	*final_str;
 	char	*temp_str;
 	int		fd;
+	char	*filename;
 
 	ft_putstr_fd(">>> ", STDOUT_FILENO);
 	final_str = ft_strdup("");
 	read_str = ft_get_next_line(0);
-    	quotes_remove(&token->next);
+    quotes_remove(&token->next);
+	filename = hex_to_dec(token);
 	while (read_str)
 	{
 		if (ft_strncmp(token->next->str, read_str, \
 		ft_strlen(token->next->str)) == 0 && \
 		read_str[ft_strlen(token->next->str) + 1] == '\0')
 		{
-			fd = open("here_doc_temp", O_WRONLY | O_CREAT | O_TRUNC, 0666);
+			fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666); //this one here
 			ft_putstr_fd(final_str, fd);
 			free(final_str);
 			free(read_str);
 			close(fd);
-			return ("here_doc_temp");
+			return (filename); 
 		}
 		else if (ft_strchr(read_str, '$') && (token->next->subtype != SQUOTE && token->next->subtype != DQUOTE))
         	{
@@ -96,7 +98,5 @@ char *aux_str_join(char *str1, char *str2)
 
 	if (str1)
 		free(str1);
-	//if (str2)
-	//	free(str2);
 	return (temp);
 }

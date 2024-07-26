@@ -52,6 +52,7 @@ main.c \
 parsing/env_variables.c \
 parsing/expansions.c \
 parsing/heredoc.c \
+parsing/hex_to_str.c \
 parsing/parser.c \
 parsing/quotes.c \
 parsing/tokenizer_utils.c \
