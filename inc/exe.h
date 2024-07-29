@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/29 22:20:40 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/29 22:51:34 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	exe_bltns_echo(t_cmd_list *cmd_list_item, t_cmd *cmd);
 void	exe_bltns_env(char **envp);
 void	exe_bltns_export(t_cmd_list *cmd_list, t_cmd *env);
 void	exe_bltns_pwd(t_cmd_list *cmd_list_item, t_cmd *cmd_env);
+void	exe_bltns_unset(t_cmd_list *cmd_list_item, t_cmd *cmd_env);
 void	exe_cleanup(t_cmd *cmd);
 void	exe_cleanup_strarray(char **strarray);
 void	exe_err(char *err_msg, t_err_actn err_actn, t_cmd *cmd);

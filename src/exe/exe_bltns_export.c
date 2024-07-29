@@ -6,11 +6,16 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:20:32 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/29 22:18:08 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/29 23:33:05 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+ _=./minishell should be removed from the export. This will actually be
+ _=/usr/bin/env when calling env.
+*/
 
 /*
  * @brief	Cheks the input of the export command for correct parameters.
@@ -34,6 +39,15 @@ int	exe_bltns_export_check_input(t_cmd_list *cmd_list)
 		a++;
 	}
 	return (0);
+}
+
+void	exe_bltns_export_print(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i] != NULL)
+		ft_printf("%s \n", envp[i++]);
 }
 
 void	exe_bltns_export_sort(char **cpy)
@@ -69,7 +83,7 @@ void	exe_bltns_export(t_cmd_list *cmd_list, t_cmd *cmd_env)
 	{
 		cpy = exe_env_cpy(cmd_env->envp);
 		exe_bltns_export_sort(cpy);
-		exe_bltns_env(cpy);
+		exe_bltns_export_print(cpy);
 		exe_cleanup_strarray(cpy);
 	}
 	else

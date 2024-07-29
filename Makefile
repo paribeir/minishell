@@ -6,7 +6,7 @@
 #    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/07/29 22:21:40 by jdach            ###   ########.fr        #
+#    Updated: 2024/07/29 22:50:46 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ exe/exe_bltns_echo.c \
 exe/exe_bltns_env.c \
 exe/exe_bltns_export.c \
 exe/exe_bltns_pwd.c \
+exe/exe_bltns_unset.c \
 exe/exe_cleanup.c \
 exe/exe_cleanup_strarray.c \
 exe/exe_err.c \
