@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 01:10:21 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/24 16:27:01 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/29 17:42:32 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	exe_bin(t_cmd_list *cmd_list_item, t_cmd *cmd_env)
 	char	**args;
 	int		pid;
 
-	exe_bin_pipe_ahead(cmd_list_item, cmd_env);
 	path = exe_bin_get_bin_path(cmd_list_item, cmd_env);
 	args = exe_bin_args(cmd_list_item->arguments, cmd_list_item->binary);
 	pid = fork();
