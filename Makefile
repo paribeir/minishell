@@ -6,7 +6,7 @@
 #    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/07/29 17:41:04 by jdach            ###   ########.fr        #
+#    Updated: 2024/07/29 22:21:40 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ exe/exe_bltns_env.c \
 exe/exe_bltns_export.c \
 exe/exe_bltns_pwd.c \
 exe/exe_cleanup.c \
+exe/exe_cleanup_strarray.c \
 exe/exe_err.c \
 exe/exe_directs.c \
 exe/exe_directs_append.c \
@@ -43,7 +44,7 @@ exe/exe_directs_redir_in.c \
 exe/exe_directs_redir_out.c \
 exe/exe_env_get_var.c \
 exe/exe_env_get_var_address.c \
-exe/exe_env_init.c \
+exe/exe_env_cpy.c \
 exe/exe_env_set_var.c \
 exe/exe_pipe_in.c \
 exe/exe_pipe_out.c \

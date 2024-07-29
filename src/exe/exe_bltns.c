@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:50:14 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/29 17:51:59 by jdach            ###   ########.fr       */
+/*   Updated: 2024/07/29 22:15:02 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	exe_bltns(t_cmd_list *cmd_list_item, t_cmd *cmd_env)
 	if (cmd_list_item->type == BLTIN_ECHO)
 		exe_bltns_echo(cmd_list_item, cmd_env);
 	else if (cmd_list_item->type == BLTIN_ENV)
-		exe_bltns_env(cmd_env);
+		exe_bltns_env(cmd_env->envp);
 	else if (cmd_list_item->type == BLTIN_PWD)
 		exe_bltns_pwd(cmd_list_item, cmd_env);
 	else if (cmd_list_item->type == BLTIN_CD)
