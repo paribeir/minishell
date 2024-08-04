@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:20:32 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/29 23:33:05 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/04 10:07:48 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,14 @@ void	exe_bltns_export_sort(char **cpy)
 	}
 }
 
-void	exe_bltns_export(t_cmd_list *cmd_list, t_cmd *cmd_env)
+void	exe_bltns_export(t_cmd_list *cmd_list, t_cmd *cmd_data)
 {
 	char	**str_arr;
 	char	**cpy;
 
 	if (cmd_list->arguments[0] == NULL)
 	{
-		cpy = exe_env_cpy(cmd_env->envp);
+		cpy = exe_env_cpy(cmd_data->envp);
 		exe_bltns_export_sort(cpy);
 		exe_bltns_export_print(cpy);
 		exe_cleanup_strarray(cpy);
@@ -90,6 +90,6 @@ void	exe_bltns_export(t_cmd_list *cmd_list, t_cmd *cmd_env)
 	{
 		str_arr = ft_split(cmd_list->arguments[0], '=');
 		if (exe_bltns_export_check_input(cmd_list) == 0)
-			exe_env_set_var(str_arr[0], str_arr[1], cmd_env);
+			exe_env_set_var(str_arr[0], str_arr[1], cmd_data);
 	}
 }

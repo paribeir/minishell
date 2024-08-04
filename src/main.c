@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/29 21:43:46 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/04 10:07:51 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int	main(int argc, char *argv[], char *envp[])
 	char		*input;
 	t_token		*tokens;
 	t_cmd_list	*cmd_list;
-	t_cmd		cmd_env;
+	t_cmd		cmd_data;
 
-	cmd_env.envp = exe_env_cpy(envp);
+	cmd_data.envp = exe_env_cpy(envp);
 	while (1)
 	{
 		input = readline(BLUE "Mini🐚 > " NS);
@@ -64,7 +64,7 @@ int	main(int argc, char *argv[], char *envp[])
 			else
 			{
 				TEST_printf_stuff(&cmd_list);
-				exe(cmd_list, &cmd_env);
+				exe(cmd_list, &cmd_data);
 			}
 		}
 		else

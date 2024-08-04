@@ -6,22 +6,22 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:24:36 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/25 18:33:39 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/04 10:07:49 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*exe_bltns_cd_get_target(char *parameter, t_cmd *cmd_env)
+char	*exe_bltns_cd_get_target(char *parameter, t_cmd *cmd_data)
 {
 	char	*target;
 	char	*tmp_ptr;
 
-	target = exe_env_get_var("PWD", cmd_env);
+	target = exe_env_get_var("PWD", cmd_data);
 	if (parameter[0] == '/')
 		target = ft_strdup(parameter);
 	else if (parameter[0] == '-' && parameter[1] == '\0')
-		target = exe_env_get_var("OLDPWD", cmd_env);
+		target = exe_env_get_var("OLDPWD", cmd_data);
 	else
 	{
 		tmp_ptr = target;
@@ -41,16 +41,16 @@ int	exe_bltns_cd_check_input(t_cmd_list *cmd_list_item)
 	return (0);
 }
 
-void	exe_bltns_cd(t_cmd_list *cmd_list_item, t_cmd *cmd_env)
+void	exe_bltns_cd(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	char	*target;
 
 	exe_bltns_cd_check_input(cmd_list_item);
-	target = exe_bltns_cd_get_target(cmd_list_item->arguments[0], cmd_env);
+	target = exe_bltns_cd_get_target(cmd_list_item->arguments[0], cmd_data);
 	if (chdir(target) == 0)
 	{
-		exe_env_set_var("OLDPWD", exe_env_get_var("PWD", cmd_env), cmd_env);
-		exe_env_set_var("PWD", target, cmd_env);
+		exe_env_set_var("OLDPWD", exe_env_get_var("PWD", cmd_data), cmd_data);
+		exe_env_set_var("PWD", target, cmd_data);
 	}
 	else
 		perror("no such file or directory");

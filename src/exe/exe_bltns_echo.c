@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:02:37 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/21 15:59:55 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/04 10:07:48 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	exe_bltns_echo_set_n_flag(char **args, int *n_flag, int *start)
 	}
 }
 
-void	exe_bltns_echo(t_cmd_list *cmd_list_item, t_cmd *cmd_env)
+void	exe_bltns_echo(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	char	**args;
 	int		n_flag;

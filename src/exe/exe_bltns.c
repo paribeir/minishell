@@ -6,26 +6,26 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:50:14 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/29 22:51:19 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/04 10:07:45 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_bltns(t_cmd_list *cmd_list_item, t_cmd *cmd_env)
+void	exe_bltns(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	if (cmd_list_item->type == BLTIN_ECHO)
-		exe_bltns_echo(cmd_list_item, cmd_env);
+		exe_bltns_echo(cmd_list_item, cmd_data);
 	else if (cmd_list_item->type == BLTIN_ENV)
-		exe_bltns_env(cmd_env->envp);
+		exe_bltns_env(cmd_data->envp);
 	else if (cmd_list_item->type == BLTIN_PWD)
-		exe_bltns_pwd(cmd_list_item, cmd_env);
+		exe_bltns_pwd(cmd_list_item, cmd_data);
 	else if (cmd_list_item->type == BLTIN_CD)
-		exe_bltns_cd(cmd_list_item, cmd_env);
+		exe_bltns_cd(cmd_list_item, cmd_data);
 	else if (cmd_list_item->type == BLTIN_EXPORT)
-		exe_bltns_export(cmd_list_item, cmd_env);
+		exe_bltns_export(cmd_list_item, cmd_data);
 	else if (cmd_list_item->type == BLTIN_UNSET)
-		exe_bltns_unset(cmd_list_item, cmd_env);
-	dup2(cmd_env->saved_stdout, STDOUT_FILENO);
-	dup2(cmd_env->saved_stdin, STDIN_FILENO);
+		exe_bltns_unset(cmd_list_item, cmd_data);
+	dup2(cmd_data->saved_stdout, STDOUT_FILENO);
+	dup2(cmd_data->saved_stdin, STDIN_FILENO);
 }
