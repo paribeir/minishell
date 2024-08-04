@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:32:10 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/09 14:56:31 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/08/04 21:45:00 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "tokenizer.h"
 
 /* EISTEE  < infile < infile2 < infile3 cat < infile4
-typedef struct s_ast 
+typedef struct s_ast
 {
 	char			*binary;
 	char			**arguments;
@@ -26,12 +26,12 @@ typedef struct s_ast
 }	t_ast;
 */
 
-typedef struct s_cmd_list 
+typedef struct s_cmd_list
 {
 	t_token_subtype		type; //REDIN HEREDOC
 	char				*binary; //"<<"
 	char				**arguments; //temp_heredoc
-	struct s_cmd_list	*prev; 
+	struct s_cmd_list	*prev;
 	struct s_cmd_list	*next;
 }	t_cmd_list;
 
@@ -43,8 +43,8 @@ typedef struct s_vars
 
 /*** Functions ***/
 //heredoc.c
-char	*heredoc_handler(t_token *token);
-char	*expand_heredoc(char *str);
+char	*heredoc_handler(t_token *token, t_cmd *cmd_data);
+char	*expand_heredoc(char *str, t_cmd *cmd_data);
 char *aux_str_join(char *str1, char *str2);
 
 //quotes.c
@@ -54,13 +54,13 @@ void	quotes_remove(t_token **token);
 int	var_in_squote(char *str);
 
 //env_variables.c
-void	expand_env_vars(t_token	*token);
-void	add_expanded_var(char **current, char **str);
+void	expand_env_vars(t_token	*token, t_cmd *cmd_data);
+void	add_expanded_var(char **current, char **str, t_cmd *cmd_data);
 void	add_literal(char **current, char **str);
-char	*get_var(char **str);
+char	*get_var(char **str, t_cmd *cmd_data);
 
 //expansions.c
-void	variable_expansion(t_token **head);
+void	variable_expansion(t_token **head, t_cmd *cmd_data);
 
 //parser.c
 t_cmd_list	*parse_tokens(t_token **token);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/26 18:44:39 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/08/04 21:48:52 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //--> TO-DO: Add return value if gnl fails
 //eval if we need a check before quote removal
 //Does this work with more than one heredoc?
-char	*heredoc_handler(t_token *token)
+char	*heredoc_handler(t_token *token, t_cmd *cmd_data)
 {
 	char	*read_str;
 	char	*final_str;
@@ -39,11 +39,11 @@ char	*heredoc_handler(t_token *token)
 			free(final_str);
 			free(read_str);
 			close(fd);
-			return (filename); 
+			return (filename);
 		}
 		else if (ft_strchr(read_str, '$') && (token->next->subtype != SQUOTE && token->next->subtype != DQUOTE))
         	{
-			read_str = expand_heredoc(read_str);
+			read_str = expand_heredoc(read_str, cmd_data);
 			if (read_str)
 				read_str[ft_strlen(read_str)] = '\n';
 		}
@@ -61,7 +61,7 @@ char	*heredoc_handler(t_token *token)
 }
 
 //expanding env vars knowing there are no single quotes
-char	*expand_heredoc(char *str)
+char	*expand_heredoc(char *str, t_cmd *cmd_data)
 {
 	char	*sum;
 	char	*before_var;
@@ -81,7 +81,7 @@ char	*expand_heredoc(char *str)
 		{
 			before_var = ft_substr(str, 0, ft_strchr(str, '$') - str);
 			sum = aux_str_join(sum, before_var);
-			sum = aux_str_join(sum, get_var(&dollar));
+			sum = aux_str_join(sum, get_var(&dollar, cmd_data));
 		}
 		dollar = ft_strchr(dollar, '$');
 		if (dollar)

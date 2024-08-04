@@ -6,20 +6,20 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/16 20:22:59 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/04 22:06:33 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 //check mem management
-void	expand_env_vars(t_token	*token)
+void	expand_env_vars(t_token	*token, t_cmd *cmd_data)
 {
 	char *str;
 	char *current;
 
 	if (!ft_strchr(token->str, '\''))
-		token->str = expand_heredoc(token->str);
+		token->str = expand_heredoc(token->str, cmd_data);
 	else
 	{
 		current = ft_strdup("");
@@ -27,7 +27,7 @@ void	expand_env_vars(t_token	*token)
 		while (*str)
 		{
 			if (ft_strchr(str, '$') && !var_in_squote(str))
-				add_expanded_var(&current, &str); //expand this var
+				add_expanded_var(&current, &str, cmd_data); //expand this var
 			else
 				add_literal(&current, &str); //copy everything inside single quotes
 		}
@@ -36,13 +36,13 @@ void	expand_env_vars(t_token	*token)
 	}
 }
 
-void	add_expanded_var(char **current, char **str)
+void	add_expanded_var(char **current, char **str, t_cmd *cmd_data)
 {
 	char	*var;
 	char	*total;
     int     i;
 
-	var = get_var(str); //TO DO: check if this advances the string past the var name
+	var = get_var(str, cmd_data); //TO DO: check if this advances the string past the var name
 	if (var)
 	{
 		total = (char *)ft_calloc(strlen(*current) + strlen(var) + 1, sizeof(char));
@@ -61,7 +61,7 @@ void	add_expanded_var(char **current, char **str)
 void	add_literal(char **current, char **str)
 {
 	char	*total;
-	int	len;
+	int		len;
 
 	if (ft_strchr(*str, '\''))
 		len = ft_strchr(*str, '\'') - *str;
@@ -81,7 +81,7 @@ void	add_literal(char **current, char **str)
 }
 
 /*expand variable*/
-char	*get_var(char **str)
+char	*get_var(char **str, t_cmd *cmd_data)
 {
 	char	*var_name;
 	char	*start;
@@ -89,14 +89,16 @@ char	*get_var(char **str)
 
 	(*str)++;
 	start = *str;
-	if (!start || (!ft_isalnum(*start) && *start != '_'))
+	if (start && start[0] == '?')
+		return (ft_strdup(ft_itoa(cmd_data->exit_status)));
+	else if (!start || (!ft_isalnum(*start) && *start != '_'))
 		return ("$");
 	while (**str && (ft_isalnum(**str) || **str == '_'))
 		(*str)++;
-	var_name = ft_substr(start + 1, 0, *str - (start + 1));
+	var_name = ft_substr(start, 0, *str - start);
 	if (!var_name)
 		return (NULL);
-	var_content = getenv(var_name);
+	var_content = exe_env_get_var(var_name, cmd_data);
 	free(var_name);
 	if (!var_content)
 		return (ft_strdup(""));

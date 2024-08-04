@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/04 10:07:52 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/04 21:46:09 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,6 @@ typedef enum s_err_actn
 {
 	CLEANUP,
 }	t_err_actn;
-
-/*** Structs ***/
-
-typedef struct s_cmd
-{
-	t_list	*nodes;
-	int		pipe[2];
-	int		saved_stdout;
-	int		saved_stdin;
-	char	**envp;
-	int		pipe_status;
-	int		fdout_status;
-	int		exit_status;
-}	t_cmd;
 
 /*** Functions ***/
 

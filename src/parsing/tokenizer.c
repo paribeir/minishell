@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:06:04 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/24 23:59:35 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/08/04 21:14:07 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 - check syntax
 - return head of linked list on success, NULL on failure.
 */
-t_token	*tokenizer(char *input)
+t_token	*tokenizer(char *input, t_cmd *cmd_data)
 {
 	t_token	*head;
 	t_token	*token;
@@ -48,7 +48,7 @@ t_token	*tokenizer(char *input)
 		add_token(start, &head, token);
 	}
 	if (head && check_syntax(&head) == 0)
-		variable_expansion(&head);
+		variable_expansion(&head, cmd_data);
 	return (head);
 }
 

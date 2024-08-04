@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:11:46 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/26 18:37:23 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/08/04 21:14:38 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef enum s_token_type {
 	IO_FILE = 104,
 }	t_token_type;
 
-typedef enum s_token_subtype 
+typedef enum s_token_subtype
 {
 	ARGUMENT, //0
 	AND_IF, //1
@@ -62,7 +62,7 @@ typedef struct s_token {
 
 /*** Functions ***/
 //tokenizer.c
-t_token	*tokenizer(char *input);
+t_token	*tokenizer(char *input, t_cmd *cmd_data);
 int		token_small(char *input, t_token *token);
 int		token_big(char *start, t_token *token);
 void	add_token(char *start, t_token **head, t_token *token);
@@ -74,7 +74,7 @@ int	add_subtype(char q, char *input);
 int	check_syntax(t_token **head);
 
 //variable_expansion.c
-void	variable_expansion(t_token **head);
+void	variable_expansion(t_token **head, t_cmd *cmd_data);
 
 char	*hex_to_dec(void *ptr);
 char *ptr_to_str(unsigned long number);

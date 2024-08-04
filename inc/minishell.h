@@ -6,12 +6,25 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/16 22:17:32 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/04 21:47:27 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+/*** Structs ***/
+
+typedef struct s_cmd
+{
+	int		pipe[2];
+	int		saved_stdout;
+	int		saved_stdin;
+	char	**envp;
+	int		pipe_status;
+	int		fdout_status;
+	int		exit_status;
+}	t_cmd;
 
 /*** Libraries ***/
 
