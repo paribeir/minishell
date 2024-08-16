@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe_bin_args.c                                     :+:      :+:    :+:   */
+/*   exe_signals.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 17:52:59 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/16 16:08:01 by jdach            ###   ########.fr       */
+/*   Created: 2024/08/16 17:58:51 by jdach             #+#    #+#             */
+/*   Updated: 2024/08/16 19:03:20 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**exe_bin_args(char **original_args, char *binary)
+void	exe_signals_nl(int signum)
 {
-	int		i;
-	int		j;
-	char	**execve_args;
+	(void) signum;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	write(1, "\n", STDERR_FILENO);
+	rl_redisplay();
+}
 
-	i = 0;
-	j = 0;
-	while (original_args[i] != NULL)
-		i++;
-	execve_args = (char **)malloc((i + 2) * sizeof(char *));
-	execve_args[j++] = binary;
-	while (j <= i)
-	{
-		execve_args[j] = original_args[j - 1];
-		j++;
-	}
-	execve_args[j] = NULL;
-	return (execve_args);
+void	exe_signals_responsive(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
+{
+	signal(SIGINT, exe_signals_nl);
+	signal(SIGQUIT, SIG_IGN);
 }

@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/04 22:09:45 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/16 18:32:49 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	main(int argc, char *argv[], char *envp[])
 	init_cmd_data(&cmd_data, envp);
 	while (1)
 	{
+		exe_signals_responsive(cmd_list, &cmd_data);
 		input = readline(BLUE "Mini🐚 > " NS);
 		if (*input)
 		{

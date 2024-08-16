@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:50:14 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/04 10:07:45 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/16 18:13:31 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	exe_bltns(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		exe_bltns_export(cmd_list_item, cmd_data);
 	else if (cmd_list_item->type == BLTIN_UNSET)
 		exe_bltns_unset(cmd_list_item, cmd_data);
+	else if (cmd_list_item->type == BLTIN_EXIT)
+		exe_bltns_exit(cmd_list_item, cmd_data);
 	dup2(cmd_data->saved_stdout, STDOUT_FILENO);
 	dup2(cmd_data->saved_stdin, STDIN_FILENO);
 }
