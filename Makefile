@@ -6,13 +6,18 @@
 #    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/08/16 18:15:22 by jdach            ###   ########.fr        #
+#    Updated: 2024/08/17 00:09:20 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FLAGS = -lreadline
 CC = cc
 OPTIONS = -c -g
+
+ifeq ($(shell uname -s), Darwin)
+  LDFLAGS += -L/opt/homebrew/opt/readline/lib
+  CPPFLAGS += -I/opt/homebrew/opt/readline/include
+endif
 
 #NAMES
 NAME = minishell
@@ -84,11 +89,11 @@ bonus: $(NAME_BONUS)
 
 $(NAME): $(OBJS_MINISHELL)
 	make -C $(LIB_DIR)libft
-	$(CC) $(OBJS_MINISHELL) $(FLAGS) $(LIB_DIR)libft/libft.a -o $(NAME)
+	$(CC) $(OBJS_MINISHELL) $(LDFLAGS) $(FLAGS) $(LIB_DIR)libft/libft.a -o $(NAME)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	mkdir -p $(dir $@)
-	$(CC) $(INCS) $(OPTIONS) $< -o $@
+	$(CC) $(INCS) $(CPPFLAGS) $(OPTIONS) $< -o $@
 
 clean:
 	make clean -C $(LIB_DIR)libft
