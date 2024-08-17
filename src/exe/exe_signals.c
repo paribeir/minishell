@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 17:58:51 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/17 09:21:47 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/17 23:03:41 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,16 @@ void	exe_signals_refresh_readline(int signum)
 
 void	exe_signals_default(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
+	(void) cmd_list_item;
+	(void) cmd_data;
 	signal(SIGINT, exe_signals_reinitiate_readline);
 	signal(SIGQUIT, SIG_IGN);
 }
 
 void	exe_signals_processing(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
+	(void) cmd_list_item;
+	(void) cmd_data;
 	signal(SIGINT, exe_signals_refresh_readline);
 	signal(SIGQUIT, exe_signals_refresh_readline);
 }

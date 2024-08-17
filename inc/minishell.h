@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/16 17:59:43 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/17 22:04:49 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <curses.h>
 # include <dirent.h>
+# include <limits.h>
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>

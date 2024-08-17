@@ -6,11 +6,12 @@
 #    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/08/17 13:48:47 by jdach            ###   ########.fr        #
+#    Updated: 2024/08/17 23:01:19 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FLAGS = -lreadline
+CFLAGS = -Wall -Werror -Wextra
 CC = cc
 OPTIONS = -c -g
 
@@ -95,11 +96,11 @@ tester: re
 
 $(NAME): $(OBJS_MINISHELL)
 	make -C $(LIB_DIR)libft
-	$(CC) $(OBJS_MINISHELL) $(LDFLAGS) $(FLAGS) $(LIB_DIR)libft/libft.a -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS_MINISHELL) $(LDFLAGS) $(FLAGS) $(LIB_DIR)libft/libft.a -o $(NAME)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	mkdir -p $(dir $@)
-	$(CC) $(INCS) $(CPPFLAGS) $(OPTIONS) $< -o $@
+	$(CC) $(CFLAGS) $(INCS) $(CPPFLAGS) $(OPTIONS) $< -o $@
 
 clean:
 	make clean -C $(LIB_DIR)libft

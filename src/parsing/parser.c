@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/29 16:38:36 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/17 23:06:05 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_cmd_list	*parse_tokens(t_token **token)
 {
 	t_token		*current;
 	t_cmd_list	*head;
-	t_cmd_list	*node;
 
 	head = NULL;
 	current = token_fusion(*token);

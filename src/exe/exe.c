@@ -6,11 +6,30 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/04 22:10:59 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/17 20:53:23 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	exe_init_cmd_data(t_cmd *cmd_data)
+{
+	cmd_data->saved_stdin = dup(STDIN_FILENO);
+	cmd_data->saved_stdout = dup(STDOUT_FILENO);
+	cmd_data->pipe[0] = -1;
+	cmd_data->pipe[0] = -1;
+	cmd_data->pipe_status = -1;
+	cmd_data->fdout_status = -1;
+	cmd_data->exit_status = 0;
+}
+
+void	exe_reset_in_out(t_cmd *cmd_data)
+{
+	dup2(cmd_data->saved_stdin, STDIN_FILENO);
+	close(cmd_data->saved_stdin);
+	dup2(cmd_data->saved_stdout, STDOUT_FILENO);
+	close(cmd_data->saved_stdout);
+}
 
 void	exe_map(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
@@ -54,12 +73,10 @@ void	exe_set_in_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 
 void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data)
 {
-	cmd_data->saved_stdin = dup(STDIN_FILENO);
-	cmd_data->saved_stdout = dup(STDOUT_FILENO);
-	cmd_data->pipe[0] = -1;
-	cmd_data->pipe[0] = -1;
-	cmd_data->pipe_status = -1;
-	cmd_data->fdout_status = -1;
+	int		status;
+	pid_t	pid;
+
+	exe_init_cmd_data(cmd_data);
 	while (cmd_list_item)
 	{
 		if (cmd_data->pipe_status == -1)
@@ -67,10 +84,12 @@ void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data)
 		exe_map(cmd_list_item, cmd_data);
 		cmd_list_item = cmd_list_item->next;
 	}
-	while (wait(NULL) > 0)
-		;
-	dup2(cmd_data->saved_stdin, STDIN_FILENO);
-	close(cmd_data->saved_stdin);
-	dup2(cmd_data->saved_stdout, STDOUT_FILENO);
-	close(cmd_data->saved_stdout);
+	pid = wait(&status);
+	while (pid > 0)
+	{
+		if (WIFEXITED(status))
+			cmd_data->exit_status = WEXITSTATUS(status);
+		pid = wait(&status);
+	}
+	exe_reset_in_out(cmd_data);
 }

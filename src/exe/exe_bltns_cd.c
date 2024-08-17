@@ -6,31 +6,24 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:24:36 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/04 10:07:49 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/17 23:01:41 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*exe_bltns_cd_get_target(char *parameter, t_cmd *cmd_data)
+char	*exe_bltns_cd_get_target(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	char	*target;
-	char	*tmp_ptr;
+	char	**args;
 
-	target = exe_env_get_var("PWD", cmd_data);
-	if (parameter[0] == '/')
-		target = ft_strdup(parameter);
-	else if (parameter[0] == '-' && parameter[1] == '\0')
+	args = cmd_list_item->arguments;
+	if (*args == NULL)
+		target = exe_env_get_var("HOME", cmd_data);
+	else if (args[0][0] == '-' && args[0][1] == '\0')
 		target = exe_env_get_var("OLDPWD", cmd_data);
 	else
-	{
-		tmp_ptr = target;
-		target = ft_strjoin(target, "/");
-		free(tmp_ptr);
-		tmp_ptr = target;
-		target = ft_strjoin(target, parameter);
-		free(tmp_ptr);
-	}
+		target = ft_strdup(args[0]);
 	return (target);
 }
 
@@ -44,13 +37,15 @@ int	exe_bltns_cd_check_input(t_cmd_list *cmd_list_item)
 void	exe_bltns_cd(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	char	*target;
+	char	pwd[PATH_MAX];
 
 	exe_bltns_cd_check_input(cmd_list_item);
-	target = exe_bltns_cd_get_target(cmd_list_item->arguments[0], cmd_data);
+	target = exe_bltns_cd_get_target(cmd_list_item, cmd_data);
 	if (chdir(target) == 0)
 	{
 		exe_env_set_var("OLDPWD", exe_env_get_var("PWD", cmd_data), cmd_data);
-		exe_env_set_var("PWD", target, cmd_data);
+		getcwd(pwd, sizeof(pwd));
+		exe_env_set_var("PWD", pwd, cmd_data);
 	}
 	else
 		perror("no such file or directory");

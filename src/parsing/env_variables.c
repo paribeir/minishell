@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/04 22:06:33 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/17 23:05:37 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	add_expanded_var(char **current, char **str, t_cmd *cmd_data)
 {
 	char	*var;
 	char	*total;
-    int     i;
 
 	var = get_var(str, cmd_data); //TO DO: check if this advances the string past the var name
 	if (var)
