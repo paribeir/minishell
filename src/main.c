@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/17 13:36:08 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/17 14:29:16 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		exe_signals_default(cmd_list, &cmd_data);
 		input = readline(BLUE "Mini🐚 > " NS);
-		if (input && *input)
+		if (input)
 		{
 			exe_signals_processing(cmd_list, &cmd_data);
 			add_history(input);
@@ -76,7 +76,9 @@ int	main(int argc, char *argv[], char *envp[])
 			// TEST_printf_stuff(&cmd_list);
 			exe(cmd_list, &cmd_data);
 		}
-		else
+		else if (!input)
 			exit(EXIT_SUCCESS);
+		else
+			write(1, "", 0);
 	}
 }
