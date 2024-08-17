@@ -6,7 +6,7 @@
 #    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/08/17 13:42:45 by jdach            ###   ########.fr        #
+#    Updated: 2024/08/17 13:48:47 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,6 +87,12 @@ all: $(NAME)
 
 bonus: $(NAME_BONUS)
 
+tester: re
+	if [ ! -d "minishell_tester" ]; then \
+	  git clone https://github.com/LucasKuhn/minishell_tester.git; \
+	fi
+	cd minishell_tester && ./tester
+
 $(NAME): $(OBJS_MINISHELL)
 	make -C $(LIB_DIR)libft
 	$(CC) $(OBJS_MINISHELL) $(LDFLAGS) $(FLAGS) $(LIB_DIR)libft/libft.a -o $(NAME)
@@ -98,6 +104,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 clean:
 	make clean -C $(LIB_DIR)libft
 	rm -rf $(OBJ_DIR)
+	rm -rf minishell_tester
 
 fclean: clean
 	make fclean -C $(LIB_DIR)libft
