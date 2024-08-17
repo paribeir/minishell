@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/16 18:32:49 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/17 13:36:08 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 - initialize history.
 - start minishell loop.
 - if there is input, add it to the history.
-- else, print a new line.
+- else, exit and cleanup (cleanup needs to be implemented).
 */
 
 void	TEST_printf_stuff(t_cmd_list **head)
@@ -65,22 +65,18 @@ int	main(int argc, char *argv[], char *envp[])
 	init_cmd_data(&cmd_data, envp);
 	while (1)
 	{
-		exe_signals_responsive(cmd_list, &cmd_data);
+		exe_signals_default(cmd_list, &cmd_data);
 		input = readline(BLUE "Mini🐚 > " NS);
-		if (*input)
+		if (input && *input)
 		{
+			exe_signals_processing(cmd_list, &cmd_data);
 			add_history(input);
 			tokens = tokenizer(input, &cmd_data);
 			cmd_list = parse_tokens(&tokens);
-			if (cmd_list && (argc > 1 && ft_strncmp(argv[1], "pat", 3) == 0))
-				TEST_printf_stuff(&cmd_list);
-			else
-			{
-				TEST_printf_stuff(&cmd_list);
-				exe(cmd_list, &cmd_data);
-			}
+			// TEST_printf_stuff(&cmd_list);
+			exe(cmd_list, &cmd_data);
 		}
 		else
-			write(1, "\n", 1);
+			exit(EXIT_SUCCESS);
 	}
 }

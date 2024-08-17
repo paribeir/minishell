@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/16 18:31:50 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/17 09:22:07 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ char	**exe_env_cpy(char *envp[]);
 int		exe_env_set_var(char *var, char *value, t_cmd *cmd_data);
 void	exe_pipe_in(t_cmd *cmd_data);
 void	exe_pipe_out(t_cmd *cmd_data);
-void	exe_signals_responsive(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
+void	exe_signals_default(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
+void	exe_signals_processing(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data);
 
 #endif
