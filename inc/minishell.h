@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/17 22:04:49 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/18 09:58:20 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,13 @@ typedef struct s_cmd
 	int		exit_status;
 }	t_cmd;
 
-// Colors
+/*** Error Messages ***/
+
+# define ERR_BIN_NOT_FOUND "minishell: No such file or directory\n"
+# define ERR_ECHO_FLAGS "Only flag '-n' may be used with echo command\n"
+
+/*** Colors ***/
+
 # define BLUE	"\033[1;36m"
 # define NS	"\033[0m"
 

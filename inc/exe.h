@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/17 09:22:07 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/18 09:47:13 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 typedef struct s_cmd_list	t_cmd_list;
 typedef struct s_cmd		t_cmd;
-
-/*** Error Messages ***/
-
-# define ERR_ECHO_FLAGS "Only flag '-n' may be used with echo command\n"
 
 /*** Enums ***/
 
