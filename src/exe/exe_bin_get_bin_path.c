@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 08:43:25 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/18 10:23:36 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/18 08:31:45 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*exe_bin_get_bin_path(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	char	*path;
 
-	if (ft_strchr(cmd_list_item->binary, '/') > 0)
+	if (ft_strchr(cmd_list_item->binary, '/'))
 		path = exe_bin_get_bin_path_direct(cmd_list_item->binary);
 	else
 		path = exe_bin_get_bin_path_search(cmd_list_item->binary, cmd_data);
