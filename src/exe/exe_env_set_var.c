@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:13:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/04 10:07:41 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/18 12:09:53 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	exe_env_set_var_new(char *var_str, t_cmd *cmd_data)
 	arr_size = 0;
 	while (cmd_data->envp[arr_size])
 		arr_size++;
-	new_env_array = malloc(sizeof(char *) * arr_size + 2);
+	new_env_array = malloc(sizeof(char *) * (arr_size + 2));
 	i = -1;
 	while (++i < arr_size)
 	{

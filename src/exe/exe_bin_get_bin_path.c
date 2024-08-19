@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 08:43:25 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/18 09:13:18 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/18 14:39:20 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*exe_bin_get_bin_path_search(char *binary, t_cmd *cmd_data)
 		free(cached_ptr);
 		if (access(path, F_OK) == 0)
 			return (exe_cleanup_strarray(paths_arr), free(paths_str), path);
+		free(path);
 	}
 	ft_putstr_fd(ERR_BIN_NOT_FOUND, 2);
 	return (exe_cleanup_strarray(paths_arr), free(paths_str), NULL);

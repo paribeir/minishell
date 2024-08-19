@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/17 23:05:00 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/18 14:25:51 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,57 +19,55 @@
 - else, exit and cleanup (cleanup needs to be implemented).
 */
 
-void	TEST_printf_stuff(t_cmd_list **head)
+void	debug_print_cmds(t_cmd_list *cmd, int active)
 {
-	t_cmd_list	*current;
 	int			i;
 
-	current = *head;
-	while (current)
+	while (active != 0 && cmd)
 	{
-		i = 0;
-		ft_printf("Type: %d\n", current->type);
-		if (current->binary)
-			ft_printf("	Binary: %s\n", current->binary);
-		if (current->type != T_PIPE && current->type != AND_IF && current->type != OR_IF)
-		{
-			while (current->arguments[i])
-			{
-				ft_printf("	Argument %d: %s\n", i, current->arguments[i]);
-				i++;
-			}
-		}
-		current = current->next;
+		i = -1;
+		ft_printf("Type: %d\n", cmd->type);
+		if (cmd->binary)
+			ft_printf("	Binary: %s\n", cmd->binary);
+		if (cmd->type != T_PIPE && cmd->type != AND_IF && cmd->type != OR_IF)
+			while (cmd->arguments[++i])
+				ft_printf("	Argument %d: %s\n", i, cmd->arguments[i]);
+		cmd = cmd->next;
 	}
+}
+
+void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
+{
+	char		*input;
+	t_token		*tokens;
+
+	exe_signals_default();
+	input = readline(BLUE "Mini🐚 > " NS);
+	if (input)
+	{
+		exe_signals_processing();
+		add_history(input);
+		tokens = tokenizer(input, cmd_data);
+		cmd_list = parse_tokens(&tokens);
+		debug_print_cmds(cmd_list, 0);
+		exe(cmd_list, cmd_data);
+		exe_cleanup_aftercmd(cmd_list);
+	}
+	else if (!input)
+		exit(EXIT_SUCCESS);
+	else
+		write(1, "", 0);
 }
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	char		*input;
-	t_token		*tokens;
-	t_cmd_list	*cmd_list;
 	t_cmd		cmd_data;
+	t_cmd_list	*cmd_list;
 
 	(void) argc;
 	(void) argv;
-	cmd_list = NULL;
 	cmd_data.envp = exe_env_cpy(envp);
+	cmd_list = NULL;
 	while (1)
-	{
-		exe_signals_default(cmd_list, &cmd_data);
-		input = readline(BLUE "Mini🐚 > " NS);
-		if (input)
-		{
-			exe_signals_processing(cmd_list, &cmd_data);
-			add_history(input);
-			tokens = tokenizer(input, &cmd_data);
-			cmd_list = parse_tokens(&tokens);
-			// TEST_printf_stuff(&cmd_list);
-			exe(cmd_list, &cmd_data);
-		}
-		else if (!input)
-			exit(EXIT_SUCCESS);
-		else
-			write(1, "", 0);
-	}
+		minishell(cmd_list, &cmd_data);
 }

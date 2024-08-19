@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:20:32 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/04 10:07:48 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/18 12:16:17 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,13 @@ int	exe_bltns_export_check_input(t_cmd_list *cmd_list)
 	while (*a != '\0')
 	{
 		if (*a < 65 || *a > 122 || (*a > 90 && *a < 97 && *a != 95))
+		{
+			exe_cleanup_strarray(str_array);
 			return (perror("export: not valid in this context"), 1);
+		}
 		a++;
 	}
+	exe_cleanup_strarray(str_array);
 	return (0);
 }
 
@@ -91,5 +95,6 @@ void	exe_bltns_export(t_cmd_list *cmd_list, t_cmd *cmd_data)
 		str_arr = ft_split(cmd_list->arguments[0], '=');
 		if (exe_bltns_export_check_input(cmd_list) == 0)
 			exe_env_set_var(str_arr[0], str_arr[1], cmd_data);
+		exe_cleanup_strarray(str_arr);
 	}
 }

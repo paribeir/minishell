@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/18 09:47:13 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/18 14:25:43 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	exe_bltns_export(t_cmd_list *cmd_list, t_cmd *env);
 void	exe_bltns_pwd(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe_bltns_unset(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe_cleanup(t_cmd *cmd);
+void	exe_cleanup_aftercmd(t_cmd_list *cmd_list);
 void	exe_cleanup_strarray(char **strarray);
 void	exe_err(char *err_msg, t_err_actn err_actn, t_cmd *cmd);
 void	exe_directs(t_cmd_list *cmd_list_item, t_cmd *cmd);
@@ -50,8 +51,8 @@ char	**exe_env_cpy(char *envp[]);
 int		exe_env_set_var(char *var, char *value, t_cmd *cmd_data);
 void	exe_pipe_in(t_cmd *cmd_data);
 void	exe_pipe_out(t_cmd *cmd_data);
-void	exe_signals_default(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
-void	exe_signals_processing(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
+void	exe_signals_default(void);
+void	exe_signals_processing(void);
 void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data);
 
 #endif
