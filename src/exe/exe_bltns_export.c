@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:20:32 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/18 12:16:17 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/19 17:11:18 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,24 @@ void	exe_bltns_export_sort(char **cpy)
 	}
 }
 
-void	exe_bltns_export(t_cmd_list *cmd_list, t_cmd *cmd_data)
+void	exe_bltns_export_save_val(t_cmd_list *cmd_list, t_cmd *cmd_data)
 {
 	char	**str_arr;
+
+	if (ft_strchr(cmd_list->arguments[0], '='))
+	{
+		str_arr = ft_split(cmd_list->arguments[0], '=');
+		if (exe_bltns_export_check_input(cmd_list) == 0)
+			exe_env_set_var(str_arr[0], str_arr[1], cmd_data);
+		exe_cleanup_strarray(str_arr);
+	}
+	else
+		if (exe_bltns_export_check_input(cmd_list) == 0)
+			exe_env_set_var(cmd_list->arguments[0], "", cmd_data);
+}
+
+void	exe_bltns_export(t_cmd_list *cmd_list, t_cmd *cmd_data)
+{
 	char	**cpy;
 
 	if (cmd_list->arguments[0] == NULL)
@@ -91,10 +106,5 @@ void	exe_bltns_export(t_cmd_list *cmd_list, t_cmd *cmd_data)
 		exe_cleanup_strarray(cpy);
 	}
 	else
-	{
-		str_arr = ft_split(cmd_list->arguments[0], '=');
-		if (exe_bltns_export_check_input(cmd_list) == 0)
-			exe_env_set_var(str_arr[0], str_arr[1], cmd_data);
-		exe_cleanup_strarray(str_arr);
-	}
+		exe_bltns_export_save_val(cmd_list, cmd_data);
 }
