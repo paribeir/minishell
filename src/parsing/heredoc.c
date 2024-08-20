@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/04 21:48:52 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/20 17:36:04 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,26 +66,24 @@ char	*expand_heredoc(char *str, t_cmd *cmd_data)
 	char	*sum;
 	char	*before_var;
 	char	*dollar;
+	char	*var_value;
+	char	*next_dollar;
 
 	sum = ft_strdup("");
 	dollar = str;
-	while (dollar)
+	while (dollar && *dollar)
 	{
-		dollar = ft_strchr(str, '$');
-		if (!dollar)
+		next_dollar = ft_strchr(dollar, '$');
+		if (!next_dollar)
 		{
-			sum = aux_str_join(sum, str);
+			sum = aux_str_join(sum, dollar);
 			break ;
 		}
-		else
-		{
-			before_var = ft_substr(str, 0, ft_strchr(str, '$') - str);
-			sum = aux_str_join(sum, before_var);
-			sum = aux_str_join(sum, get_var(&dollar, cmd_data));
-		}
-		dollar = ft_strchr(dollar, '$');
-		if (dollar)
-			dollar++;
+		before_var = ft_substr(dollar, 0, next_dollar - dollar);
+		sum = aux_str_join(sum, before_var);
+		var_value = get_var(&next_dollar, cmd_data);
+		sum = aux_str_join(sum, var_value);
+		dollar = next_dollar;
 	}
 	return (sum);
 }

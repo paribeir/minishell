@@ -6,7 +6,7 @@
 /*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/20 11:58:40 by patricia         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:46:15 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ char	*get_var(char **str, t_cmd *cmd_data)
 	return (ft_strdup(var_content)); 
 }
 
-//return (ft_strdup(ft_itoa(cmd_data->exit_status)));
-/*char	*expand_error_code(char *str, t_cmd *cmd_data)
+/*return (ft_strdup(ft_itoa(cmd_data->exit_status)));
+char	*expand_error_code(char *str, t_cmd *cmd_data)
 {
 	char	*error_code;
 	char	*complete_str;
@@ -115,14 +115,73 @@ char	*get_var(char **str, t_cmd *cmd_data)
 
 
 	error_code = ft_strdup(ft_itoa(cmd_data->exit_status));
-	if (++str)
-	{
-		if (str[0] == '$')
-			get_var(*str, cmd_data);
-		complete_str = (char*)ft_calloc(ft_strlen(error_code) + ft_strlen(*str) + 1, 1);
-		if (!complete_str)
-			return (NULL);
-		complete_str = ft_strjoin(error_code, *str)
-	}
-
+	if (!error_code)
+		reutrn (NULL);
+	if (!(++str))
+		return (error_code);
+	if (str[0] == '$') //what if its followed by more variables? e.g. "$?$?$?"
+		//fill
+	complete_str = (char*)ft_calloc(ft_strlen(error_code) + ft_strlen(*str) + 1, 1);
+	if (!complete_str)
+		return (NULL);
+	complete_str = ft_strjoin(error_code, *str);
+	return (complete_str);
 }*/
+/*
+char	*get_var(char **str, t_cmd *cmd_data)
+{
+	char	*var;
+	char	*start;
+	char	*var_content;
+	char	*error_code;
+	char	*complete_str;
+
+	complete_str = "";
+	error_code = ft_strdup(ft_itoa(cmd_data->exit_status));
+	if (!error_code)
+		return (NULL);
+	while (**str)
+	{
+		while (**str && **str != '$')
+		if (**str == '?')
+			complete_str = ft_strjoin(complete_str, error_code);
+		else if (**str && (ft_isalnum(**str) || **str == '_'))
+			complete_str = ft_strjoin(complete_str, expand_regular_var(str, cmd_data));
+		else
+			(*str)++;
+
+	}
+	(*str)++;
+	start = *str;
+	if (start && start[0] == '?')
+		return (ft_strdup(ft_itoa(cmd_data->exit_status)));
+	else if (!start || (!ft_isalnum(*start) && *start != '_'))
+		return ("$");
+	while (**str && (ft_isalnum(**str) || **str == '_'))
+		(*str)++;
+	var_name = ft_substr(start, 0, *str - start);
+	if (!var_name)
+		return (NULL);
+	var_content = exe_env_get_var(var_name, cmd_data);
+	free(var_name);
+	if (!var_content)
+		return (ft_strdup(""));
+	return (ft_strdup(var_content)); 
+}
+
+
+
+
+$
+next
+is it a ?
+expand
+else
+is is 
+does it have anything afterwards?
+is it a $?
+next
+is it a ?
+expand
+....
+is it */
