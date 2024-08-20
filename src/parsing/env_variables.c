@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/17 23:05:37 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/19 14:09:21 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	add_expanded_var(char **current, char **str, t_cmd *cmd_data)
 		total = (char *)ft_calloc(strlen(*current) + strlen(var) + 1, sizeof(char));
 		if (total)
 		{
-			ft_strlcpy(total, *current, strlen(*current) + strlen(var) + 1);
-			ft_strlcat(total, var, strlen(*current) + strlen(var) + 1);
+			ft_strlcpy(total, *current, ft_strlen(*current) + ft_strlen(var) + 1);
+			ft_strlcat(total, var, ft_strlen(*current) + ft_strlen(var) + 1);
 			free (*current);
 			*current = total;
 		}
@@ -65,13 +65,13 @@ void	add_literal(char **current, char **str)
 	if (ft_strchr(*str, '\''))
 		len = ft_strchr(*str, '\'') - *str;
 	else
-		len = strlen(*str);
+		len = ft_strlen(*str);
 	total = ft_calloc(strlen(*current) + len + 1, sizeof(char));
 	if (total)
 	{
 		ft_strlcpy(total, *current, len);
 		ft_strlcat(total, *str, len);
-		free (*current);
+		free(*current);
 		*current = total;
 		*str += len;
 	}
@@ -79,7 +79,9 @@ void	add_literal(char **current, char **str)
             (*str)++;
 }
 
-/*expand variable*/
+/*If '$' is followed by a '?', it will be expanded into the exit status of the last foreground process.
+If there are more characters after the '?', they are kept as is, not affecting the expansion.
+e.g. $?hello --> 0hello*/
 char	*get_var(char **str, t_cmd *cmd_data)
 {
 	char	*var_name;
@@ -89,7 +91,7 @@ char	*get_var(char **str, t_cmd *cmd_data)
 	(*str)++;
 	start = *str;
 	if (start && start[0] == '?')
-		return (ft_strdup(ft_itoa(cmd_data->exit_status)));
+		return (expand_error_code(*str, cmd_data));
 	else if (!start || (!ft_isalnum(*start) && *start != '_'))
 		return ("$");
 	while (**str && (ft_isalnum(**str) || **str == '_'))
@@ -101,5 +103,26 @@ char	*get_var(char **str, t_cmd *cmd_data)
 	free(var_name);
 	if (!var_content)
 		return (ft_strdup(""));
-	return (ft_strdup(var_content));
+	return (ft_strdup(var_content)); 
+}
+
+//return (ft_strdup(ft_itoa(cmd_data->exit_status)));
+char	*expand_error_code(char *str, t_cmd *cmd_data)
+{
+	char	*error_code;
+	char	*complete_str;
+	char	*other;
+
+
+	error_code = ft_strdup(ft_itoa(cmd_data->exit_status));
+	if (++str)
+	{
+		if (str[0] == '$')
+			get_var(*str, cmd_data);
+		complete_str = (char*)ft_calloc(ft_strlen(error_code) + ft_strlen(*str) + 1, 1);
+		if (!complete_str)
+			return (NULL);
+		complete_str = ft_strjoin(error_code, *str)
+	}
+
 }
