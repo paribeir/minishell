@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_bltns_echo.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:02:37 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/17 23:02:05 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/20 19:58:54 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exe_bltns_echo_set_n_flag(char **args, int *n_flag, int *start)
 {
-	if (args)
+	if (*args)
 	{
 		if (args[0][0] == '-' && args[0][1] == 'n')
 			*n_flag = 1;
