@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/19 14:09:21 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:58:40 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*get_var(char **str, t_cmd *cmd_data)
 	(*str)++;
 	start = *str;
 	if (start && start[0] == '?')
-		return (expand_error_code(*str, cmd_data));
+		return (ft_strdup(ft_itoa(cmd_data->exit_status)));
 	else if (!start || (!ft_isalnum(*start) && *start != '_'))
 		return ("$");
 	while (**str && (ft_isalnum(**str) || **str == '_'))
@@ -107,7 +107,7 @@ char	*get_var(char **str, t_cmd *cmd_data)
 }
 
 //return (ft_strdup(ft_itoa(cmd_data->exit_status)));
-char	*expand_error_code(char *str, t_cmd *cmd_data)
+/*char	*expand_error_code(char *str, t_cmd *cmd_data)
 {
 	char	*error_code;
 	char	*complete_str;
@@ -125,4 +125,4 @@ char	*expand_error_code(char *str, t_cmd *cmd_data)
 		complete_str = ft_strjoin(error_code, *str)
 	}
 
-}
+}*/
