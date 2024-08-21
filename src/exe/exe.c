@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/21 19:22:44 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/21 19:50:16 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ void	exe_map(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	t == BLTIN_EXPORT || t == BLTIN_UNSET || t == BLTIN_ENV || t == BLTIN_EXIT)
 		exe_bltns(cmd_list_item, cmd_data);
 	else if (t == T_PIPE)
-		cmd_data->pipe_status[0] = -1;
+	{
+		cmd_data->pipe_status[1] = -1;
+		cmd_data->pipe_status[0] = 1;
+	}
 }
 
 void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data)
