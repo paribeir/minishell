@@ -6,21 +6,32 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/17 20:53:23 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/21 19:22:44 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_init_cmd_data(t_cmd *cmd_data)
+/*
+ * Setting the defautl values for command execution and checking if it is a pipe
+ * situation. pipe_status[0] is for if we need to read from a pipe.
+ * pipe_status[1] is for if we need to write to a pipe.
+ */
+
+void	exe_init_cmd_data(t_cmd *cmd_data, t_cmd_list *cmd_list_item)
 {
 	cmd_data->saved_stdin = dup(STDIN_FILENO);
 	cmd_data->saved_stdout = dup(STDOUT_FILENO);
-	cmd_data->pipe[0] = -1;
-	cmd_data->pipe[0] = -1;
-	cmd_data->pipe_status = -1;
-	cmd_data->fdout_status = -1;
+	cmd_data->pipe_status[0] = -1;
+	cmd_data->pipe_status[1] = -1;
 	cmd_data->exit_status = 0;
+	cmd_data->pipe_scenario = -1;
+	while (cmd_list_item)
+	{
+		if (cmd_list_item->type == PIPE)
+			cmd_data->pipe_scenario = 1;
+		cmd_list_item = cmd_list_item->next;
+	}
 }
 
 void	exe_reset_in_out(t_cmd *cmd_data)
@@ -31,44 +42,26 @@ void	exe_reset_in_out(t_cmd *cmd_data)
 	close(cmd_data->saved_stdout);
 }
 
+/*
+* First calls exe_set_in_out to look for redirects up until a pipe or the end
+* of the command. Calls binary and builtin execution afterwards. Finding a pipe
+* will reset pipe status to -1 so that the next run of exe_set_in_out will look
+* for redirects again.
+*/
+
 void	exe_map(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	t_token_subtype	t;
 
 	t = cmd_list_item->type;
+	exe_set_in_out(cmd_list_item, cmd_data);
 	if (t == BINARY)
 		exe_bin(cmd_list_item, cmd_data);
-	else if (t == T_PIPE)
-	{
-		exe_pipe_in(cmd_data);
-		cmd_data->pipe_status = -1;
-		cmd_data->fdout_status = -1;
-	}
 	else if (t == BLTIN_ECHO || t == BLTIN_CD || t == BLTIN_PWD || \
 	t == BLTIN_EXPORT || t == BLTIN_UNSET || t == BLTIN_ENV || t == BLTIN_EXIT)
 		exe_bltns(cmd_list_item, cmd_data);
-}
-
-void	exe_set_in_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
-{
-	t_token_subtype	t;
-
-	while (cmd_list_item && cmd_data->pipe_status == -1)
-	{
-		t = cmd_list_item->type;
-		if (t == HEREDOC || t == REDIR_IN || t == REDIR_OUT \
-		|| t == REDIR_APPEND)
-			exe_directs(cmd_list_item, cmd_data);
-		else if (t == T_PIPE)
-		{
-			if (cmd_data->pipe_status == -1)
-			{
-				cmd_data->pipe_status = 1;
-				exe_pipe_out(cmd_data);
-			}
-		}
-		cmd_list_item = cmd_list_item->next;
-	}
+	else if (t == T_PIPE)
+		cmd_data->pipe_status[0] = -1;
 }
 
 void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data)
@@ -76,11 +69,9 @@ void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data)
 	int		status;
 	pid_t	pid;
 
-	exe_init_cmd_data(cmd_data);
+	exe_init_cmd_data(cmd_data, cmd_list_item);
 	while (cmd_list_item)
 	{
-		if (cmd_data->pipe_status == -1)
-			exe_set_in_out(cmd_list_item, cmd_data);
 		exe_map(cmd_list_item, cmd_data);
 		cmd_list_item = cmd_list_item->next;
 	}

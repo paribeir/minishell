@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 01:10:21 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/18 10:10:25 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/21 19:27:28 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void	exe_bin(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	pid = fork();
 	if (pid == 0)
 	{
+		if (cmd_data->pipe_status[0] == 1)
+			dup2(cmd_data->pipe[0], STDIN_FILENO);
+		if (cmd_data->pipe_status[1] == 1)
+			dup2(cmd_data->pipe[1], STDOUT_FILENO);
 		if (execve(path, args, cmd_data->envp) == -1)
 		{
 			free(path);
@@ -32,6 +36,4 @@ void	exe_bin(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	}
 	free(path);
 	free(args);
-	dup2(cmd_data->saved_stdout, STDOUT_FILENO);
-	dup2(cmd_data->saved_stdin, STDIN_FILENO);
 }

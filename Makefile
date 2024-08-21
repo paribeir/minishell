@@ -6,7 +6,7 @@
 #    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/08/18 14:23:16 by jdach            ###   ########.fr        #
+#    Updated: 2024/08/21 18:43:26 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,8 +55,7 @@ exe/exe_env_get_var.c \
 exe/exe_env_get_var_address.c \
 exe/exe_env_cpy.c \
 exe/exe_env_set_var.c \
-exe/exe_pipe_in.c \
-exe/exe_pipe_out.c \
+exe/exe_set_in_out.c \
 exe/exe_signals.c \
 exe/exe.c \
 main.c \
