@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:55:09 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/21 20:54:00 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/21 21:56:55 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	exe_set_in_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	t_token_subtype	t;
 
-	while (cmd_list_item && cmd_data->pipe_status[1] == -1)
+	while (cmd_list_item && cmd_data->sub_cmd_flag == -1)
 	{
 		t = cmd_list_item->type;
 		if (t == HEREDOC || t == REDIR_IN || t == REDIR_OUT \
@@ -34,7 +34,9 @@ void	exe_set_in_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 			cmd_data->pipe_status[1] = 1;
 			pipe(cmd_data->pipe);
 			cmd_data->pipe_scenario = 1;
+			cmd_data->sub_cmd_flag = 1;
 		}
 		cmd_list_item = cmd_list_item->next;
 	}
+	cmd_data->sub_cmd_flag = 1;
 }

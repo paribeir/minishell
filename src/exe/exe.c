@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/21 20:54:22 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/21 22:05:22 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	exe_init_cmd_data(t_cmd *cmd_data, t_cmd_list *cmd_list_item)
 	cmd_data->pipe_status[1] = -1;
 	cmd_data->exit_status = 0;
 	cmd_data->pipe_scenario = -1;
+	cmd_data->sub_cmd_flag = -1;
 	(void) cmd_list_item;
 }
 
@@ -60,6 +61,7 @@ void	exe_map(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		exe_bltns(cmd_list_item, cmd_data);
 	else if (t == T_PIPE)
 	{
+		cmd_data->sub_cmd_flag = -1;
 		cmd_data->pipe_status[1] = -1;
 		cmd_data->pipe_status[0] = 1;
 	}
