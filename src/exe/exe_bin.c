@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 01:10:21 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/21 21:17:30 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/21 22:40:14 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ void	exe_bin(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	if (cmd_data->pipe_status[1] == 1)
 	{
 		close(cmd_data->pipe[1]);
+		if (cmd_data->pipe_status[0] == 1)
+		{
+			close(cmd_data->tmp_read_pipe_fd);
+			cmd_data->pipe_status[0] = 0;
+		}
 		cmd_data->tmp_read_pipe_fd = cmd_data->pipe[0];
 	}
 	if (cmd_data->pipe_status[0] == 1)

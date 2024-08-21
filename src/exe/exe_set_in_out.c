@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:55:09 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/21 21:56:55 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/21 22:33:31 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	exe_set_in_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	while (cmd_list_item && cmd_data->sub_cmd_flag == -1)
 	{
 		t = cmd_list_item->type;
-		if (t == HEREDOC || t == REDIR_IN || t == REDIR_OUT \
-		|| t == REDIR_APPEND)
+		if (t == HEREDOC || t == REDIR_IN || t == REDIR_OUT || t == REDIR_APPEND)
 			exe_directs(cmd_list_item, cmd_data);
 		else if (t == T_PIPE)
 		{

@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/21 22:05:22 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/21 22:24:14 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	exe_map(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data)
 {
 	int		status;
-	pid_t	pid;
 
 	exe_init_cmd_data(cmd_data, cmd_list_item);
 	while (cmd_list_item)
@@ -78,12 +77,7 @@ void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data)
 		exe_map(cmd_list_item, cmd_data);
 		cmd_list_item = cmd_list_item->next;
 	}
-	pid = wait(&status);
-	while (pid > 0)
-	{
-		if (WIFEXITED(status))
-			cmd_data->exit_status = WEXITSTATUS(status);
-		pid = wait(&status);
-	}
+	while (waitpid(-1, &status, 0) != -1)
+		continue ;
 	exe_reset_in_out(cmd_data);
 }
