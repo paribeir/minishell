@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 01:10:21 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/21 22:40:14 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/22 00:21:17 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	exe_bin(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		{
 			dup2(cmd_data->pipe[1], STDOUT_FILENO);
 			close(cmd_data->pipe[1]);
+			close(cmd_data->pipe[0]);
 		}
 		execve_return = execve(path, args, cmd_data->envp);
 		free(path);
