@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/21 19:50:16 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/21 20:54:22 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,21 @@
 /*
  * Setting the defautl values for command execution and checking if it is a pipe
  * situation. pipe_status[0] is for if we need to read from a pipe.
- * pipe_status[1] is for if we need to write to a pipe.
+ * pipe_status[1] is for if we need to write to a pipe. We also need to set the
+ * read end of the pipe to -1 as we will always copy that value to the
+ * cmd_data->tmp_read_pipe_fd.
  */
 
 void	exe_init_cmd_data(t_cmd *cmd_data, t_cmd_list *cmd_list_item)
 {
 	cmd_data->saved_stdin = dup(STDIN_FILENO);
 	cmd_data->saved_stdout = dup(STDOUT_FILENO);
+	cmd_data->pipe[0] = -1;
 	cmd_data->pipe_status[0] = -1;
 	cmd_data->pipe_status[1] = -1;
 	cmd_data->exit_status = 0;
 	cmd_data->pipe_scenario = -1;
-	while (cmd_list_item)
-	{
-		if (cmd_list_item->type == PIPE)
-			cmd_data->pipe_scenario = 1;
-		cmd_list_item = cmd_list_item->next;
-	}
+	(void) cmd_list_item;
 }
 
 void	exe_reset_in_out(t_cmd *cmd_data)

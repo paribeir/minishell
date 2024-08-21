@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:50:14 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/21 19:13:51 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/21 20:48:45 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	exe_bltns(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	int		pid;
 
-	if (cmd_data->pipe_status == 1)
+	if (cmd_data->pipe_status[1] == 1)
 	{
 		pid = fork();
 		if (pid == 0)

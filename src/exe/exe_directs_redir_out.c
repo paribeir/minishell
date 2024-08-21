@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 11:06:19 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/04 10:07:44 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/21 20:50:06 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ void	exe_directs_redir_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
-	cmd_data->fdout_status = 1;
+	(void)cmd_data;
 }
