@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:50:14 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/22 17:54:42 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/22 20:49:48 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,16 @@ void	exe_bltns(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	int		pid;
 
-	if (cmd_data->wr_to_pipe == 1)
+	if (cmd_data->pipe_scenario == 1)
 	{
 		pid = fork();
 		if (pid == 0)
 		{
-			dup2(cmd_data->pipe[1], STDOUT_FILENO);
+			exe_pipe_closing_child(cmd_data);
 			exe_bltns_map(cmd_list_item, cmd_data);
 			exit(EXIT_SUCCESS);
 		}
+		exe_pipe_closing_parent(cmd_data);
 	}
 	else
 		exe_bltns_map(cmd_list_item, cmd_data);

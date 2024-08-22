@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe_pipe_out.c                                     :+:      :+:    :+:   */
+/*   exe_pipe_closing_parent.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 22:48:29 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/21 17:41:07 by jdach            ###   ########.fr       */
+/*   Created: 2024/08/22 20:25:03 by jdach             #+#    #+#             */
+/*   Updated: 2024/08/22 20:27:18 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_pipe_out(t_cmd *cmd_data)
+void	exe_pipe_closing_parent(t_cmd *cmd_data)
 {
-
-	if (cmd_data->fdout_status == -1)
-		dup2(cmd_data->pipe[1], STDOUT_FILENO);
-	close(cmd_data->pipe[1]);
+	if (cmd_data->wr_to_pipe == 1 && cmd_data->rd_from_pipe == 1)
+	{
+		close(cmd_data->pipe[1]);
+		close(cmd_data->tmp_read_pipe_fd);
+		cmd_data->tmp_read_pipe_fd = cmd_data->pipe[0];
+	}
+	else if (cmd_data->wr_to_pipe == 1)
+	{
+		close(cmd_data->pipe[1]);
+		cmd_data->tmp_read_pipe_fd = cmd_data->pipe[0];
+	}
+	else if (cmd_data->rd_from_pipe == 1)
+		close(cmd_data->tmp_read_pipe_fd);
 }
