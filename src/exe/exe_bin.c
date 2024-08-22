@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 01:10:21 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/22 20:39:36 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/22 21:11:41 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void	exe_bin(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		if (execve_return == -1)
 			exit (127);
 	}
-	exe_pipe_closing_parent(cmd_data);
+	if (cmd_data->pipe_scenario == 1)
+		exe_pipe_closing_parent(cmd_data);
 }
