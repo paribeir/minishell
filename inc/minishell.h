@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/21 22:04:44 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/22 17:56:07 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ typedef struct s_cmd
 	int		saved_stdout;
 	int		pipe[2];
 	int		tmp_read_pipe_fd;
-	int		pipe_status[2];
+	int		wr_to_pipe;
+	int		rd_from_pipe;
 	char	**envp;
 	int		exit_status;
 	int		pipe_scenario;

@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 17:58:51 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/22 00:06:02 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/22 15:41:49 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,10 @@ void	exe_signals_refresh_readline(int signum)
 	rl_on_new_line();
 }
 
-void	exe_sigpipe(int signum)
-{
-	(void) signum;
-	ft_putstr_fd("sigpipe", 2);
-}
-
 void	exe_signals_default(void)
 {
 	signal(SIGINT, exe_signals_reinitiate_readline);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGPIPE, exe_sigpipe);
 }
 
 void	exe_signals_processing(void)

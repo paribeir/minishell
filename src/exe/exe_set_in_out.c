@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:55:09 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/21 22:33:31 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/22 17:54:28 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /*
 * Runs through the commands until it finds a pipe. If there is a redirect
 * stdin and stdout are mapped accordingly. When pipe is found a pipe is stored
-* in cmd_data and we set the necessity that we need to write to and read from
-* a pipe in pipe_status[0] and [1].
+* in cmd_data and we set the necessity that we need to write to
+* a pipe with wr_to_pipe.
 */
 
 void	exe_set_in_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
@@ -30,7 +30,7 @@ void	exe_set_in_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 			exe_directs(cmd_list_item, cmd_data);
 		else if (t == T_PIPE)
 		{
-			cmd_data->pipe_status[1] = 1;
+			cmd_data->wr_to_pipe = 1;
 			pipe(cmd_data->pipe);
 			cmd_data->pipe_scenario = 1;
 			cmd_data->sub_cmd_flag = 1;

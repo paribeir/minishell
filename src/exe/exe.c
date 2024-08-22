@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/21 22:24:14 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/22 17:56:33 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 /*
  * Setting the defautl values for command execution and checking if it is a pipe
- * situation. pipe_status[0] is for if we need to read from a pipe.
- * pipe_status[1] is for if we need to write to a pipe. We also need to set the
+ * situation. rd_from_pipe is for if we need to read from a pipe.
+ * wr_to_pipe is for if we need to write to a pipe. We also need to set the
  * read end of the pipe to -1 as we will always copy that value to the
  * cmd_data->tmp_read_pipe_fd.
  */
@@ -25,8 +25,8 @@ void	exe_init_cmd_data(t_cmd *cmd_data, t_cmd_list *cmd_list_item)
 	cmd_data->saved_stdin = dup(STDIN_FILENO);
 	cmd_data->saved_stdout = dup(STDOUT_FILENO);
 	cmd_data->pipe[0] = -1;
-	cmd_data->pipe_status[0] = -1;
-	cmd_data->pipe_status[1] = -1;
+	cmd_data->wr_to_pipe = -1;
+	cmd_data->rd_from_pipe = -1;
 	cmd_data->exit_status = 0;
 	cmd_data->pipe_scenario = -1;
 	cmd_data->sub_cmd_flag = -1;
@@ -62,8 +62,8 @@ void	exe_map(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	else if (t == T_PIPE)
 	{
 		cmd_data->sub_cmd_flag = -1;
-		cmd_data->pipe_status[1] = -1;
-		cmd_data->pipe_status[0] = 1;
+		cmd_data->wr_to_pipe = -1;
+		cmd_data->rd_from_pipe = 1;
 	}
 }
 
