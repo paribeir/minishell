@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/23 19:54:02 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/23 21:08:53 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	exe_with_pipes_start_pipe(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		exe_pipe_closing_child(cmd_data);
 		exe_set_in_out(cmd_list_item, cmd_data);
 		exe_with_pipes_map(cmd_list_item, cmd_data);
+		exit(EXIT_SUCCESS);
 	}
 	exe_pipe_closing_parent(cmd_data);
 }
@@ -124,15 +125,20 @@ void	exe_without_pipes(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	t_token_subtype	t;
 
 	exe_set_in_out(cmd_list_item, cmd_data);
-	t = cmd_list_item->type;
-	if (t == BINARY)
+	while (cmd_list_item)
 	{
-		pid = fork();
-		if (pid == 0)
-			exe_bin(cmd_list_item, cmd_data);
+		t = cmd_list_item->type;
+		if (t == BINARY)
+		{
+			pid = fork();
+			if (pid == 0)
+				exe_bin(cmd_list_item, cmd_data);
+		}
+		else if (t == BLTIN_ECHO || t == BLTIN_CD || t == BLTIN_PWD || t == BLTIN_EXPORT || t == BLTIN_UNSET || t == BLTIN_ENV || t == BLTIN_EXIT)
+			exe_bltns(cmd_list_item, cmd_data);
+		cmd_list_item = cmd_list_item->next;
 	}
-	else if (t == BLTIN_ECHO || t == BLTIN_CD || t == BLTIN_PWD || t == BLTIN_EXPORT || t == BLTIN_UNSET || t == BLTIN_ENV || t == BLTIN_EXIT)
-		exe_bltns(cmd_list_item, cmd_data);
+
 }
 
 void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data)
