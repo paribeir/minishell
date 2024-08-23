@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/22 17:44:58 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/23 19:55:57 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ t_cmd_list	*create_cmd_node(t_token *token)
 		return (NULL);
 	node->type = token->subtype;
 	node->binary = NULL;
+	node->arguments = NULL;
 	if (token->subtype == BINARY || token->subtype == BLTIN)
 	{
 		node->binary = ft_strdup(token->str);
