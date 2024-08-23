@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/22 17:44:58 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/23 14:55:21 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//TO DO: End function "create cmd node" by afinishing "get_arguments"
+//TO DO: End function "create cmd node" by finishing "get_arguments"
 //pipes and operators are not being correctly added to the linked list
 t_cmd_list	*parse_tokens(t_token **token)
 {
@@ -43,9 +43,9 @@ t_cmd_list	*parse_tokens(t_token **token)
 void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 {
 
-	t_token	*current;
+	t_token		*current;
 	t_cmd_list	*node;
-	int	flag;
+	int		flag;
 
 	current = token;
 	while (current && current->type > PIPE)

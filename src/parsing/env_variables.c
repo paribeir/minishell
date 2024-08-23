@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/20 15:46:15 by patricia         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:22:15 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	add_expanded_var(char **current, char **str, t_cmd *cmd_data)
 	char	*total;
 
 	var = get_var(str, cmd_data); //TO DO: check if this advances the string past the var name
-	if (var)
+	if (*var)
 	{
 		total = (char *)ft_calloc(strlen(*current) + strlen(var) + 1, sizeof(char));
 		if (total)
@@ -52,7 +52,7 @@ void	add_expanded_var(char **current, char **str, t_cmd *cmd_data)
 			free (*current);
 			*current = total;
 		}
-		free (var);
+		//free (var);
 	}
 }
 
@@ -76,7 +76,8 @@ void	add_literal(char **current, char **str)
 		*str += len;
 	}
 	if (**str == '\'')
-            (*str)++;
+		(*str)++;
+		
 }
 
 /*If '$' is followed by a '?', it will be expanded into the exit status of the last foreground process.
@@ -91,7 +92,10 @@ char	*get_var(char **str, t_cmd *cmd_data)
 	(*str)++;
 	start = *str;
 	if (start && start[0] == '?')
+	{
+		(*str)++;
 		return (ft_strdup(ft_itoa(cmd_data->exit_status)));
+	}
 	else if (!start || (!ft_isalnum(*start) && *start != '_'))
 		return ("$");
 	while (**str && (ft_isalnum(**str) || **str == '_'))
