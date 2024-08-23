@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/22 17:56:07 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/23 16:24:11 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_cmd
 	char	**envp;
 	int		exit_status;
 	int		pipe_scenario;
-	int		sub_cmd_flag;
+	int		subshell_flag;
 }	t_cmd;
 
 /*** Error Messages ***/
