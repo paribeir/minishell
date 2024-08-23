@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/23 19:36:43 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/23 19:41:11 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	exe_map(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 			exe_bltns(cmd_list_item, cmd_data);
 		else if (cmd_list_item->type == T_PIPE)
 			cmd_data->subshell_running = -1;
+		cmd_list_item = cmd_list_item->next;
 	}
 }
 
