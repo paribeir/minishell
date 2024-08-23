@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/23 14:55:21 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/08/23 19:57:12 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,9 @@ t_cmd_list	*parse_tokens(t_token **token)
 
 void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 {
-
-	t_token		*current;
 	t_cmd_list	*node;
-	int		flag;
+	t_token		*current;
+	int			flag;
 
 	current = token;
 	while (current && current->type > PIPE)
@@ -76,8 +75,8 @@ void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 /*free the initial linked list of tokens*/
 void	free_tokens(t_token **head)
 {
-	t_token *current;
-	t_token *temp;
+	t_token	*current;
+	t_token	*temp;
 
 	current = *head;
 	while (current)
@@ -108,6 +107,8 @@ void	node_add_back(t_cmd_list **head, t_cmd_list *new_node)
 	}
 }
 
+/*no need to check for token->next since that is one of the checks in parsing
+(a redirect must be followed by a filename)*/
 t_token	*token_fusion(t_token	*t)
 {
 	t_token	*token;
@@ -115,7 +116,7 @@ t_token	*token_fusion(t_token	*t)
 	token = t;
 	while (token)
 	{
-		if (token->type == IO_FILE || token->subtype == HEREDOC) // no need to check for token->next since that is one of the checks in parsing (a redirect must be followed by a filename)
+		if (token->type == IO_FILE || token->subtype == HEREDOC)
 			redir_token_fusion(&token);
 		else if (token->type == CMD_WORD)
 		{
@@ -130,8 +131,9 @@ t_token	*token_fusion(t_token	*t)
 
 //cat redirs
 void	redir_token_fusion(t_token **t)
-{	t_token *token;
-	t_token *temp;
+{
+	t_token	*token;
+	t_token	*temp;
 
 	token = *t;
 	temp = NULL;
@@ -169,13 +171,14 @@ void	is_bltin(t_token **token)
 
 t_cmd_list	*create_cmd_node(t_token *token)
 {
-	t_cmd_list *node;
+	t_cmd_list	*node;
 
 	node = (t_cmd_list *)malloc(sizeof(t_cmd_list));
 	if (!node)
 		return (NULL);
 	node->type = token->subtype;
 	node->binary = NULL;
+	node->arguments = NULL;
 	if (token->subtype == BINARY || token->subtype == BLTIN)
 	{
 		node->binary = ft_strdup(token->str);
@@ -185,8 +188,9 @@ t_cmd_list	*create_cmd_node(t_token *token)
 			return (NULL);
 		}
 	}
-	if (token->subtype >= BLTIN || token->subtype == BINARY || token->type == IO_FILE)
-		add_arguments(token, &node); // assign or use pointers?
+	if (token->subtype >= BLTIN || token->subtype == BINARY 
+		|| token->type == IO_FILE)
+		add_arguments(token, &node);
 	node->prev = NULL;
 	node->next = NULL;
 	return (node);
@@ -195,10 +199,10 @@ t_cmd_list	*create_cmd_node(t_token *token)
 //get and assign arguments, delete argument tokens
 void	add_arguments(t_token *token, t_cmd_list **node)
 {
-	int	nbr_args;
+	int		nbr_args;
 	t_token	*current;
 	t_token	*temp;
-	int	i;
+	int		i;
 
 	nbr_args = 0;
 	temp = NULL;
