@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/23 16:22:15 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:30:34 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,21 @@ void	add_expanded_var(char **current, char **str, t_cmd *cmd_data)
 void	add_literal(char **current, char **str)
 {
 	char	*total;
-	int		len;
+	int		i;
 
-	if (ft_strchr(*str, '\''))
-		len = ft_strchr(*str, '\'') - *str;
-	else
-		len = ft_strlen(*str);
-	total = ft_calloc(strlen(*current) + len + 1, sizeof(char));
-	if (total)
-	{
-		ft_strlcpy(total, *current, len);
-		ft_strlcat(total, *str, len);
-		free(*current);
-		*current = total;
-		*str += len;
-	}
+	total = (char *)ft_calloc(ft_strlen(*str), 1);
+	i = 0;
 	if (**str == '\'')
 		(*str)++;
-		
+	while (**str && **str != '\'')
+	{
+		total[i++] = **str;
+		(*str)++;
+	}
+	if (**str && **str == '\'')
+		(*str)++;
+	total[i] = '\0';
+	*current = total;
 }
 
 /*If '$' is followed by a '?', it will be expanded into the exit status of the last foreground process.
