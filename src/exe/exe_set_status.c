@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe_bltns_pwd.c                                    :+:      :+:    :+:   */
+/*   exe_set_status.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 17:24:36 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/24 09:18:22 by jdach            ###   ########.fr       */
+/*   Created: 2024/08/24 10:54:02 by jdach             #+#    #+#             */
+/*   Updated: 2024/08/24 10:56:15 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_bltns_pwd(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
+void	exe_set_status(int status_nb)
 {
-	char	*pwd_str;
-
-	(void) cmd_list_item;
-	pwd_str = exe_env_get_var("PWD", cmd_data);
-	printf("%s\n", pwd_str);
+	g_status = status_nb;
 }

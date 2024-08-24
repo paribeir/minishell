@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/23 18:40:38 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/24 10:55:04 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	exe_bltns_unset(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe_cleanup(t_cmd *cmd);
 void	exe_cleanup_aftercmd(t_cmd_list *cmd_list);
 void	exe_cleanup_strarray(char **strarray);
-void	exe_err(char *err_msg, t_err_actn err_actn, t_cmd *cmd);
 void	exe_directs(t_cmd_list *cmd_list_item, t_cmd *cmd);
 void	exe_directs_append(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe_directs_here_doc(t_cmd_list *cmd_list_item);
@@ -49,9 +48,11 @@ char	*exe_env_get_var_address(char *var, t_cmd *cmd_data);
 char	*exe_env_get_var(char *var, t_cmd *cmd_data);
 char	**exe_env_cpy(char *envp[]);
 int		exe_env_set_var(char *var, char *value, t_cmd *cmd_data);
+void	exe_err_long(char *err_str);
 void	exe_pipe_closing_child(t_cmd *cmd_data);
 void	exe_pipe_closing_parent(t_cmd *cmd_data);
 void	exe_set_in_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
+void	exe_set_status(int status_nb);
 void	exe_signals_default(void);
 void	exe_signals_processing(void);
 void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data);

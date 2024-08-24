@@ -6,11 +6,13 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/24 08:45:37 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/24 10:52:45 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_status = 0;
 
 /*
 - initialize history.
@@ -67,7 +69,6 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argc;
 	(void) argv;
 	cmd_data.envp = exe_env_cpy(envp);
-	cmd_data.exit_status = 0;
 	cmd_list = NULL;
 	while (1)
 		minishell(cmd_list, &cmd_data);

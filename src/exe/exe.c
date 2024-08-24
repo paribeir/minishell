@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/23 21:08:53 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/24 10:51:59 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	exe_init_cmd_data(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		cmd_list_item = cmd_list_item->next;
 	}
 	cmd_data->subshell_running = -1;
-	cmd_data->exit_status = 0;
 }
 
 void	exe_reset_in_out(t_cmd *cmd_data)
@@ -155,7 +154,7 @@ void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data)
 	while (pid > 0)
 	{
 		if (WIFEXITED(status))
-			cmd_data->exit_status = WEXITSTATUS(status);
+			g_status = WEXITSTATUS(status);
 		pid = wait(&status);
 	}
 	exe_reset_in_out(cmd_data);

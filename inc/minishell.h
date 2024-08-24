@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/23 19:16:45 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/24 10:52:22 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # include "tokenizer.h"
 # include "parser.h"
 
+extern int	g_status;
+
 /*** Structs ***/
 
 typedef struct s_cmd
@@ -45,15 +47,15 @@ typedef struct s_cmd
 	int		wr_to_pipe;
 	int		rd_from_pipe;
 	char	**envp;
-	int		exit_status;
 	int		pipe_scenario;
 	int		subshell_running;
 }	t_cmd;
 
 /*** Error Messages ***/
 
-# define ERR_BIN_NOT_FOUND "minishell: No such file or directory\n"
+# define ERR_BIN_NOT_FOUND "No such file or directory\n"
 # define ERR_ECHO_FLAGS "Only flag '-n' may be used with echo command\n"
+# define ERR_EXPORT_INVALID_ID "not a valid identifier"
 
 /*** Colors ***/
 

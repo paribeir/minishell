@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/23 19:29:30 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/08/24 10:48:18 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*get_var(char **str, t_cmd *cmd_data)
 	if (start && start[0] == '?')
 	{
 		(*str)++;
-		return (ft_strdup(ft_itoa(cmd_data->exit_status)));
+		return (ft_strdup(ft_itoa(g_status)));
 	}
 	else if (!start || (!ft_isalnum(*start) && *start != '_'))
 		return ("$");
@@ -104,5 +104,5 @@ char	*get_var(char **str, t_cmd *cmd_data)
 	free(var_name);
 	if (!var_content)
 		return (ft_strdup(""));
-	return (ft_strdup(var_content)); 
+	return (ft_strdup(var_content));
 }
