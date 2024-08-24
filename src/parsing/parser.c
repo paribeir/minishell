@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/23 19:57:12 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/08/24 08:46:14 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ t_cmd_list	*create_cmd_node(t_token *token)
 			return (NULL);
 		}
 	}
-	if (token->subtype >= BLTIN || token->subtype == BINARY 
+	if (token->subtype >= BLTIN || token->subtype == BINARY
 		|| token->type == IO_FILE)
 		add_arguments(token, &node);
 	node->prev = NULL;

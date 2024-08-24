@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:55:09 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/22 17:54:28 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/23 18:48:52 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,16 @@
 void	exe_set_in_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	t_token_subtype	t;
+	int				pipe_found;
 
-	while (cmd_list_item && cmd_data->sub_cmd_flag == -1)
+	pipe_found = -1;
+	while (cmd_list_item && pipe_found == -1)
 	{
 		t = cmd_list_item->type;
 		if (t == HEREDOC || t == REDIR_IN || t == REDIR_OUT || t == REDIR_APPEND)
 			exe_directs(cmd_list_item, cmd_data);
-		else if (t == T_PIPE)
-		{
-			cmd_data->wr_to_pipe = 1;
-			pipe(cmd_data->pipe);
-			cmd_data->pipe_scenario = 1;
-			cmd_data->sub_cmd_flag = 1;
-		}
+		if (t == T_PIPE)
+			pipe_found = 1;
 		cmd_list_item = cmd_list_item->next;
 	}
-	cmd_data->sub_cmd_flag = 1;
 }

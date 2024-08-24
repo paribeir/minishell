@@ -1,6 +1,4 @@
 config
-dasdf
-dfasdf
 inc
 infile
 lib
@@ -10,7 +8,6 @@ minishell
 notes
 obj
 out
-outf
 outfff
 outttt
 README.md

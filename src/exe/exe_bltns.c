@@ -6,13 +6,13 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:50:14 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/22 20:49:48 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/23 18:39:44 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_bltns_map(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
+void	exe_bltns(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	if (cmd_list_item->type == BLTIN_ECHO)
 		exe_bltns_echo(cmd_list_item, cmd_data);
@@ -28,23 +28,4 @@ void	exe_bltns_map(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		exe_bltns_unset(cmd_list_item, cmd_data);
 	else if (cmd_list_item->type == BLTIN_EXIT)
 		exe_bltns_exit(cmd_list_item, cmd_data);
-}
-
-void	exe_bltns(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
-{
-	int		pid;
-
-	if (cmd_data->pipe_scenario == 1)
-	{
-		pid = fork();
-		if (pid == 0)
-		{
-			exe_pipe_closing_child(cmd_data);
-			exe_bltns_map(cmd_list_item, cmd_data);
-			exit(EXIT_SUCCESS);
-		}
-		exe_pipe_closing_parent(cmd_data);
-	}
-	else
-		exe_bltns_map(cmd_list_item, cmd_data);
 }
