@@ -6,7 +6,7 @@
 /*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/25 19:00:32 by patricia         ###   ########.fr       */
+/*   Updated: 2024/08/25 23:08:02 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ t_token	*token_fusion(t_token	*t)
 			while (token->next && token->next->type == CMD_WORD)
 				token = token->next;
 		}
+		if (token->type == PIPE || token->type == OPERATOR)
+			flag = 0;
 		token = token->next;
 	}
 	return (t);
@@ -206,11 +208,10 @@ void	add_arguments(t_token *token, t_cmd_list **node)
 {
 	int		nbr_args;
 	t_token	*current;
-	//t_token	*temp;
 	int		i;
 
+	current = NULL;
 	nbr_args = 0;
-	//temp = NULL;
 	if (token->type == IO_FILE) //redirects
 	{
 		(*node)->arguments = (char **)malloc(2 * sizeof(char *));
@@ -233,7 +234,7 @@ void	add_arguments(t_token *token, t_cmd_list **node)
 	else if (token->next) //if its a binary and there is something afterwards
 	{
 		current = token->next;
-		while (current)
+		while (current && current->type > PIPE)
 		{
 			if (current->subtype == 0)
 				nbr_args++;
@@ -248,7 +249,7 @@ void	add_arguments(t_token *token, t_cmd_list **node)
 	}
 	current = token->next;
 	i = 0;
-	while (current)
+	while (current && current->type > PIPE)
 	{
 		if (current->subtype == 0)
 		{
