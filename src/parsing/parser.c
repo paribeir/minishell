@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/24 08:46:14 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/25 19:00:32 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,15 +112,18 @@ void	node_add_back(t_cmd_list **head, t_cmd_list *new_node)
 t_token	*token_fusion(t_token	*t)
 {
 	t_token	*token;
+	int	flag;
 
 	token = t;
+	flag = 0;
 	while (token)
 	{
 		if (token->type == IO_FILE || token->subtype == HEREDOC)
 			redir_token_fusion(&token);
 		else if (token->type == CMD_WORD)
 		{
-			is_bltin(&token);
+			is_bltin(&token, flag);
+			flag = 1;
 			while (token->next && token->next->type == CMD_WORD)
 				token = token->next;
 		}
@@ -150,8 +153,10 @@ void	redir_token_fusion(t_token **t)
 
 
 //is this command a builtin?
-void	is_bltin(t_token **token)
+void	is_bltin(t_token **token, int flag)
 {
+	if (flag)
+		return;
 	(*token)->subtype = BINARY;
 	if (!ft_strncmp("echo", (*token)->str, ft_strlen("echo") + 1))
 		(*token)->subtype = BLTIN_ECHO;
@@ -201,12 +206,12 @@ void	add_arguments(t_token *token, t_cmd_list **node)
 {
 	int		nbr_args;
 	t_token	*current;
-	t_token	*temp;
+	//t_token	*temp;
 	int		i;
 
 	nbr_args = 0;
-	temp = NULL;
-	if (token->type == IO_FILE)
+	//temp = NULL;
+	if (token->type == IO_FILE) //redirects
 	{
 		(*node)->arguments = (char **)malloc(2 * sizeof(char *));
 		if (!(*node)->arguments)
@@ -228,9 +233,10 @@ void	add_arguments(t_token *token, t_cmd_list **node)
 	else if (token->next) //if its a binary and there is something afterwards
 	{
 		current = token->next;
-		while (current && current->subtype == 0)
+		while (current)
 		{
-			nbr_args++;
+			if (current->subtype == 0)
+				nbr_args++;
         		current = current->next;
 		}
 	}
@@ -242,31 +248,23 @@ void	add_arguments(t_token *token, t_cmd_list **node)
 	}
 	current = token->next;
 	i = 0;
-	while (current && current->subtype == 0)
+	while (current)
 	{
-		(*node)->arguments[i] = ft_strdup(current->str);
-		if (!(*node)->arguments[i])
+		if (current->subtype == 0)
 		{
-			ft_printf("String duplication error\n");
-			while (i > 0)
-				free((*node)->arguments[i - 1]);
-			free ((*node)->arguments);
-			(*node)->arguments = NULL;
-			return ;
+			(*node)->arguments[i] = ft_strdup(current->str);
+			if (!(*node)->arguments[i])
+			{
+				ft_printf("String duplication error\n");
+				while (i > 0)
+					free((*node)->arguments[i--]);
+				free ((*node)->arguments);
+				(*node)->arguments = NULL;
+				return ;
+			}
+			i++;
 		}
-		if (current->next)
-		{
-			temp = current->next;
-			temp->prev = current->prev;
-			temp->next = current->next->next;
-		}
-		if (current->str)
-			free(current->str);
-		free (current);
-		current = temp;
-		temp = NULL;
-		i++;
+		current = current->next;
 	}
 	(*node)->arguments[i] = NULL;
-	token->next = current;
 }
