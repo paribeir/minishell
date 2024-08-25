@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:24:36 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/17 23:01:41 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/24 11:04:00 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,8 @@ void	exe_bltns_cd(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		exe_env_set_var("PWD", pwd, cmd_data);
 	}
 	else
+	{
+		exe_set_status(1);
 		perror("no such file or directory");
+	}
 }

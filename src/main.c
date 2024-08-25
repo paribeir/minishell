@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/24 10:52:45 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/25 14:22:40 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,16 @@ void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 		write(1, "", 0);
 }
 
+void	exe_increase_shlvl(t_cmd *cmd_data)
+{
+	int	old_shlvl;
+	int	new_shlvl;
+
+	old_shlvl = ft_atoi(exe_env_get_var("SHLVL", cmd_data));
+	new_shlvl = old_shlvl + 1;
+	exe_env_set_var("SHLVL", ft_itoa(new_shlvl), cmd_data);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_cmd		cmd_data;
@@ -69,6 +79,7 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argc;
 	(void) argv;
 	cmd_data.envp = exe_env_cpy(envp);
+	exe_increase_shlvl(&cmd_data);
 	cmd_list = NULL;
 	while (1)
 		minishell(cmd_list, &cmd_data);
