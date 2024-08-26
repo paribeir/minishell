@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:24:36 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/24 11:04:00 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/26 18:45:12 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ char	*exe_bltns_cd_get_target(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 int	exe_bltns_cd_check_input(t_cmd_list *cmd_list_item)
 {
 	if (cmd_list_item->arguments[1])
-		perror("minishell: cd: too many arguments");
+	{
+		ft_putstr_fd(ERR_CD_TOO_MANY_ARGS, 2);
+		g_status = 1;
+	}
 	return (0);
 }
 

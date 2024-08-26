@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 20:23:33 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/24 10:38:34 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/26 19:19:23 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	exe_err_long(char *err_str)
 {
-	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(err_str, 2);
+	ft_putstr_fd("\n", 2);
 }
