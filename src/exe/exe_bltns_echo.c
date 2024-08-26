@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:02:37 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/26 17:28:16 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/26 17:42:50 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void	exe_bltns_echo_set_n_flag(char **args, int *n_flag, int *start)
 {
-	int	space_after_n;
 	int	i;
 
-	space_after_n = 1;
 	i = 2;
 	if (*args)
 	{
