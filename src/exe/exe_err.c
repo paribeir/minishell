@@ -6,15 +6,14 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 20:23:33 by jdach             #+#    #+#             */
-/*   Updated: 2024/07/29 22:21:14 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/24 10:38:34 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_err(char *err_msg, t_err_actn err_actn, t_cmd *cmd)
+void	exe_err_long(char *err_str)
 {
-	perror(err_msg);
-	if (err_actn == CLEANUP)
-		exe_cleanup (cmd);
+	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd(err_str, 2);
 }

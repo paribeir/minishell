@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/23 14:55:21 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/08/25 23:08:02 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,9 @@ t_cmd_list	*parse_tokens(t_token **token)
 
 void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 {
-
-	t_token		*current;
 	t_cmd_list	*node;
-	int		flag;
+	t_token		*current;
+	int			flag;
 
 	current = token;
 	while (current && current->type > PIPE)
@@ -76,8 +75,8 @@ void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 /*free the initial linked list of tokens*/
 void	free_tokens(t_token **head)
 {
-	t_token *current;
-	t_token *temp;
+	t_token	*current;
+	t_token	*temp;
 
 	current = *head;
 	while (current)
@@ -108,21 +107,28 @@ void	node_add_back(t_cmd_list **head, t_cmd_list *new_node)
 	}
 }
 
+/*no need to check for token->next since that is one of the checks in parsing
+(a redirect must be followed by a filename)*/
 t_token	*token_fusion(t_token	*t)
 {
 	t_token	*token;
+	int	flag;
 
 	token = t;
+	flag = 0;
 	while (token)
 	{
-		if (token->type == IO_FILE || token->subtype == HEREDOC) // no need to check for token->next since that is one of the checks in parsing (a redirect must be followed by a filename)
+		if (token->type == IO_FILE || token->subtype == HEREDOC)
 			redir_token_fusion(&token);
 		else if (token->type == CMD_WORD)
 		{
-			is_bltin(&token);
+			is_bltin(&token, flag);
+			flag = 1;
 			while (token->next && token->next->type == CMD_WORD)
 				token = token->next;
 		}
+		if (token->type == PIPE || token->type == OPERATOR)
+			flag = 0;
 		token = token->next;
 	}
 	return (t);
@@ -130,8 +136,9 @@ t_token	*token_fusion(t_token	*t)
 
 //cat redirs
 void	redir_token_fusion(t_token **t)
-{	t_token *token;
-	t_token *temp;
+{
+	t_token	*token;
+	t_token	*temp;
 
 	token = *t;
 	temp = NULL;
@@ -148,8 +155,10 @@ void	redir_token_fusion(t_token **t)
 
 
 //is this command a builtin?
-void	is_bltin(t_token **token)
+void	is_bltin(t_token **token, int flag)
 {
+	if (flag)
+		return;
 	(*token)->subtype = BINARY;
 	if (!ft_strncmp("echo", (*token)->str, ft_strlen("echo") + 1))
 		(*token)->subtype = BLTIN_ECHO;
@@ -169,13 +178,14 @@ void	is_bltin(t_token **token)
 
 t_cmd_list	*create_cmd_node(t_token *token)
 {
-	t_cmd_list *node;
+	t_cmd_list	*node;
 
 	node = (t_cmd_list *)malloc(sizeof(t_cmd_list));
 	if (!node)
 		return (NULL);
 	node->type = token->subtype;
 	node->binary = NULL;
+	node->arguments = NULL;
 	if (token->subtype == BINARY || token->subtype == BLTIN)
 	{
 		node->binary = ft_strdup(token->str);
@@ -185,8 +195,9 @@ t_cmd_list	*create_cmd_node(t_token *token)
 			return (NULL);
 		}
 	}
-	if (token->subtype >= BLTIN || token->subtype == BINARY || token->type == IO_FILE)
-		add_arguments(token, &node); // assign or use pointers?
+	if (token->subtype >= BLTIN || token->subtype == BINARY
+		|| token->type == IO_FILE)
+		add_arguments(token, &node);
 	node->prev = NULL;
 	node->next = NULL;
 	return (node);
@@ -195,14 +206,13 @@ t_cmd_list	*create_cmd_node(t_token *token)
 //get and assign arguments, delete argument tokens
 void	add_arguments(t_token *token, t_cmd_list **node)
 {
-	int	nbr_args;
+	int		nbr_args;
 	t_token	*current;
-	t_token	*temp;
-	int	i;
+	int		i;
 
+	current = NULL;
 	nbr_args = 0;
-	temp = NULL;
-	if (token->type == IO_FILE)
+	if (token->type == IO_FILE) //redirects
 	{
 		(*node)->arguments = (char **)malloc(2 * sizeof(char *));
 		if (!(*node)->arguments)
@@ -224,9 +234,10 @@ void	add_arguments(t_token *token, t_cmd_list **node)
 	else if (token->next) //if its a binary and there is something afterwards
 	{
 		current = token->next;
-		while (current && current->subtype == 0)
+		while (current && current->type > PIPE)
 		{
-			nbr_args++;
+			if (current->subtype == 0)
+				nbr_args++;
         		current = current->next;
 		}
 	}
@@ -238,31 +249,23 @@ void	add_arguments(t_token *token, t_cmd_list **node)
 	}
 	current = token->next;
 	i = 0;
-	while (current && current->subtype == 0)
+	while (current && current->type > PIPE)
 	{
-		(*node)->arguments[i] = ft_strdup(current->str);
-		if (!(*node)->arguments[i])
+		if (current->subtype == 0)
 		{
-			ft_printf("String duplication error\n");
-			while (i > 0)
-				free((*node)->arguments[i - 1]);
-			free ((*node)->arguments);
-			(*node)->arguments = NULL;
-			return ;
+			(*node)->arguments[i] = ft_strdup(current->str);
+			if (!(*node)->arguments[i])
+			{
+				ft_printf("String duplication error\n");
+				while (i > 0)
+					free((*node)->arguments[i--]);
+				free ((*node)->arguments);
+				(*node)->arguments = NULL;
+				return ;
+			}
+			i++;
 		}
-		if (current->next)
-		{
-			temp = current->next;
-			temp->prev = current->prev;
-			temp->next = current->next->next;
-		}
-		if (current->str)
-			free(current->str);
-		free (current);
-		current = temp;
-		temp = NULL;
-		i++;
+		current = current->next;
 	}
 	(*node)->arguments[i] = NULL;
-	token->next = current;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:32:10 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/04 21:45:00 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/25 18:39:57 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	free_tokens(t_token **head);
 void	node_add_back(t_cmd_list **head, t_cmd_list *new_node);
 t_token	*token_fusion(t_token	*t);
 void	redir_token_fusion(t_token **t);
-void is_bltin(t_token **token);
+void	is_bltin(t_token **token, int flag);
 t_cmd_list	*create_cmd_node(t_token *token);
 void	add_arguments(t_token *token, t_cmd_list **node);
 

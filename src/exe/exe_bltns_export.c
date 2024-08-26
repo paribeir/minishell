@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:20:32 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/19 17:11:18 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/24 10:57:36 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	exe_bltns_export_check_input(t_cmd_list *cmd_list)
 
 	if (cmd_list->arguments && cmd_list->arguments[0][0] == '-')
 		return (perror("export: Minshell allows no options"), 1);
+	if (ft_strncmp("=", cmd_list->arguments[0], 2) == 0)
+		return (exe_err_long(ERR_EXPORT_INVALID_ID), exe_set_status(1), 1);
 	str_array = ft_split(cmd_list->arguments[0], '=');
 	a = str_array[0];
 	while (*a != '\0')
@@ -37,7 +39,7 @@ int	exe_bltns_export_check_input(t_cmd_list *cmd_list)
 		if (*a < 65 || *a > 122 || (*a > 90 && *a < 97 && *a != 95))
 		{
 			exe_cleanup_strarray(str_array);
-			return (perror("export: not valid in this context"), 1);
+			return (exe_err_long(ERR_EXPORT_INVALID_ID), exe_set_status(1), 1);
 		}
 		a++;
 	}
