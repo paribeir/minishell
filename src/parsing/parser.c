@@ -6,7 +6,7 @@
 /*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/25 23:08:02 by patricia         ###   ########.fr       */
+/*   Updated: 2024/08/26 22:10:25 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,9 @@ void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 	while (current && current->type > PIPE)
 	{
 		flag = 0;
-		if (current->subtype == type)
-			flag = 1;
-		else if (current->subtype == HEREDOC && type == REDIR_IN)
-			flag = 1;
-		else if (current->subtype == REDIR_APPEND && type == REDIR_OUT)
-			flag = 1;
-		else if (current->subtype >= BLTIN && type == BINARY)
+		if (current->subtype == type || (current->subtype == HEREDOC && type == REDIR_IN) ||
+			(current->subtype == REDIR_APPEND && type == REDIR_OUT) || 
+			(current->subtype >= BLTIN && type == BINARY))
 			flag = 1;
 		if (flag)
 		{
@@ -208,64 +204,91 @@ void	add_arguments(t_token *token, t_cmd_list **node)
 {
 	int		nbr_args;
 	t_token	*current;
-	int		i;
 
 	current = NULL;
 	nbr_args = 0;
 	if (token->type == IO_FILE) //redirects
 	{
-		(*node)->arguments = (char **)malloc(2 * sizeof(char *));
-		if (!(*node)->arguments)
-		{
-			ft_printf("Malloc error");
-			return ;
-		}
-		(*node)->arguments[0] = ft_strdup(token->str);
-		if (!(*node)->arguments[0])
-		{
-			ft_printf("String duplication error");
-			return ;
-			free((*node)->arguments);
-			(*node)->arguments = NULL;
-		}
-		(*node)->arguments[1] = NULL;
+		add_arguments_redirect (token, node);
 		return ;
 	}
 	else if (token->next) //if its a binary and there is something afterwards
-	{
-		current = token->next;
-		while (current && current->type > PIPE)
-		{
-			if (current->subtype == 0)
-				nbr_args++;
-        		current = current->next;
-		}
-	}
-	(*node)->arguments = (char **)malloc((nbr_args + 1) * sizeof(char *));
+		nbr_args = count_args(token);
+	alloc_args(token, current, node, nbr_args);
+}
+
+void	add_arguments_redirect(t_token *token, t_cmd_list **node)
+{
+	(*node)->arguments = (char **)malloc(2 * sizeof(char *));
 	if (!(*node)->arguments)
 	{
-		ft_printf("Malloc error\n");
+		ft_printf("Malloc error");
 		return ;
 	}
+	(*node)->arguments[0] = ft_strdup(token->str);
+	if (!(*node)->arguments[0])
+	{
+		ft_printf("String duplication error");
+		return ;
+		free((*node)->arguments);
+		(*node)->arguments = NULL;
+	}
+	(*node)->arguments[1] = NULL;
+	return ;
+}
+
+int	count_args(t_token *token)
+{
+	int	args;
+	t_token	*current;
+	
+	args = 0;
 	current = token->next;
-	i = 0;
 	while (current && current->type > PIPE)
 	{
 		if (current->subtype == 0)
-		{
-			(*node)->arguments[i] = ft_strdup(current->str);
-			if (!(*node)->arguments[i])
-			{
-				ft_printf("String duplication error\n");
-				while (i > 0)
-					free((*node)->arguments[i--]);
-				free ((*node)->arguments);
-				(*node)->arguments = NULL;
-				return ;
-			}
-			i++;
-		}
+			args++;
 		current = current->next;
 	}
+	return (args);
+}
+
+void	alloc_args(t_token *token, t_token *current, t_cmd_list **node, int nbr_args)
+{
+	int	i;
+	
+	i = 0;
+	current = token->next;
+	if (init_args(node, nbr_args))
+		return ;
+	while (current && current->type > PIPE)
+	{
+	    if (current->subtype == 0)
+	    {
+	        (*node)->arguments[i] = ft_strdup(current->str);
+	        if (!(*node)->arguments[i])
+	        {
+	            ft_printf("String duplication error\n");
+	            while (i > 0)
+	                free((*node)->arguments[--i]);
+	            free((*node)->arguments);
+	            (*node)->arguments = NULL;
+	            return ;
+	        }
+	        i++;
+	    }
+	    current = current->next;
+	}
 	(*node)->arguments[i] = NULL;
+}
+
+int	init_args(t_cmd_list **node, int nbr_args)
+{
+	(*node)->arguments = (char **)malloc((nbr_args + 1) * sizeof(char *));
+	if (!(*node)->arguments)
+	{
+	    ft_printf("Malloc error\n");
+	    return (1);
+	}
+	return (0);
 }

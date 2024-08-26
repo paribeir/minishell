@@ -6,7 +6,7 @@
 /*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:32:10 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/25 18:39:57 by patricia         ###   ########.fr       */
+/*   Updated: 2024/08/26 22:07:06 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,9 @@ void	redir_token_fusion(t_token **t);
 void	is_bltin(t_token **token, int flag);
 t_cmd_list	*create_cmd_node(t_token *token);
 void	add_arguments(t_token *token, t_cmd_list **node);
+void	add_arguments_redirect(t_token *token, t_cmd_list **node);
+int	count_args(t_token *token);
+void	alloc_args(t_token *token, t_token *current, t_cmd_list **node, int nbr_args);
+int	init_args(t_cmd_list **node, int nbr_args);
 
 #endif
