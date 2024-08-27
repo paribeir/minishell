@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 11:17:44 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/23 16:52:11 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/26 21:59:46 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 void	exe_directs(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
-	while (cmd_list_item && cmd_list_item->type != T_PIPE)
+	while (cmd_list_item && cmd_list_item->type != T_PIPE && \
+	cmd_data->stop_exe == -1)
 	{
 		if (cmd_list_item->type == HEREDOC)
 			exe_directs_here_doc(cmd_list_item);
 		else if (cmd_list_item->type == REDIR_IN)
-			exe_directs_redir_in(cmd_list_item);
+			exe_directs_redir_in(cmd_list_item, cmd_data);
 		else if (cmd_list_item->type == REDIR_OUT)
 			exe_directs_redir_out(cmd_list_item, cmd_data);
 		else if (cmd_list_item->type == REDIR_APPEND)

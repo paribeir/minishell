@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:55:09 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/23 18:48:52 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/26 21:53:15 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	exe_set_in_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	int				pipe_found;
 
 	pipe_found = -1;
-	while (cmd_list_item && pipe_found == -1)
+	while (cmd_list_item && pipe_found == -1 && cmd_data->stop_exe == -1)
 	{
 		t = cmd_list_item->type;
 		if (t == HEREDOC || t == REDIR_IN || t == REDIR_OUT || t == REDIR_APPEND)

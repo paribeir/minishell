@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/24 10:51:59 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/26 21:34:40 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	exe_init_cmd_data(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	cmd_data->wr_to_pipe = -1;
 	cmd_data->rd_from_pipe = -1;
 	cmd_data->pipe_scenario = -1;
+	cmd_data->stop_exe = -1;
 	while (cmd_list_item && cmd_data->pipe_scenario == -1)
 	{
 		if (cmd_list_item->type == T_PIPE)
@@ -101,7 +102,7 @@ void	exe_with_pipes_start_pipe(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 
 void	exe_with_pipes(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
-	while (cmd_list_item)
+	while (cmd_list_item && cmd_data->stop_exe == -1)
 	{
 		if (cmd_data->subshell_running == -1)
 		{
@@ -124,7 +125,7 @@ void	exe_without_pipes(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	t_token_subtype	t;
 
 	exe_set_in_out(cmd_list_item, cmd_data);
-	while (cmd_list_item)
+	while (cmd_list_item && cmd_data->stop_exe == -1)
 	{
 		t = cmd_list_item->type;
 		if (t == BINARY)

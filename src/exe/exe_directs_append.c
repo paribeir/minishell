@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 22:16:55 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/21 20:49:35 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/26 22:08:35 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@ void	exe_directs_append(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 
 	fd = 0;
 	fd = open(cmd_list_item->arguments[0], O_WRONLY | O_CREAT | O_APPEND, 0666);
+	if (fd == -1)
+	{
+		exe_err_long(ERR_NO_SUCH_FILE);
+		cmd_data->stop_exe = 1;
+		g_status = 1;
+		if (cmd_data->pipe_scenario == 1)
+			exit (1);
+		else
+			return ;
+	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	(void) cmd_data;

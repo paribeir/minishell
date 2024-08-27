@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/26 19:15:07 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/26 21:33:27 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_cmd
 	char	**envp;
 	int		pipe_scenario;
 	int		subshell_running;
+	int		stop_exe;
 }	t_cmd;
 
 /*** Error Messages ***/
@@ -60,7 +61,6 @@ typedef struct s_cmd
 # define ERR_EXIT_NO_NBR "numeric argument required"
 # define ERR_TOO_MANY_ARGS "too many arguments"
 # define ERR_NO_SUCH_FILE "No such file or directory"
-
 
 /*** Colors ***/
 
