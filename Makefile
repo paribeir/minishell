@@ -6,7 +6,7 @@
 #    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/08/24 10:55:23 by jdach            ###   ########.fr        #
+#    Updated: 2024/08/28 23:23:50 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ exe/exe_env_get_var.c \
 exe/exe_env_get_var_address.c \
 exe/exe_env_cpy.c \
 exe/exe_env_set_var.c \
+exe/exe_fd_checker.c \
 exe/exe_pipe_closing_child.c \
 exe/exe_pipe_closing_parent.c \
 exe/exe_set_in_out.c \

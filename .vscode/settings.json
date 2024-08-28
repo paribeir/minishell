@@ -16,6 +16,13 @@
 		"initializer_list": "c",
 		"ranges": "c",
 		"span": "c",
-		"__node_handle": "c"
+		"__node_handle": "c",
+		"__hash_table": "c",
+		"__tuple": "c",
+		"limits": "c",
+		"ratio": "c",
+		"variant": "c",
+		"chrono": "c",
+		"cstddef": "c"
 	}
 }

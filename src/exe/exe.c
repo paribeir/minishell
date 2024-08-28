@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/26 21:34:40 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/28 23:25:00 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data)
 	pid_t	pid;
 
 	exe_init_cmd_data(cmd_list_item, cmd_data);
+	exe_fd_checker(cmd_list_item, cmd_data);
 	if (cmd_data->pipe_scenario == 1)
 		exe_with_pipes(cmd_list_item, cmd_data);
 	else

@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/26 21:13:17 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/28 23:23:36 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	*exe_env_get_var(char *var, t_cmd *cmd_data);
 char	**exe_env_cpy(char *envp[]);
 int		exe_env_set_var(char *var, char *value, t_cmd *cmd_data);
 void	exe_err_long(char *err_str);
+void	exe_fd_checker(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe_pipe_closing_child(t_cmd *cmd_data);
 void	exe_pipe_closing_parent(t_cmd *cmd_data);
 void	exe_set_in_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data);

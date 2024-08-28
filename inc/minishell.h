@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/26 21:33:27 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/28 23:45:41 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <curses.h>
 # include <dirent.h>
+# include <errno.h>
 # include <limits.h>
 # include <stdio.h>
 # include <readline/readline.h>
@@ -60,7 +61,9 @@ typedef struct s_cmd
 # define ERR_CD_TOO_MANY_ARGS "minishell: cd: too many arguments"
 # define ERR_EXIT_NO_NBR "numeric argument required"
 # define ERR_TOO_MANY_ARGS "too many arguments"
-# define ERR_NO_SUCH_FILE "No such file or directory"
+# define ERR_FD_NO_SUCH_FILE "No such file or directory"
+# define ERR_FD_NOT_READABLE "Permission denied"
+# define ERR_FD_NOT_WRITABLE "Permission denied"
 
 /*** Colors ***/
 
