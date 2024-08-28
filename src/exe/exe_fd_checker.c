@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 01:10:21 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/29 00:06:47 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/28 22:18:59 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exe_fd_checker(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 				err_printing = 0;
 			}
 		}
-		else if (type == REDIR_OUT)
+		else if (type == REDIR_OUT || type == REDIR_APPEND)
 		{
 			file_path = cmd_list_item->arguments[0];
 			if (access(file_path, F_OK) == 0 && access(file_path, W_OK) != 0 && err_printing == 1)
