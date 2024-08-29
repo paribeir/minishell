@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/29 15:12:38 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/29 19:54:39 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 	while (current && current->type > PIPE)
 	{
 		(void) type;
+		flag = 0;
 		if (current->subtype != ARGUMENT && current->subtype != DQUOTE && current->subtype != SQUOTE)
 			flag = 1;
 		if (flag)
