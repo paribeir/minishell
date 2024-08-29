@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:13:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/18 12:09:53 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/29 23:12:32 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	exe_env_set_var(char *var, char *value, t_cmd *cmd_data)
 	char	*var_str;
 
 	i = -1;
+	if (value == NULL)
+		value = "";
 	var_str = exe_env_set_var_get_var_str(var, value);
 	while (cmd_data->envp[++i] != NULL)
 		if (ft_strncmp(cmd_data->envp[i], var, ft_strlen(var)) == 0)
