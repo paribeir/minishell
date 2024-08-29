@@ -6,13 +6,13 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 08:43:25 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/29 15:04:07 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/29 19:50:51 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_bin_check_permission(char *path, t_cmd *cmd_data)
+void	exe_bin_check_permission(char *path, t_cmd_list *cmd_list_item)
 {
 	struct stat	path_stats;
 
@@ -24,7 +24,10 @@ void	exe_bin_check_permission(char *path, t_cmd *cmd_data)
 	}
 	else if (access(path, F_OK) == -1)
 	{
-		exe_err_long(ERR_FD_NO_SUCH_FILE);
+		if (ft_strchr(cmd_list_item->binary, '/'))
+			exe_err_long(ERR_BIN_NO_SUCH_FOLDER);
+		else
+			exe_err_long(ERR_BIN_NOT_FOUND);
 		exit(127);
 	}
 	else if (access(path, X_OK) == -1)
@@ -32,7 +35,6 @@ void	exe_bin_check_permission(char *path, t_cmd *cmd_data)
 		exe_err_long(ERR_BIN_NON_EXECUTABEL);
 		exit(126);
 	}
-	(void) cmd_data;
 }
 
 char	*exe_bin_get_bin_path_search(char *binary, t_cmd *cmd_data)
@@ -56,7 +58,6 @@ char	*exe_bin_get_bin_path_search(char *binary, t_cmd *cmd_data)
 			return (exe_cleanup_strarray(paths_arr), free(paths_str), path);
 		free(path);
 	}
-	exe_err_long(ERR_BIN_NOT_FOUND);
 	return (exe_cleanup_strarray(paths_arr), free(paths_str), NULL);
 }
 
@@ -68,6 +69,6 @@ char	*exe_bin_get_bin_path(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		path = ft_strdup(cmd_list_item->binary);
 	else
 		path = exe_bin_get_bin_path_search(cmd_list_item->binary, cmd_data);
-	exe_bin_check_permission(path, cmd_data);
+	exe_bin_check_permission(path, cmd_list_item);
 	return (path);
 }

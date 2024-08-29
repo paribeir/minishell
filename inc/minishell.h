@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/29 14:49:00 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/29 19:55:22 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_cmd
 
 /*** Error Messages ***/
 
-# define ERR_BIN_NOT_FOUND "command not found"
 # define ERR_ECHO_FLAGS "Only flag '-n' may be used with echo command\n"
 # define ERR_EXPORT_INVALID_ID "not a valid identifier"
 # define ERR_CD_TOO_MANY_ARGS "minishell: cd: too many arguments"
@@ -64,8 +63,10 @@ typedef struct s_cmd
 # define ERR_FD_NO_SUCH_FILE "No such file or directory"
 # define ERR_FD_NOT_READABLE "Permission denied"
 # define ERR_FD_NOT_WRITABLE "Permission denied"
-# define ERR_BIN_IS_FOLDER "is a directory"
+# define ERR_BIN_NOT_FOUND "command not found"
+# define ERR_BIN_IS_FOLDER "Is a directory"
 # define ERR_BIN_NON_EXECUTABEL "Permission denied"
+# define ERR_BIN_NO_SUCH_FOLDER "No such file or directory"
 
 /*** Colors ***/
 
