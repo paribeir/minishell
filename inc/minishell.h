@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/29 19:55:22 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/29 21:28:40 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_cmd
 # define ERR_ECHO_FLAGS "Only flag '-n' may be used with echo command\n"
 # define ERR_EXPORT_INVALID_ID "not a valid identifier"
 # define ERR_CD_TOO_MANY_ARGS "minishell: cd: too many arguments"
+# define ERR_CD_NO_SUCH_DIRECTORY "No such file or directory"
 # define ERR_EXIT_NO_NBR "numeric argument required"
 # define ERR_TOO_MANY_ARGS "too many arguments"
 # define ERR_FD_NO_SUCH_FILE "No such file or directory"

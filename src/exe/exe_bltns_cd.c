@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:24:36 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/29 23:21:34 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/29 21:28:55 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ void	exe_bltns_cd(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	else
 	{
 		exe_set_status(1);
-		perror("no such file or directory");
+		exe_err_long(ERR_CD_NO_SUCH_DIRECTORY);
 	}
 }
