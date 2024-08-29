@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/28 22:15:28 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/29 14:49:00 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct s_cmd
 # define ERR_FD_NO_SUCH_FILE "No such file or directory"
 # define ERR_FD_NOT_READABLE "Permission denied"
 # define ERR_FD_NOT_WRITABLE "Permission denied"
+# define ERR_BIN_IS_FOLDER "is a directory"
+# define ERR_BIN_NON_EXECUTABEL "Permission denied"
 
 /*** Colors ***/
 
