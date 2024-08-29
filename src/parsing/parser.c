@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/29 13:18:35 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/29 15:11:18 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ t_cmd_list	*parse_tokens(t_token **token)
 	while (current)
 	{
 		reorder_tokens(current, &head, REDIR_IN);
-		reorder_tokens(current, &head, BINARY);
-		reorder_tokens(current, &head, REDIR_OUT);
 		while (current && current->type != PIPE && current->type != OPERATOR)
 			current = current->next;
 		if (current)
@@ -50,9 +48,14 @@ void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 	while (current && current->type > PIPE)
 	{
 		flag = 0;
+<<<<<<< HEAD
 		if (current->subtype == type || (current->subtype == HEREDOC && type == REDIR_IN) ||
 			(current->subtype == REDIR_APPEND && type == REDIR_OUT) ||
 			(current->subtype >= BLTIN && type == BINARY))
+=======
+		(void) type;
+		if (current->subtype != ARGUMENT && current->subtype != DQUOTE && current->subtype != SQUOTE)
+>>>>>>> noreorder
 			flag = 1;
 		if (flag)
 		{
