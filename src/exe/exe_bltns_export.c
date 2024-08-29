@@ -6,46 +6,21 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:20:32 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/24 10:57:36 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/29 23:00:36 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+#define VALID_CHARACTERS_START "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST\
+UVWXYZ_"
+#define VALID_CHARACTERS_LATER "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST\
+UVWXYZ0123456789_"
+
 /*
  _=./minishell should be removed from the export. This will actually be
  _=/usr/bin/env when calling env.
 */
-
-/*
- * @brief	Cheks the input of the export command for correct parameters.
- * @details
- * @param	cmd_list The current node of our command list.
- * @return	Returns 0 on success and -1 on error.
- */
-int	exe_bltns_export_check_input(t_cmd_list *cmd_list)
-{
-	char	*a;
-	char	**str_array;
-
-	if (cmd_list->arguments && cmd_list->arguments[0][0] == '-')
-		return (perror("export: Minshell allows no options"), 1);
-	if (ft_strncmp("=", cmd_list->arguments[0], 2) == 0)
-		return (exe_err_long(ERR_EXPORT_INVALID_ID), exe_set_status(1), 1);
-	str_array = ft_split(cmd_list->arguments[0], '=');
-	a = str_array[0];
-	while (*a != '\0')
-	{
-		if (*a < 65 || *a > 122 || (*a > 90 && *a < 97 && *a != 95))
-		{
-			exe_cleanup_strarray(str_array);
-			return (exe_err_long(ERR_EXPORT_INVALID_ID), exe_set_status(1), 1);
-		}
-		a++;
-	}
-	exe_cleanup_strarray(str_array);
-	return (0);
-}
 
 void	exe_bltns_export_print(char **envp)
 {
@@ -80,27 +55,57 @@ void	exe_bltns_export_sort(char **cpy)
 	}
 }
 
-void	exe_bltns_export_save_val(t_cmd_list *cmd_list, t_cmd *cmd_data)
+/*
+ * @brief	Cheks the input of the export command for correct parameters.
+ * @details
+ * @param	cmd_list The current node of our command list.
+ * @return	Returns 0 on success and -1 on error.
+ */
+int	exe_bltns_export_check_input(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (s[0] == '-')
+		return (perror("export: Minshell allows no options"), 1);
+	if (ft_strchr(VALID_CHARACTERS_START, s[0]) == 0)
+		return (exe_err_long(ERR_EXPORT_INVALID_ID), exe_set_status(1), 1);
+	while (s[++i] != '\0')
+	{
+		if (ft_strchr(VALID_CHARACTERS_LATER, s[i]) == 0)
+			return (exe_err_long(ERR_EXPORT_INVALID_ID), exe_set_status(1), 1);
+	}
+	return (0);
+}
+
+void	exe_bltns_export_save_val(char *str, t_cmd *cmd_data)
 {
 	char	**str_arr;
 
-	if (ft_strchr(cmd_list->arguments[0], '='))
+	if (ft_strncmp(str, "=", 1) == 0)
 	{
-		str_arr = ft_split(cmd_list->arguments[0], '=');
-		if (exe_bltns_export_check_input(cmd_list) == 0)
+		exe_err_long(ERR_EXPORT_INVALID_ID);
+		exe_set_status(1);
+	}
+	else if (ft_strchr(str, '='))
+	{
+		str_arr = ft_split(str, '=');
+		if (exe_bltns_export_check_input(str_arr[0]) == 0)
 			exe_env_set_var(str_arr[0], str_arr[1], cmd_data);
 		exe_cleanup_strarray(str_arr);
 	}
 	else
-		if (exe_bltns_export_check_input(cmd_list) == 0)
-			exe_env_set_var(cmd_list->arguments[0], "", cmd_data);
+		if (exe_bltns_export_check_input(str) == 0)
+			exe_env_set_var(str, "", cmd_data);
 }
 
-void	exe_bltns_export(t_cmd_list *cmd_list, t_cmd *cmd_data)
+void	exe_bltns_export(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	char	**cpy;
+	int		i;
 
-	if (cmd_list->arguments[0] == NULL)
+	i = -1;
+	if (cmd_list_item->arguments[0] == NULL)
 	{
 		cpy = exe_env_cpy(cmd_data->envp);
 		exe_bltns_export_sort(cpy);
@@ -108,5 +113,6 @@ void	exe_bltns_export(t_cmd_list *cmd_list, t_cmd *cmd_data)
 		exe_cleanup_strarray(cpy);
 	}
 	else
-		exe_bltns_export_save_val(cmd_list, cmd_data);
+		while (cmd_list_item->arguments[++i])
+			exe_bltns_export_save_val(cmd_list_item->arguments[i], cmd_data);
 }
