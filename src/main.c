@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/29 21:30:15 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/29 19:45:42 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	debug_print_cmds(t_cmd_list *cmd, int active)
 		if (cmd->binary)
 			ft_printf("	Binary: %s\n", cmd->binary);
 		if (cmd->type != T_PIPE && cmd->type != AND_IF && cmd->type != OR_IF)
-			while (cmd->arguments[++i])
+			while (cmd->arguments && cmd->arguments[++i])
 				ft_printf("	Argument %d: %s\n", i, cmd->arguments[i]);
 		cmd = cmd->next;
 	}
@@ -51,7 +51,7 @@ void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 		add_history(input);
 		tokens = tokenizer(input, cmd_data);
 		cmd_list = parse_tokens(&tokens);
-		debug_print_cmds(cmd_list, 0);
+		debug_print_cmds(cmd_list, 1);
 		exe(cmd_list, cmd_data);
 		exe_cleanup_aftercmd(cmd_list);
 	}

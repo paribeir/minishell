@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:20:32 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/04 10:07:45 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/29 19:01:18 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,5 @@ void	exe_bltns_unset(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		var = cmd_list_item->arguments[j];
 		exe_bltns_unset_search(var, cmd_data);
 	}
+	g_status = 0;
 }
