@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/26 22:10:25 by patricia         ###   ########.fr       */
+/*   Updated: 2024/08/29 13:18:35 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 	{
 		flag = 0;
 		if (current->subtype == type || (current->subtype == HEREDOC && type == REDIR_IN) ||
-			(current->subtype == REDIR_APPEND && type == REDIR_OUT) || 
+			(current->subtype == REDIR_APPEND && type == REDIR_OUT) ||
 			(current->subtype >= BLTIN && type == BINARY))
 			flag = 1;
 		if (flag)
@@ -241,7 +241,7 @@ int	count_args(t_token *token)
 {
 	int	args;
 	t_token	*current;
-	
+
 	args = 0;
 	current = token->next;
 	while (current && current->type > PIPE)
@@ -256,7 +256,7 @@ int	count_args(t_token *token)
 void	alloc_args(t_token *token, t_token *current, t_cmd_list **node, int nbr_args)
 {
 	int	i;
-	
+
 	i = 0;
 	current = token->next;
 	if (init_args(node, nbr_args))

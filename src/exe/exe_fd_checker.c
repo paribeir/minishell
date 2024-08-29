@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 01:10:21 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/28 22:18:59 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/29 13:16:07 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	exe_fd_checker(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	char			*file_path;
 
 	err_printing = 1;
-	type = cmd_list_item->type;
 	while (cmd_list_item)
 	{
 		type = cmd_list_item->type;

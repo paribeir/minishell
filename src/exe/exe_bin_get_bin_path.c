@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 08:43:25 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/28 22:16:02 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/29 13:11:58 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*exe_bin_get_bin_path_direct(char *binary)
 {
 	if (access(binary, F_OK) == 0)
 		return (ft_strdup(binary));
-	exe_err_long(ERR_BIN_NOT_FOUND);
+	exe_err_long(ERR_FD_NO_SUCH_FILE);
 	return (NULL);
 }
 
