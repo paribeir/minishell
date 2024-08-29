@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/26 22:10:25 by patricia         ###   ########.fr       */
+/*   Updated: 2024/08/29 08:24:02 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ t_cmd_list	*parse_tokens(t_token **token)
 	while (current)
 	{
 		reorder_tokens(current, &head, REDIR_IN);
-		reorder_tokens(current, &head, BINARY);
-		reorder_tokens(current, &head, REDIR_OUT);
 		while (current && current->type != PIPE && current->type != OPERATOR)
 			current = current->next;
 		if (current)
@@ -50,9 +48,8 @@ void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 	while (current && current->type > PIPE)
 	{
 		flag = 0;
-		if (current->subtype == type || (current->subtype == HEREDOC && type == REDIR_IN) ||
-			(current->subtype == REDIR_APPEND && type == REDIR_OUT) || 
-			(current->subtype >= BLTIN && type == BINARY))
+		(void) type;
+		if (current->subtype != ARGUMENT && current->subtype != DQUOTE && current->subtype != SQUOTE)
 			flag = 1;
 		if (flag)
 		{
@@ -241,7 +238,7 @@ int	count_args(t_token *token)
 {
 	int	args;
 	t_token	*current;
-	
+
 	args = 0;
 	current = token->next;
 	while (current && current->type > PIPE)
@@ -256,7 +253,7 @@ int	count_args(t_token *token)
 void	alloc_args(t_token *token, t_token *current, t_cmd_list **node, int nbr_args)
 {
 	int	i;
-	
+
 	i = 0;
 	current = token->next;
 	if (init_args(node, nbr_args))
