@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:20:32 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/29 23:00:36 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/30 08:47:22 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	exe_bltns_export_check_input(char *s)
 
 	i = 0;
 	if (s[0] == '-')
-		return (perror("export: Minshell allows no options"), 1);
+		return (exe_err_long(ERR_BLTN_EXPORT_NO_OPTIONS), exe_set_status(1), 1);
 	if (ft_strchr(VALID_CHARACTERS_START, s[0]) == 0)
 		return (exe_err_long(ERR_EXPORT_INVALID_ID), exe_set_status(1), 1);
 	while (s[++i] != '\0')
@@ -104,6 +104,7 @@ void	exe_bltns_export(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	char	**cpy;
 	int		i;
 
+	g_status = 0;
 	i = -1;
 	if (cmd_list_item->arguments[0] == NULL)
 	{

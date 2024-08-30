@@ -6,7 +6,7 @@
 #    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/08/28 23:23:50 by jdach            ###   ########.fr        #
+#    Updated: 2024/08/30 12:20:54 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,6 @@ exe/exe_cleanup.c \
 exe/exe_cleanup_aftercmd.c \
 exe/exe_cleanup_strarray.c \
 exe/exe_err.c \
-exe/exe_directs.c \
 exe/exe_directs_append.c \
 exe/exe_directs_here_doc.c \
 exe/exe_directs_redir_in.c \
@@ -56,11 +55,14 @@ exe/exe_env_get_var_address.c \
 exe/exe_env_cpy.c \
 exe/exe_env_set_var.c \
 exe/exe_fd_checker.c \
+exe/exe_get_exit_status.c \
 exe/exe_pipe_closing_child.c \
 exe/exe_pipe_closing_parent.c \
 exe/exe_set_in_out.c \
 exe/exe_set_status.c \
 exe/exe_signals.c \
+exe/exe_with_pipes.c \
+exe/exe_without_pipes.c \
 exe/exe.c \
 main.c \
 parsing/env_variables.c \

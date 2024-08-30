@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/29 21:28:40 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/30 11:45:33 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ extern int	g_status;
 
 /*** Structs ***/
 
+typedef struct s_exit_status
+{
+	int	exit_status;
+	int	pid;
+}	t_exit_status;
+
 typedef struct s_cmd
 {
 	int		saved_stdin;
@@ -51,6 +57,7 @@ typedef struct s_cmd
 	int		pipe_scenario;
 	int		subshell_running;
 	int		stop_exe;
+	t_list	*exit_codes;
 }	t_cmd;
 
 /*** Error Messages ***/
@@ -68,6 +75,7 @@ typedef struct s_cmd
 # define ERR_BIN_IS_FOLDER "Is a directory"
 # define ERR_BIN_NON_EXECUTABEL "Permission denied"
 # define ERR_BIN_NO_SUCH_FOLDER "No such file or directory"
+# define ERR_BLTN_EXPORT_NO_OPTIONS "export: Minshell allows no options"
 
 /*** Colors ***/
 

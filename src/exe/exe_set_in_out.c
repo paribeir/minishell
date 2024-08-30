@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:55:09 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/26 21:53:15 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/30 08:11:09 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,20 @@
 
 void	exe_set_in_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
-	t_token_subtype	t;
-	int				pipe_found;
+	int	pipe_found;
 
 	pipe_found = -1;
 	while (cmd_list_item && pipe_found == -1 && cmd_data->stop_exe == -1)
 	{
-		t = cmd_list_item->type;
-		if (t == HEREDOC || t == REDIR_IN || t == REDIR_OUT || t == REDIR_APPEND)
-			exe_directs(cmd_list_item, cmd_data);
-		if (t == T_PIPE)
+		if (cmd_list_item->type == HEREDOC)
+			exe_directs_here_doc(cmd_list_item);
+		else if (cmd_list_item->type == REDIR_IN)
+			exe_directs_redir_in(cmd_list_item, cmd_data);
+		else if (cmd_list_item->type == REDIR_OUT)
+			exe_directs_redir_out(cmd_list_item, cmd_data);
+		else if (cmd_list_item->type == REDIR_APPEND)
+			exe_directs_append(cmd_list_item, cmd_data);
+		if (cmd_list_item->type == T_PIPE)
 			pipe_found = 1;
 		cmd_list_item = cmd_list_item->next;
 	}

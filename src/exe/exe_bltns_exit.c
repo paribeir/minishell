@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:14:00 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/29 19:43:21 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/30 12:27:12 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ void	exe_bltns_exit(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	int		i;
 	char	*str;
 
+	g_status = 0;
 	i = -1;
 	(void) cmd_data;
 	str = cmd_list_item->arguments[0];
 	if (cmd_list_item->arguments[0] && cmd_list_item->arguments[1])
 	{
 		exe_err_long(ERR_TOO_MANY_ARGS);
+		ft_putstr_fd("exit\n", 1);
 		exit(1);
 	}
 	if (str != NULL)
@@ -35,7 +37,9 @@ void	exe_bltns_exit(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 				exit(2);
 			}
 		}
+		ft_putstr_fd("exit\n", 1);
 		exit(ft_atoi(cmd_list_item->arguments[0]));
 	}
+	ft_putstr_fd("exit\n", 1);
 	exit(EXIT_SUCCESS);
 }

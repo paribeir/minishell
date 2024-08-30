@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:24:36 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/24 08:57:59 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/30 08:43:21 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	exe_bltns_env(char **envp)
 {
 	int	i;
 
+	g_status = 0;
 	i = 0;
 	while (envp[i] != NULL)
 		ft_printf("%s\n", envp[i++]);

@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 11:06:19 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/29 00:10:00 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/30 08:17:43 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,4 @@ void	exe_directs_redir_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
-	(void)cmd_data;
 }
