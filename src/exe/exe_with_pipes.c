@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 08:13:34 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/30 11:50:45 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/30 18:52:03 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	exe_with_pipes_map(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		t = cmd_list_item->type;
 		if (t == BINARY)
 			exe_bin(cmd_list_item, cmd_data);
-		else if (t == BLTIN_ECHO || t == BLTIN_CD || t == BLTIN_PWD || t == BLTIN_EXPORT || t == BLTIN_UNSET || t == BLTIN_ENV || t == BLTIN_EXIT)
+		else if (t == BLTIN_ECHO || t == BLTIN_CD || t == BLTIN_PWD || \
+		t == BLTIN_EXPORT || t == BLTIN_UNSET || t == BLTIN_ENV || \
+		t == BLTIN_EXIT)
 			exe_bltns(cmd_list_item, cmd_data);
 		else if (cmd_list_item->type == T_PIPE)
 			cmd_data->subshell_running = -1;

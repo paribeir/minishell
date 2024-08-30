@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 12:18:56 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/30 12:26:28 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/30 19:01:22 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	exe_get_exit_status_piped(pid_t pid, int status, t_cmd *cmd_data)
 	last_exit_status = ft_lstlast(cmd_data->exit_codes)->content;
 	g_status = last_exit_status->exit_status;
 }
-
 
 /******************************  INFO ******************************************
 We need to get the exit status of the child processes. However in a pipe

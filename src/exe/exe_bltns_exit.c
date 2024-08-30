@@ -6,27 +6,19 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:14:00 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/30 12:27:12 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/30 18:51:23 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_bltns_exit(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
+void	exe_bltns_exe_check_arg(t_cmd_list *cmd_list_item)
 {
-	int		i;
 	char	*str;
+	int		i;
 
-	g_status = 0;
-	i = -1;
-	(void) cmd_data;
 	str = cmd_list_item->arguments[0];
-	if (cmd_list_item->arguments[0] && cmd_list_item->arguments[1])
-	{
-		exe_err_long(ERR_TOO_MANY_ARGS);
-		ft_putstr_fd("exit\n", 1);
-		exit(1);
-	}
+	i = -1;
 	if (str != NULL)
 	{
 		while (str[++i] != '\0')
@@ -40,6 +32,19 @@ void	exe_bltns_exit(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		ft_putstr_fd("exit\n", 1);
 		exit(ft_atoi(cmd_list_item->arguments[0]));
 	}
+}
+
+void	exe_bltns_exit(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
+{
+	g_status = 0;
+	if (cmd_list_item->arguments[0] && cmd_list_item->arguments[1])
+	{
+		exe_err_long(ERR_TOO_MANY_ARGS);
+		ft_putstr_fd("exit\n", 1);
+		exit(1);
+	}
+	exe_bltns_exe_check_arg(cmd_list_item);
+	(void) cmd_data;
 	ft_putstr_fd("exit\n", 1);
 	exit(EXIT_SUCCESS);
 }

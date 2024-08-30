@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/30 12:20:21 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/30 18:34:23 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,6 @@
 
 typedef struct s_cmd_list	t_cmd_list;
 typedef struct s_cmd		t_cmd;
-
-/*** Enums ***/
-
-typedef enum s_err_actn
-{
-	CLEANUP,
-}	t_err_actn;
 
 /*** Functions ***/
 
