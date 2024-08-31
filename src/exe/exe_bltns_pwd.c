@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:24:36 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/30 08:43:12 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/31 07:53:32 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ void	exe_bltns_pwd(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	(void) cmd_list_item;
 	pwd_str = exe_env_get_var("PWD", cmd_data);
 	printf("%s\n", pwd_str);
+	free(pwd_str);
 }

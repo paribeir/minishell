@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:13:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/29 23:12:32 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/31 07:35:22 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	*exe_env_set_var_get_var_str(char *var, char *value)
 	temp_ptr = var_str;
 	var_str = ft_strjoin(var_str, value);
 	free(temp_ptr);
+	free(value);
 	return (var_str);
 }
 

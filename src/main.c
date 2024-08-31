@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/29 22:56:31 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/31 07:13:34 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,13 @@ void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 
 void	exe_increase_shlvl(t_cmd *cmd_data)
 {
-	int	old_shlvl;
-	int	new_shlvl;
+	int		old_shlvl;
+	int		new_shlvl;
+	char	*old_shlvl_str;
 
-	old_shlvl = ft_atoi(exe_env_get_var("SHLVL", cmd_data));
+	old_shlvl_str = exe_env_get_var("SHLVL", cmd_data);
+	old_shlvl = ft_atoi(old_shlvl_str);
+	free (old_shlvl_str);
 	new_shlvl = old_shlvl + 1;
 	exe_env_set_var("SHLVL", ft_itoa(new_shlvl), cmd_data);
 }

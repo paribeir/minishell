@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/24 10:48:18 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/31 08:24:38 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ char	*get_var(char **str, t_cmd *cmd_data)
 	char	*var_name;
 	char	*start;
 	char	*var_content;
+	char	*tmp_ptr;
 
 	(*str)++;
 	start = *str;
@@ -102,7 +103,8 @@ char	*get_var(char **str, t_cmd *cmd_data)
 		return (NULL);
 	var_content = exe_env_get_var(var_name, cmd_data);
 	free(var_name);
+	tmp_ptr = var_content;
 	if (!var_content)
 		return (ft_strdup(""));
-	return (ft_strdup(var_content));
+	return (free(tmp_ptr), ft_strdup(var_content));
 }
