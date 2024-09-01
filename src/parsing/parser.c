@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/29 19:54:39 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/01 13:11:28 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,14 @@ void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 {
 	t_cmd_list	*node;
 	t_token		*current;
-	int			flag;
 
 	current = token;
 	while (current && current->type > PIPE)
 	{
 		(void) type;
-		flag = 0;
-		if (current->subtype != ARGUMENT && current->subtype != DQUOTE && current->subtype != SQUOTE)
-			flag = 1;
-		if (flag)
+		if (!current->str[0] && !(current->subtype == SQUOTE || current->subtype == DQUOTE))
+			g_status = 0;
+		else if (current->subtype != ARGUMENT && current->subtype != DQUOTE && current->subtype != SQUOTE)
 		{
 			node = create_cmd_node(current);
 			if (!node)
@@ -115,9 +113,20 @@ t_token	*token_fusion(t_token	*t)
 			redir_token_fusion(&token);
 		else if (token->type == CMD_WORD)
 		{
+			while (token && token->type > PIPE)
+			{
+				if (token->str[0])
+				{
+					token->type = CMD_WORD;
+					break;
+				}
+				token = token->next;
+			}
+			if (!token)
+				continue; 
 			is_bltin(&token, flag);
 			flag = 1;
-			while (token->next && token->next->type == CMD_WORD)
+			while (token && token->next && token->next->type == CMD_WORD)
 				token = token->next;
 		}
 		if (token->type == PIPE || token->type == OPERATOR)
@@ -150,7 +159,7 @@ void	redir_token_fusion(t_token **t)
 //is this command a builtin?
 void	is_bltin(t_token **token, int flag)
 {
-	if (flag)
+	if (flag || !(*token))
 		return;
 	(*token)->subtype = BINARY;
 	if (!ft_strncmp("echo", (*token)->str, ft_strlen("echo") + 1))
@@ -260,19 +269,21 @@ void	alloc_args(t_token *token, t_token *current, t_cmd_list **node, int nbr_arg
 		return ;
 	while (current && current->type > PIPE)
 	{
-	    if (current->subtype == 0)
-	    {
-	        (*node)->arguments[i] = ft_strdup(current->str);
-	        if (!(*node)->arguments[i])
-	        {
-	            ft_printf("String duplication error\n");
-	            while (i > 0)
-	                free((*node)->arguments[--i]);
-	            free((*node)->arguments);
-	            (*node)->arguments = NULL;
-	            return ;
+		if (current->subtype == 0  && !current->str[0])
+			;
+		else if (current->subtype == 0 || current->subtype == SQUOTE || current->subtype == DQUOTE)
+		{
+	        	(*node)->arguments[i] = ft_strdup(current->str);
+	        	if (!(*node)->arguments[i])
+	        	{
+	            	ft_printf("String duplication error\n");
+	            	while (i > 0)
+	           	     free((*node)->arguments[--i]);
+	            	free((*node)->arguments);
+			(*node)->arguments = NULL;
+			return ;
 	        }
-	        i++;
+		 i++;
 	    }
 	    current = current->next;
 	}

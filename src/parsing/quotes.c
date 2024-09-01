@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:37:53 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/16 20:23:15 by jdach            ###   ########.fr       */
+/*   Updated: 2024/08/31 22:04:25 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	quotes_remove(t_token **token)
 	int	in_dquote;
 	t_token	*current;
 
-	(*token)->subtype = ARGUMENT;
 	current = *token;
 	new_str = (char *)ft_calloc(ft_strlen(current->str) + 1, sizeof(char));
 	if (!new_str)

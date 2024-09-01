@@ -6,7 +6,7 @@
 /*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/20 17:36:04 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/01 12:47:19 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*heredoc_handler(t_token *token, t_cmd *cmd_data)
 	ft_putstr_fd(">>> ", STDOUT_FILENO);
 	final_str = ft_strdup("");
 	read_str = ft_get_next_line(0);
-    quotes_remove(&token->next);
+	quotes_remove(&token->next);
 	filename = hex_to_dec(token);
 	while (read_str)
 	{
