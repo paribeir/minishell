@@ -3,53 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:06:04 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/04 21:14:07 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/01 16:07:22 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//The tokenizer's role is to break the input into meaningful tokens
-//The parser analyzes the tokens to form syntactically valid commands
-
 /*
-- Assign each lexeme of the input string into a token
-- check syntax
-- return head of linked list on success, NULL on failure.
+The tokenizer's role is to break the input into meaningful tokens:
+- Assigns each lexeme of the input string into a token;
+- Checks syntax;
+- Returns head of linked list on success, NULL on failure.
 */
 t_token	*tokenizer(char *input, t_cmd *cmd_data)
 {
 	t_token	*head;
-	t_token	*token;
 	size_t	i;
-	char	*start;
 
 	i = 0;
 	head = NULL;
-	while (input[i] && ft_strchr(IFS, input[i]))
-		i++;
+	init_tokens(input, &i, &head);
 	if (input[i])
-		head = create_token();
+		head = process_tokens(&input[i], head, cmd_data);
+	return (head);
+}
+
+/*skips whitespace, creates and initializes tokens*/
+void	init_tokens(char *input, size_t *i, t_token **head)
+{
+	while (input[*i] && ft_strchr(IFS, input[*i]))
+		(*i)++;
+	if (input[*i])
+		*head = create_token();
+}
+
+t_token	*process_tokens(char *input, t_token *head, t_cmd *cmd_data)
+{
+	t_token *token;
+	size_t i;
+	char *start;
+
+	i = 0;
 	while (input[i])
 	{
 		while (input[i] && ft_strchr(IFS, input[i]))
 			i++;
 		if (!input[i])
-			break ;
-		token = create_token();
-		start = &input[i];
-		if (ft_strchr(SPECIAL_CHARS, input[i]))
-			i += token_small(start, token);
-		else
-			i += token_big(start, token);
-		add_token(start, &head, token);
+			break;
+	token = create_token();
+	start = &input[i];
+	if (ft_strchr(SPECIAL_CHARS, input[i]))
+		i += token_small(start, token);
+	else
+		i += token_big(start, token);
+	add_token(start, &head, token);
 	}
 	if (head && check_syntax(&head) == 0)
 		variable_expansion(&head, cmd_data);
-	return (head);
+    return (head);
 }
 
 int	token_small(char *input, t_token *token)
@@ -107,12 +121,6 @@ int	token_big(char *start, t_token *token)
 	return (i);
 }
 
-/*
-		if (!start[i] || ft_strchr(IFS, start[i]) || \
-		ft_strchr(SPECIAL_CHARS, start[i]))
-			break ;
-*/
-
 void	add_token(char *start, t_token **head, t_token *token)
 {
 	token->str = (char *)malloc(token->length + 1);
@@ -124,15 +132,3 @@ void	add_token(char *start, t_token **head, t_token *token)
 	ft_strlcpy(token->str, start, token->length + 1);
 	token_add_back(head, token);
 }
-
-/*void	TEST_printf_stuff(t_token **head)
-{
-	t_token	*current;
-
-	current = *head;
-	while (current)
-	{
-		ft_printf("%s		Type: %d, Subtype: %d\n", current->str, current->type, current->subtype);
-		current = current->next;
-	}
-}*/

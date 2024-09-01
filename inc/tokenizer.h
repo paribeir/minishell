@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:11:46 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/04 21:14:38 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/01 16:05:20 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ t_token	*tokenizer(char *input, t_cmd *cmd_data);
 int		token_small(char *input, t_token *token);
 int		token_big(char *start, t_token *token);
 void	add_token(char *start, t_token **head, t_token *token);
+void	init_tokens(char *input, size_t *i, t_token **head);
+t_token	*process_tokens(char *input, t_token *head, t_cmd *cmd_data);
 
 //tokenizer_utils.c
 t_token	*create_token(void);

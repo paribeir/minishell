@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/24 10:48:18 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/01 15:46:39 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,10 @@ void	expand_env_vars(t_token	*token, t_cmd *cmd_data)
 	{
 		current = ft_strdup("");
 		str = token->str;
-		while (*str)
-		{
-			if (ft_strchr(str, '$') && !var_in_squote(str))
-				add_expanded_var(&current, &str, cmd_data); //expand this var
-			else
-				add_literal(&current, &str);
-		}
+		if (ft_strchr(str, '$') && !var_in_squote(str))
+			current = expand_heredoc(str, cmd_data);
+		else
+			add_literal(&current, &str);
 		free(token->str);
 		token->str = current;
 	}
@@ -42,7 +39,7 @@ void	add_expanded_var(char **current, char **str, t_cmd *cmd_data)
 	char	*total;
 
 	var = get_var(str, cmd_data);
-	if (*var)
+	if (var)
 	{
 		total = (char *)ft_calloc(strlen(*current) + strlen(var) + 1, sizeof(char));
 		if (total)

@@ -6,7 +6,7 @@
 /*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 12:47:19 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/01 15:25:03 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*expand_heredoc(char *str, t_cmd *cmd_data)
 
 	sum = ft_strdup("");
 	dollar = str;
-	while (dollar && *dollar)
+	while (dollar && *dollar && !var_in_squote(dollar))
 	{
 		next_dollar = ft_strchr(dollar, '$');
 		if (!next_dollar)
