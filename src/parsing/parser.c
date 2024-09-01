@@ -6,7 +6,7 @@
 /*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 21:34:44 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:52:54 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,24 +114,4 @@ void	add_arguments(t_token *token, t_cmd_list **node)
 	else if (token->next) //if its a binary and there is something afterwards
 		nbr_args = count_args(token);
 	alloc_args(token, current, node, nbr_args);
-}
-
-void	add_arguments_redirect(t_token *token, t_cmd_list **node)
-{
-	(*node)->arguments = (char **)malloc(2 * sizeof(char *));
-	if (!(*node)->arguments)
-	{
-		ft_printf("Malloc error");
-		return ;
-	}
-	(*node)->arguments[0] = ft_strdup(token->str);
-	if (!(*node)->arguments[0])
-	{
-		ft_printf("String duplication error");
-		return ;
-		free((*node)->arguments);
-		(*node)->arguments = NULL;
-	}
-	(*node)->arguments[1] = NULL;
-	return ;
 }

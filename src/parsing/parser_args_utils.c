@@ -6,11 +6,31 @@
 /*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 21:24:20 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/01 21:32:35 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:52:54 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	add_arguments_redirect(t_token *token, t_cmd_list **node)
+{
+	(*node)->arguments = (char **)malloc(2 * sizeof(char *));
+	if (!(*node)->arguments)
+	{
+		ft_printf("Malloc error");
+		return ;
+	}
+	(*node)->arguments[0] = ft_strdup(token->str);
+	if (!(*node)->arguments[0])
+	{
+		ft_printf("String duplication error");
+		return ;
+		free((*node)->arguments);
+		(*node)->arguments = NULL;
+	}
+	(*node)->arguments[1] = NULL;
+	return ;
+}
 
 int	count_args(t_token *token)
 {
@@ -53,13 +73,6 @@ int	duplicate_args(char **arguments, int *i, char *str)
 	(*i)++;
 	return (0);
 }
-
-/*int	should_process_args(t_token *current)
-{
-	return !(current->subtype == 0 && !current->str[0]) && 
-		(current->subtype == 0 || current->subtype == SQUOTE || current->subtype == DQUOTE);
-}*/
-
 
 void	alloc_args(t_token *token, t_token *current, t_cmd_list **node, int nbr_args)
 {

@@ -6,7 +6,7 @@
 /*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 20:24:23 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 21:11:06 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:52:54 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,6 @@ int	calculate_length(unsigned long number)
 	}
 	return (len);
 }
-
-//allocate memory for the string
-/*char	*allocate_memory(int len) 
-{
-	char	*str;
-	
-	str = (char *)ft_calloc(len + 1, 1);
-	if (str == NULL) 
-	{
-		ft_printf("malloc error\n");
-		return (NULL);
-	}
-	return (str);
-}*/
 
 //convert nbr to string
 void	convert_to_string(char *str, unsigned long number, int len) 
