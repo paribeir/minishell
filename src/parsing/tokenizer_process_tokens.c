@@ -6,7 +6,7 @@
 /*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 16:23:28 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/01 22:18:12 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/01 22:27:05 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ t_token	*process_tokens(char *input, t_token *head, t_cmd *cmd_data)
 	add_token(start, &head, token);
 	}
 	if (check_syntax(&head))
-	{
-		g_status = 2;
-		return (NULL);
-	}
+		return (g_status = 2, NULL);
 	if (head)
 		variable_expansion(&head, cmd_data);
     return (head);

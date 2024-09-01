@@ -6,7 +6,7 @@
 /*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:06:59 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 22:22:42 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/01 22:26:51 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,11 @@ int	check_syntax(t_token **head)
 	while (current)
 	{
 		if (i == 0 && current->type < CMD_WORD)
-			return (g_status = 2, ft_printf("Syntax Error: a pipe or operator must be followed by either a cmd or redirect\n"));
+			return (ft_printf("Syntax Error: a pipe or operator must be followed by either a cmd or redirect\n"));
 		else if (current->type == IO_FILE && (!current->next || current->next->type != CMD_WORD))
-			return (g_status = 2, ft_printf("Syntax Error: redirect must be followed by FILE name bzw heredoc DELIMITER\n"));
+			return (ft_printf("Syntax Error: redirect must be followed by FILE name bzw heredoc DELIMITER\n"));
 		else if ((current->subtype == SQUOTE || current->subtype == DQUOTE) && quotes_check(current))
-			return (g_status = 2, ft_printf("Syntax Error: unclosed quotes\n"));
+			return (ft_printf("Syntax Error: unclosed quotes\n"));
 		if (current->type < CMD_WORD)
 			i = 0;
 		else
