@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
+#    By: patricia <patricia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/08/30 12:20:54 by jdach            ###   ########.fr        #
+#    Updated: 2024/09/01 21:46:05 by patricia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,8 +69,12 @@ parsing/env_variables.c \
 parsing/expansions.c \
 parsing/heredoc.c \
 parsing/hex_to_str.c \
+parsing/parser_args_utils.c \
+parsing/parser_nodes_utils.c \
 parsing/parser.c \
+parsing/quotes_remove.c \
 parsing/quotes.c \
+parsing/tokenizer_process_tokens.c\
 parsing/tokenizer_utils.c \
 parsing/tokenizer.c \
 parsing/wildcard.c

@@ -6,7 +6,7 @@
 /*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:32:10 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 15:26:11 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:36:40 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_cmd_list	*parse_tokens(t_token **token);
 void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type);
 void	free_tokens(t_token **head);
 void	node_add_back(t_cmd_list **head, t_cmd_list *new_node);
-t_token	*token_fusion(t_token	*t);
+t_token	*token_fusion(t_token *t);
 void	redir_token_fusion(t_token **t);
 void	is_bltin(t_token **token, int flag);
 t_cmd_list	*create_cmd_node(t_token *token);
@@ -76,5 +76,9 @@ void	add_arguments_redirect(t_token *token, t_cmd_list **node);
 int	count_args(t_token *token);
 void	alloc_args(t_token *token, t_token *current, t_cmd_list **node, int nbr_args);
 int	init_args(t_cmd_list **node, int nbr_args);
+void	token_fusion_cmdwords(t_token **token);
+void	add_arguments_redirect(t_token *token, t_cmd_list **node);
+
+
 
 #endif

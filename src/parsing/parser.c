@@ -6,14 +6,14 @@
 /*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 13:11:28 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:34:44 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//TO DO: End function "create cmd node" by finishing "get_arguments"
-//pipes and operators are not being correctly added to the linked list
+/*The parser analyzes the tokens to form syntactically valid commands.
+It further processes the tokens to create a ready-to-use linked list of commands.*/
 t_cmd_list	*parse_tokens(t_token **token)
 {
 	t_token		*current;
@@ -98,113 +98,6 @@ void	node_add_back(t_cmd_list **head, t_cmd_list *new_node)
 	}
 }
 
-/*no need to check for token->next since that is one of the checks in parsing
-(a redirect must be followed by a filename)*/
-t_token	*token_fusion(t_token	*t)
-{
-	t_token	*token;
-	int	flag;
-
-	token = t;
-	flag = 0;
-	while (token)
-	{
-		if (token->type == IO_FILE || token->subtype == HEREDOC)
-			redir_token_fusion(&token);
-		else if (token->type == CMD_WORD)
-		{
-			while (token && token->type > PIPE)
-			{
-				if (token->str[0])
-				{
-					token->type = CMD_WORD;
-					break;
-				}
-				token = token->next;
-			}
-			if (!token)
-				continue; 
-			is_bltin(&token, flag);
-			flag = 1;
-			while (token && token->next && token->next->type == CMD_WORD)
-				token = token->next;
-		}
-		if (token->type == PIPE || token->type == OPERATOR)
-			flag = 0;
-		token = token->next;
-	}
-	return (t);
-}
-
-//cat redirs
-void	redir_token_fusion(t_token **t)
-{
-	t_token	*token;
-	t_token	*temp;
-
-	token = *t;
-	temp = NULL;
-	free (token->str);
-	token->str = ft_strdup(token->next->str);
-	if (token->next->next)
-	{
-		temp = token->next->next;
-		temp->prev = token;
-	}
-	free (token->next);
-	token->next = temp;
-}
-
-
-//is this command a builtin?
-void	is_bltin(t_token **token, int flag)
-{
-	if (flag || !(*token))
-		return;
-	(*token)->subtype = BINARY;
-	if (!ft_strncmp("echo", (*token)->str, ft_strlen("echo") + 1))
-		(*token)->subtype = BLTIN_ECHO;
-	else if (!ft_strncmp("cd", (*token)->str, ft_strlen("cd") + 1))
-		(*token)->subtype = BLTIN_CD;
-	else if (!ft_strncmp("pwd", (*token)->str, ft_strlen("pwd") + 1))
-		(*token)->subtype = BLTIN_PWD;
-	else if (!ft_strncmp("export", (*token)->str, ft_strlen("export") + 1))
-		(*token)->subtype = BLTIN_EXPORT;
-	else if (!ft_strncmp("unset", (*token)->str, ft_strlen("unset") + 1))
-		(*token)->subtype = BLTIN_UNSET;
-	else if (!ft_strncmp("env", (*token)->str, ft_strlen("env") + 1))
-		(*token)->subtype = BLTIN_ENV;
-	else if (!ft_strncmp("exit", (*token)->str, ft_strlen("exit") + 1))
-		(*token)->subtype = BLTIN_EXIT;
-}
-
-t_cmd_list	*create_cmd_node(t_token *token)
-{
-	t_cmd_list	*node;
-
-	node = (t_cmd_list *)malloc(sizeof(t_cmd_list));
-	if (!node)
-		return (NULL);
-	node->type = token->subtype;
-	node->binary = NULL;
-	node->arguments = NULL;
-	if (token->subtype == BINARY || token->subtype == BLTIN)
-	{
-		node->binary = ft_strdup(token->str);
-		if (!node->binary)
-		{
-			ft_printf("Memory allocation error\n");
-			return (NULL);
-		}
-	}
-	if (token->subtype >= BLTIN || token->subtype == BINARY
-		|| token->type == IO_FILE)
-		add_arguments(token, &node);
-	node->prev = NULL;
-	node->next = NULL;
-	return (node);
-}
-
 //get and assign arguments, delete argument tokens
 void	add_arguments(t_token *token, t_cmd_list **node)
 {
@@ -241,62 +134,4 @@ void	add_arguments_redirect(t_token *token, t_cmd_list **node)
 	}
 	(*node)->arguments[1] = NULL;
 	return ;
-}
-
-int	count_args(t_token *token)
-{
-	int	args;
-	t_token	*current;
-
-	args = 0;
-	current = token->next;
-	while (current && current->type > PIPE)
-	{
-		if (current->subtype == 0)
-			args++;
-		current = current->next;
-	}
-	return (args);
-}
-
-void	alloc_args(t_token *token, t_token *current, t_cmd_list **node, int nbr_args)
-{
-	int	i;
-
-	i = 0;
-	current = token->next;
-	if (init_args(node, nbr_args))
-		return ;
-	while (current && current->type > PIPE)
-	{
-		if (current->subtype == 0  && !current->str[0])
-			;
-		else if (current->subtype == 0 || current->subtype == SQUOTE || current->subtype == DQUOTE)
-		{
-	        	(*node)->arguments[i] = ft_strdup(current->str);
-	        	if (!(*node)->arguments[i])
-	        	{
-	            	ft_printf("String duplication error\n");
-	            	while (i > 0)
-	           	     free((*node)->arguments[--i]);
-	            	free((*node)->arguments);
-			(*node)->arguments = NULL;
-			return ;
-	        }
-		 i++;
-	    }
-	    current = current->next;
-	}
-	(*node)->arguments[i] = NULL;
-}
-
-int	init_args(t_cmd_list **node, int nbr_args)
-{
-	(*node)->arguments = (char **)malloc((nbr_args + 1) * sizeof(char *));
-	if (!(*node)->arguments)
-	{
-	    ft_printf("Malloc error\n");
-	    return (1);
-	}
-	return (0);
 }

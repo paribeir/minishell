@@ -3,47 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   hex_to_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 20:24:23 by paribeir          #+#    #+#             */
-/*   Updated: 2024/07/26 18:45:17 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:11:06 by patricia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *ptr_to_str(unsigned long number) 
+//handle zero case
+char	*handle_zero_case(void) 
 {
-	char *str;
-	unsigned long temp;
-	char *end;
-	int len;
-
-	len = 0;
-	if (number == 0) 
+	char	*str;
+	
+	str = (char *)ft_calloc(2, 1);
+	if (str == NULL) 
 	{
-		str = (char *)ft_calloc(2, 1);
-		if (str == NULL) 
-		{
-			ft_printf("malloc error\n");
-			return (NULL);
-		}
-		str[0] = '0';
-		str[1] = '\0';
-		return (str);
+		ft_printf("malloc error\n");
+		return (NULL);
 	}
+	str[0] = '0';
+	return (str);
+}
+
+//calculate the length of the string required to store the number
+int	calculate_length(unsigned long number) 
+{
+	int len;
+	unsigned long temp;
+	
+	len = 0;
 	temp = number;
 	while (temp > 0) 
 	{
 		temp /= 10;
 		len++;
 	}
+	return (len);
+}
+
+//allocate memory for the string
+/*char	*allocate_memory(int len) 
+{
+	char	*str;
+	
 	str = (char *)ft_calloc(len + 1, 1);
 	if (str == NULL) 
 	{
 		ft_printf("malloc error\n");
 		return (NULL);
 	}
+	return (str);
+}*/
+
+//convert nbr to string
+void	convert_to_string(char *str, unsigned long number, int len) 
+{
+	char	*end;
+
 	end = str + len;
 	*end = '\0';
 	while (number > 0) 
@@ -51,6 +69,23 @@ char *ptr_to_str(unsigned long number)
 		*(--end) = (number % 10) + '0';
 		number /= 10;
 	}
+}
+
+char	*ptr_to_str(unsigned long number) 
+{
+	int	len;
+	char	*str;
+	
+	if (number == 0) 
+		return handle_zero_case();	
+	len = calculate_length(number);
+	str = (char *)ft_calloc(len + 1, 1);
+	if (str == NULL) 
+	{
+		ft_printf("malloc error\n");
+		return (NULL);
+	}
+	convert_to_string(str, number, len);
 	return (str);
 }
 
