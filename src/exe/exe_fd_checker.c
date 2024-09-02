@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 01:10:21 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/30 18:59:30 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/02 16:35:46 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,39 @@ void	exe_fd_checker_in_append(t_cmd_list *cmd_list_item, int *err_printing)
 	}
 }
 
+char	*exe_fd_checker_extract_folder(char *path)
+{
+	char	*folder_path;
+	int		i;
+	int		end_of_folder;
+
+	folder_path = 0;
+	i = 0;
+	end_of_folder = 0;
+	while (path[i] != '\0')
+	{
+		if (path[i] == '/')
+			end_of_folder = i;
+		i++;
+	}
+	folder_path = ft_calloc(end_of_folder + 1, sizeof(char));
+	ft_strlcpy(folder_path, path, end_of_folder + 1);
+	return (folder_path);
+}
+
 void	exe_fd_checker_redir_out(t_cmd_list *cmd_list_item, int *err_printing)
 {
 	char	*file_path;
 
 	file_path = cmd_list_item->arguments[0];
+	if (ft_strchr(file_path, '/'))
+	{
+		if (access(exe_fd_checker_extract_folder(file_path), F_OK) != 0)
+		{
+			exe_err_long(ERR_BIN_NO_SUCH_FOLDER);
+			*err_printing = 0;
+		}
+	}
 	if (access(file_path, F_OK) == 0 && \
 	access(file_path, W_OK) != 0 && *err_printing == 1)
 	{
