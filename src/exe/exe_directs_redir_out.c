@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 11:06:19 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/02 17:22:31 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/02 17:31:30 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	exe_directs_redir_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (fd == -1)
 	{
-		perror("Minishell");
 		cmd_data->stop_exe = 1;
 		g_status = 1;
+		perror("Minishell");
 		if (cmd_data->pipe_scenario == 1)
 			exit (1);
 		else
