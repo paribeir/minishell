@@ -1,0 +1,18 @@
+{
+	patricia1
+	Memcheck:Leak
+	...
+	fun:parse_tokens
+}
+{
+	patricia2
+	Memcheck:Leak
+	...
+	fun:tokenizer
+}
+{
+	patricia3
+	Memcheck:Cond
+	...
+	fun:tokenizer
+}

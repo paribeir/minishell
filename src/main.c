@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 12:37:09 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:33:01 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 		cmd_list = parse_tokens(&tokens);
 		debug_print_cmds(cmd_list, 0);
 		exe(cmd_list, cmd_data);
-		exe_cleanup_aftercmd(cmd_list);
+		exe_cleanup_aftercmd(cmd_list, cmd_data);
 	}
 	else if (!input)
 		exit(EXIT_SUCCESS);
@@ -63,12 +63,18 @@ void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 
 void	exe_increase_shlvl(t_cmd *cmd_data)
 {
-	int	old_shlvl;
-	int	new_shlvl;
+	char	*old_shlvl_str;
+	int		old_shlvl;
+	int		new_shlvl;
+	char	*new_shlvl_str;
 
-	old_shlvl = ft_atoi(exe_env_get_var("SHLVL", cmd_data));
+	old_shlvl_str = exe_env_get_var("SHLVL", cmd_data);
+	old_shlvl = ft_atoi(old_shlvl_str);
+	free(old_shlvl_str);
 	new_shlvl = old_shlvl + 1;
-	exe_env_set_var("SHLVL", ft_itoa(new_shlvl), cmd_data);
+	new_shlvl_str = ft_itoa(new_shlvl);
+	exe_env_set_var("SHLVL", new_shlvl_str, cmd_data);
+	free(new_shlvl_str);
 }
 
 int	main(int argc, char *argv[], char *envp[])

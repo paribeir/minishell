@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:24:36 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/30 08:46:05 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/03 19:15:26 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	exe_bltns_cd_check_input(t_cmd_list *cmd_list_item)
 {
 	if (cmd_list_item->arguments[1])
 	{
-		exe_err_long(ERR_CD_TOO_MANY_ARGS);
+		exe_err_long(NULL, ERR_CD_TOO_MANY_ARGS);
 		g_status = 1;
 	}
 	return (0);
@@ -40,6 +40,7 @@ int	exe_bltns_cd_check_input(t_cmd_list *cmd_list_item)
 void	exe_bltns_cd(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	char	*target;
+	char	*var_val;
 	char	pwd[PATH_MAX];
 
 	g_status = 0;
@@ -47,13 +48,17 @@ void	exe_bltns_cd(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	target = exe_bltns_cd_get_target(cmd_list_item, cmd_data);
 	if (chdir(target) == 0)
 	{
-		exe_env_set_var("OLDPWD", exe_env_get_var("PWD", cmd_data), cmd_data);
+		free(target);
+		var_val = exe_env_get_var("PWD", cmd_data);
+		exe_env_set_var("OLDPWD", var_val, cmd_data);
+		free(var_val);
 		getcwd(pwd, sizeof(pwd));
 		exe_env_set_var("PWD", pwd, cmd_data);
 	}
 	else
 	{
+		free(target);
 		g_status = 1;
-		exe_err_long(ERR_CD_NO_SUCH_DIRECTORY);
+		exe_err_long(NULL, ERR_CD_NO_SUCH_DIRECTORY);
 	}
 }

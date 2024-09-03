@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 01:10:21 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/30 18:59:30 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/03 18:08:06 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	exe_fd_checker_in_append(t_cmd_list *cmd_list_item, int *err_printing)
 	file_path = cmd_list_item->arguments[0];
 	if (access(file_path, F_OK) != 0 && *err_printing == 1)
 	{
-		exe_err_long(ERR_FD_NO_SUCH_FILE);
+		exe_err_long(NULL, ERR_FD_NO_SUCH_FILE);
 		*err_printing = 0;
 	}
 	if (access(file_path, R_OK) != 0 && *err_printing == 1)
 	{
-		exe_err_long(ERR_FD_NOT_READABLE);
+		exe_err_long(NULL, ERR_FD_NOT_READABLE);
 		*err_printing = 0;
 	}
 }
@@ -37,7 +37,7 @@ void	exe_fd_checker_redir_out(t_cmd_list *cmd_list_item, int *err_printing)
 	if (access(file_path, F_OK) == 0 && \
 	access(file_path, W_OK) != 0 && *err_printing == 1)
 	{
-		exe_err_long(ERR_FD_NOT_WRITABLE);
+		exe_err_long(NULL, ERR_FD_NOT_WRITABLE);
 		*err_printing = 0;
 	}
 }
