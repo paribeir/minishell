@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:02:37 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/30 08:43:17 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/03 17:30:21 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	exe_bltns_echo(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	while (args[0] && args[start])
 	{
 		if ((n_flag == 0 && start > 0) || (n_flag == 1 && start > 1))
-			ft_putchar_fd(' ', 1);
-		ft_putstr_fd(args[start++], 1);
+			printf(" ");
+		printf("%s", args[start++]);
 	}
 	if (n_flag == 0)
-		ft_putchar_fd('\n', 1);
+		printf("\n");
 }

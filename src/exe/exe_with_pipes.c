@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 08:13:34 by jdach             #+#    #+#             */
-/*   Updated: 2024/08/30 18:52:03 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/03 17:22:04 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ void	exe_with_pipes_start_pipe(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		exe_with_pipes_map(cmd_list_item, cmd_data);
 		exit(EXIT_SUCCESS);
 	}
-	else
-		exe_with_pipes_store_pid(pid, cmd_data);
+	exe_with_pipes_store_pid(pid, cmd_data);
 	exe_pipe_closing_parent(cmd_data);
 }
 
