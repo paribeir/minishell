@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_args_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 21:24:20 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/01 21:52:54 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/06 22:30:01 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,21 @@ int	count_args(t_token *token)
 	current = token->next;
 	while (current && current->type > PIPE)
 	{
-		if (current->subtype == 0)
+		if (current->subtype == 0 || current->subtype == DQUOTE || current->subtype == SQUOTE)
 			args++;
 		current = current->next;
 	}
 	return (args);
 }
 
-int	init_args(t_cmd_list **node, int nbr_args)
+
+int init_args(t_cmd_list **node, int nbr_args)
 {
-	(*node)->arguments = (char **)malloc((nbr_args + 1) * sizeof(char *));
+	(*node)->arguments = (char **)ft_calloc((nbr_args + 1), sizeof(char *));
 	if (!(*node)->arguments)
 	{
-	    ft_printf("Malloc error\n");
-	    return (1);
+		ft_printf("Malloc error\n");
+		return (1);
 	}
 	return (0);
 }
@@ -94,6 +95,8 @@ void	alloc_args(t_token *token, t_token *current, t_cmd_list **node, int nbr_arg
 			}
 		}
 		current = current->next;
-	}	
+	}
+	if (i > nbr_args)
+		ft_printf("DEBUG!\n");
 	(*node)->arguments[i] = NULL;
 }

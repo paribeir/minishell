@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_cleanup_strarray.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 22:18:28 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/01 21:59:03 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/06 20:45:33 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@ void	exe_cleanup_strarray(char **strarray)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (strarray)
 	{
-		while (strarray[++i] != NULL)
+		while (strarray[i] != NULL)
+		{
 			free (strarray[i]);
-		free (strarray[i]);
+			strarray[i] = NULL;
+			i++;
+		}
+		//free (strarray[i]);
 		free (strarray);
+		strarray = NULL;
 	}
 }

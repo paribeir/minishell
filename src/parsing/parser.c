@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 21:52:54 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/06 23:48:13 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,18 @@ void	free_tokens(t_token **head)
 	t_token	*current;
 	t_token	*temp;
 
+	if (!head || !*head)
+		return ;
 	current = *head;
 	while (current)
 	{
 		temp = current;
 		current = current->next;
 		if (temp->str)
+		{
 			free(temp->str);
+			temp->str = NULL;
+		}
 		free(temp);
 	}
 	*head = NULL;
@@ -108,7 +113,7 @@ void	add_arguments(t_token *token, t_cmd_list **node)
 	nbr_args = 0;
 	if (token->type == IO_FILE) //redirects
 	{
-		add_arguments_redirect (token, node);
+		add_arguments_redirect(token, node);
 		return ;
 	}
 	else if (token->next) //if its a binary and there is something afterwards

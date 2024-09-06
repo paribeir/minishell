@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_process_tokens.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 16:23:28 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/01 22:27:05 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/07 00:19:19 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	token_big(char *start, t_token *token)
 	char	q;
 
 	i = 0;
+	q = '\0';
 	while (start[i])
 	{
 		while (start[i] && !ft_strchr(IFS"\"\'"SPECIAL_CHARS, start[i]))
@@ -98,7 +99,7 @@ int	token_big(char *start, t_token *token)
 
 void	add_token(char *start, t_token **head, t_token *token)
 {
-	token->str = (char *)malloc(token->length + 1);
+	token->str = (char *)ft_calloc(token->length + 1, sizeof(char));
 	if (!token->str)
 	{
 		ft_printf("malloc failed: token str\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:06:59 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 22:26:51 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/07 00:24:50 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ t_token	*create_token(void)
 	if (!new_token)
 	{
 		ft_printf("Malloc error in create_node\n");
-		exit(EXIT_FAILURE);
+		return (NULL);
 	}
 	new_token->type = 0;
-	new_token->type = 0;
-	new_token->str = ft_strdup("");
+	new_token->subtype = 0;
+	new_token->str = NULL;
 	new_token->length = 0;
 	new_token->prev = NULL;
 	new_token->next = NULL;
@@ -35,6 +35,13 @@ void	token_add_back(t_token **head, t_token *new_node)
 {
 	t_token	*temp;
 
+	if (!head || !new_node)
+		return ;
+	if (!*head)
+	{
+		*head = NULL;
+		return ;
+	}
 	temp = *head;
 	if (temp->type == 0)
 		*head = new_node;
