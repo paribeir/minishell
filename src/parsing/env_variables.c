@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 21:19:59 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/08 20:16:12 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,20 @@ char	*get_var(char **str, t_cmd *cmd_data)
 	char	*var_name;
 	char	*start;
 	char	*var_content;
+	char	*result;
 
 	(*str)++;
 	start = *str;
 	if (start && start[0] == '?')
 	{
 		(*str)++;
-		return (ft_strdup(ft_itoa(g_status)));
+		result = ft_itoa(g_status);
+		if (!result)
+			return (NULL);
+		return (result); //to be freed if called
 	}
 	else if (!start || (!ft_isalnum(*start) && *start != '_'))
-		return ("$");
+		return (ft_strdup("$"));
 	while (**str && (ft_isalnum(**str) || **str == '_'))
 		(*str)++;
 	var_name = ft_substr(start, 0, *str - start);
@@ -101,5 +105,7 @@ char	*get_var(char **str, t_cmd *cmd_data)
 	free(var_name);
 	if (!var_content)
 		return (ft_strdup(""));
-	return (ft_strdup(var_content));
+	result = ft_strdup(var_content);
+	free(var_content);
+	return (result);  //to be freed if called
 }

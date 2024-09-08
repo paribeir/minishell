@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:32:10 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 21:36:40 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/08 19:49:34 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,19 @@ typedef struct s_vars
 }	t_vars;
 
 /*** Functions ***/
+//heredoc_utils.c
+void	cleanup_memory(char *final_str, char *read_str, char *filename);
+char	*heredoc_setup(t_token *token, char **final_str);
+int	is_heredoc_delimiter(t_token *token, char *read_str);
+char	*process_heredoc_line(char *read_str, t_token *token, t_cmd *cmd_data);
+int	write_heredoc_to_file(char *filename, char *final_str);
+int	handle_heredoc_delimiter(t_token *token, char *read_str, char *final_str, char *filename);
+
 //heredoc.c
 char	*heredoc_handler(t_token *token, t_cmd *cmd_data);
 char	*expand_heredoc(char *str, t_cmd *cmd_data);
 char *aux_str_join(char *str1, char *str2);
+
 
 //quotes.c
 int	quotes_check(t_token *token);

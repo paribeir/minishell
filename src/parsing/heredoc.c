@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 21:18:07 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/08 20:06:18 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,50 +15,82 @@
 //--> TO-DO: Add return value if gnl fails
 //eval if we need a check before quote removal
 //Does this work with more than one heredoc?
-char	*heredoc_handler(t_token *token, t_cmd *cmd_data)
+
+char	*heredoc_setup(t_token *token, char **final_str)
+{
+	*final_str = ft_strdup("");
+	quotes_remove(&token->next);
+	return hex_to_dec(token);
+}
+
+int	update_final_str(char **final_str, char *read_str, char *filename)
+{
+	char	*temp_str;
+
+	temp_str = ft_strjoin(*final_str, read_str);
+	if (!temp_str)
+	{
+		cleanup_memory(*final_str, read_str, filename);
+		return (0);  // Handle strjoin failure
+	}
+	free(*final_str);
+	*final_str = temp_str;
+	return (1);  // Success
+}
+
+void	cleanup_memory(char *final_str, char *read_str, char *filename)
+{
+	if (final_str)
+		free(final_str);
+	if (read_str)
+		free(read_str);
+	if (filename)
+		free(filename);
+}
+
+char	*process_heredoc_loop(t_token *token, t_cmd *cmd_data, char **final_str, char *filename)
 {
 	char	*read_str;
-	char	*final_str;
-	char	*temp_str;
-	int		fd;
-	char	*filename;
 
-	ft_putstr_fd(">>> ", STDOUT_FILENO);
-	final_str = ft_strdup("");
 	read_str = ft_get_next_line(0);
-	quotes_remove(&token->next);
-	filename = hex_to_dec(token);
 	while (read_str)
 	{
-		if (ft_strncmp(token->next->str, read_str, \
-		ft_strlen(token->next->str)) == 0 && \
-		read_str[ft_strlen(token->next->str) + 1] == '\0')
-		{
-			fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666); //this one here
-			ft_putstr_fd(final_str, fd);
-			free(final_str);
-			free(read_str);
-			close(fd);
-			return (filename);
-		}
-		else if (ft_strchr(read_str, '$') && (token->next->subtype != SQUOTE && token->next->subtype != DQUOTE))
-        	{
-			read_str = expand_heredoc(read_str, cmd_data);
-			if (read_str)
-				read_str[ft_strlen(read_str)] = '\n';
-		}
-		if (!read_str)
-			read_str = "\n";
-		temp_str = ft_strjoin(final_str, read_str);
-		free(final_str);
-		final_str = temp_str;
+		if (handle_heredoc_delimiter(token, read_str, *final_str, filename))
+			return (filename);  // Delimiter found and file written
+		read_str = process_heredoc_line(read_str, token, cmd_data);
+		if (!update_final_str(final_str, read_str, filename))
+			return (NULL);  // Memory error occurred
+
 		free(read_str);
 		ft_putstr_fd(">>> ", STDOUT_FILENO);
 		read_str = ft_get_next_line(0);
-		}
-	free(final_str);
-	return (NULL);
+	}
+	return (NULL);  // End of input or error
 }
+char	*heredoc_handler(t_token *token, t_cmd *cmd_data)
+{
+	char	*final_str;
+	char	*filename;
+
+	ft_putstr_fd(">>> ", STDOUT_FILENO);
+	filename = heredoc_setup(token, &final_str);
+	if (!final_str || !filename)
+	{
+		// If memory allocation fails, cleanup and return NULL
+		cleanup_memory(final_str, NULL, filename);
+		return (NULL);
+	}
+	filename = process_heredoc_loop(token, cmd_data, &final_str, filename);
+	if (!filename)
+	{
+		// If the loop fails or ends, cleanup and return NULL
+		cleanup_memory(final_str, NULL, filename);
+		return (NULL);
+	}
+	// Returning the filename, but remember to free it after use in the calling code
+	return (filename);
+}
+
 
 //expanding env vars knowing there are no single quotes
 char	*expand_heredoc(char *str, t_cmd *cmd_data)

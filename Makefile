@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: patricia <patricia@student.42.fr>          +#+  +:+       +#+         #
+#    By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/09/01 21:46:05 by patricia         ###   ########.fr        #
+#    Updated: 2024/09/08 19:42:54 by paribeir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ exe/exe.c \
 main.c \
 parsing/env_variables.c \
 parsing/expansions.c \
+parsing/heredoc_utils.c \
 parsing/heredoc.c \
 parsing/hex_to_str.c \
 parsing/parser_args_utils.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hex_to_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 20:24:23 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 21:52:54 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/08 20:02:40 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,22 @@ char	*ptr_to_str(unsigned long number)
 
 char	*hex_to_dec(void *ptr)
 {
-	unsigned long value;
-	char *str;
-	char	*temp;
+	unsigned long	value;
+	char			*str;
+	char			*temp;
 
 	value = (unsigned long)ptr;
 	str = ptr_to_str(value);
+	if (str == NULL)  // Check if ptr_to_str failed
+		return (NULL);
 
 	temp = str;
 	str = ft_strjoin("here_doc_temp_", str);
-	free (temp);
+	if (str == NULL)  // Check if ft_strjoin failed
+	{
+		free(temp);  // Clean up original memory before returning NULL
+		return (NULL);
+	}
+	free(temp);  // Free the original string now that the new string is allocated
 	return (str);
 }
