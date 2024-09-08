@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:06:59 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/07 00:24:50 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:03:30 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,17 @@ void	token_add_back(t_token **head, t_token *new_node)
 		return ;
 	if (!*head)
 	{
-		*head = NULL;
-		return ;
-	}
-	temp = *head;
-	if (temp->type == 0)
 		*head = new_node;
+		new_node->prev = NULL;
+	}
 	else
 	{
+		temp = *head;
 		while (temp->next)
 			temp = temp->next;
+		temp->next = new_node;
+		new_node->prev = temp;
 	}
-	temp->next = new_node;
-	new_node->prev = temp;
 }
 
 int	add_subtype(char q, char *input)

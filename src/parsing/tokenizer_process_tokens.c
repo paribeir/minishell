@@ -6,40 +6,12 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 16:23:28 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/07 00:19:19 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:17:33 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*self-written errors dont have specific error codes*/
-t_token	*process_tokens(char *input, t_token *head, t_cmd *cmd_data)
-{
-	t_token *token;
-	size_t i;
-	char *start;
-
-	i = 0;
-	while (input[i])
-	{
-		while (input[i] && ft_strchr(IFS, input[i]))
-			i++;
-		if (!input[i])
-			break;
-	token = create_token();
-	start = &input[i];
-	if (ft_strchr(SPECIAL_CHARS, input[i]))
-		i += token_small(start, token);
-	else
-		i += token_big(start, token);
-	add_token(start, &head, token);
-	}
-	if (check_syntax(&head))
-		return (g_status = 2, NULL);
-	if (head)
-		variable_expansion(&head, cmd_data);
-    return (head);
-}
 
 int	token_small(char *input, t_token *token)
 {
