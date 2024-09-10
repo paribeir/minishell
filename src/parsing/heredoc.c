@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/08 20:06:18 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/10 09:28:43 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ char	*expand_heredoc(char *str, t_cmd *cmd_data)
 		sum = aux_str_join(sum, before_var);
 		var_value = get_var(&next_dollar, cmd_data);
 		sum = aux_str_join(sum, var_value);
+		free(var_value);
+		free(before_var);
 		dollar = next_dollar;
 	}
 	return (sum);

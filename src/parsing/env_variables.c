@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/08 20:16:12 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:15:42 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	expand_env_vars(t_token	*token, t_cmd *cmd_data)
 	char	*current;
 
 	if (!ft_strchr(token->str, '\''))
-		token->str = expand_heredoc(token->str, cmd_data);
+		current = expand_heredoc(token->str, cmd_data);
 	else
 	{
 		current = ft_strdup("");
@@ -28,9 +28,9 @@ void	expand_env_vars(t_token	*token, t_cmd *cmd_data)
 			current = expand_heredoc(str, cmd_data);
 		else
 			add_literal(&current, &str);
-		free(token->str);
-		token->str = current;
 	}
+	free(token->str);
+	token->str = current;
 }
 
 void	add_expanded_var(char **current, char **str, t_cmd *cmd_data)
