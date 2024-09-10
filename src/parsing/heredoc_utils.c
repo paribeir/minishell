@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 19:10:43 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/08 19:50:14 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:43:29 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	handle_heredoc_delimiter(t_token *token, char *read_str, char *final_str, ch
 {
 	if (is_heredoc_delimiter(token, read_str))
 	{
+		free(token->next->str);
 		if (write_heredoc_to_file(filename, final_str) < 0)
 		{
 			cleanup_memory(final_str, read_str, filename);

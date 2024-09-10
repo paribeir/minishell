@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/10 09:28:43 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:43:15 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*heredoc_setup(t_token *token, char **final_str)
 {
 	*final_str = ft_strdup("");
 	quotes_remove(&token->next);
-	return hex_to_dec(token);
+	return (hex_to_dec(token));
 }
 
 int	update_final_str(char **final_str, char *read_str, char *filename)
@@ -48,7 +48,7 @@ void	cleanup_memory(char *final_str, char *read_str, char *filename)
 		free(filename);
 }
 
-char	*process_heredoc_loop(t_token *token, t_cmd *cmd_data, char **final_str, char *filename)
+int	process_heredoc_loop(t_token *token, t_cmd *cmd_data, char **final_str, char *filename)
 {
 	char	*read_str;
 
@@ -56,16 +56,15 @@ char	*process_heredoc_loop(t_token *token, t_cmd *cmd_data, char **final_str, ch
 	while (read_str)
 	{
 		if (handle_heredoc_delimiter(token, read_str, *final_str, filename))
-			return (filename);  // Delimiter found and file written
+			return (1);  // Delimiter found and file written
 		read_str = process_heredoc_line(read_str, token, cmd_data);
 		if (!update_final_str(final_str, read_str, filename))
-			return (NULL);  // Memory error occurred
-
+			return (0);  // Memory error occurred
 		free(read_str);
 		ft_putstr_fd(">>> ", STDOUT_FILENO);
 		read_str = ft_get_next_line(0);
 	}
-	return (NULL);  // End of input or error
+	return (0);  // End of input or error
 }
 char	*heredoc_handler(t_token *token, t_cmd *cmd_data)
 {
@@ -76,14 +75,11 @@ char	*heredoc_handler(t_token *token, t_cmd *cmd_data)
 	filename = heredoc_setup(token, &final_str);
 	if (!final_str || !filename)
 	{
-		// If memory allocation fails, cleanup and return NULL
 		cleanup_memory(final_str, NULL, filename);
 		return (NULL);
 	}
-	filename = process_heredoc_loop(token, cmd_data, &final_str, filename);
-	if (!filename)
+	if (!process_heredoc_loop(token, cmd_data, &final_str, filename))
 	{
-		// If the loop fails or ends, cleanup and return NULL
 		cleanup_memory(final_str, NULL, filename);
 		return (NULL);
 	}

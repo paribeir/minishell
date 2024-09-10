@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 21:27:27 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/08 14:18:52 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:25:54 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	redir_token_fusion(t_token **t)
 		temp = token->next->next;
 		temp->prev = token;
 	}
+	free (token->next->str);
 	free (token->next);
 	token->next = temp;
 }

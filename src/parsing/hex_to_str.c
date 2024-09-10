@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 20:24:23 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/08 20:02:40 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:19:51 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,20 +79,15 @@ char	*hex_to_dec(void *ptr)
 {
 	unsigned long	value;
 	char			*str;
-	char			*temp;
+	char			*number;
 
 	value = (unsigned long)ptr;
-	str = ptr_to_str(value);
-	if (str == NULL)  // Check if ptr_to_str failed
+	number = ptr_to_str(value);
+	if (!number)
 		return (NULL);
-
-	temp = str;
-	str = ft_strjoin("here_doc_temp_", str);
-	if (str == NULL)  // Check if ft_strjoin failed
-	{
-		free(temp);  // Clean up original memory before returning NULL
+	str = ft_strjoin("here_doc_temp_", number);
+	free(number);
+	if (!str)
 		return (NULL);
-	}
-	free(temp);  // Free the original string now that the new string is allocated
 	return (str);
 }

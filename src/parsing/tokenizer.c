@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:06:04 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/08 14:18:46 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:03:40 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,8 @@ t_token	*tokenizer(char *input, t_cmd *cmd_data)
 
 	i = 0;
 	head = NULL;
-	//init_tokens(input, &i, &head);
-	//ft_printf("head: %x\n", head);
-	//if (input[i])
-	head = process_tokens(&input[i], head, cmd_data);
-	//ft_printf("head: %x\n", head);
-	//ft_printf("*head: %x\n", *head);
+	if (input[i])
+		head = process_tokens(&input[i], head, cmd_data);
 	return (head);
 }
 

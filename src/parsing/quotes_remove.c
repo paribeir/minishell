@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_remove.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 21:39:37 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/01 21:45:47 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:07:38 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	del_quotes(char *new_str, char *src_str, int *in_squote, int *in_dquote)
 
 void	quotes_remove(t_token **token) 
 {
-    t_token *current = *token;
+	t_token *current = *token;
 	int	in_squote;
 	int	in_dquote;
 	char	*new_str;

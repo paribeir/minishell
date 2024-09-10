@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 16:23:28 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/10 11:56:00 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:38:45 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	add_token(char *start, t_token **head, t_token *token)
 	if (!token->str)
 	{
 		ft_printf("malloc failed: token str\n");
-		exit(EXIT_FAILURE);
+		return ;
 	}
 	ft_strlcpy(token->str, start, token->length + 1);
 	token_add_back(head, token);

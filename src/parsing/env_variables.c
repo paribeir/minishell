@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/10 12:15:42 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:46:42 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	expand_env_vars(t_token	*token, t_cmd *cmd_data)
 		current = expand_heredoc(token->str, cmd_data);
 	else
 	{
-		current = ft_strdup("");
 		str = token->str;
 		if (ft_strchr(str, '$') && !var_in_squote(str))
 			current = expand_heredoc(str, cmd_data);
