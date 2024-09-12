@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/03 19:33:01 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/12 16:49:20 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 		exe_cleanup_aftercmd(cmd_list, cmd_data);
 	}
 	else if (!input)
+	{
+		exe_cleanup(cmd_list, cmd_data);
 		exit(EXIT_SUCCESS);
+	}
 	else
 		write(1, "", 0);
 }
