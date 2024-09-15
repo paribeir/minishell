@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:14:00 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/12 16:50:03 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/15 17:30:11 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	exe_bltns_exe_check_arg(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	char	*str;
 	int		i;
+	int		exit_code;
 
 	str = cmd_list_item->arguments[0];
 	i = -1;
@@ -31,8 +32,9 @@ void	exe_bltns_exe_check_arg(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 			}
 		}
 		ft_putstr_fd("exit\n", 1);
+		exit_code = ft_atoi(cmd_list_item->arguments[0]);
 		exe_cleanup(cmd_list_item, cmd_data);
-		exit(ft_atoi(cmd_list_item->arguments[0]));
+		exit(exit_code);
 	}
 }
 
