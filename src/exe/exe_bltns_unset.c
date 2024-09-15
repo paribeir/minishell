@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:20:32 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/03 20:31:47 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/15 17:53:51 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ void	exe_bltns_unset_search(char *var, t_cmd *cmd_data)
 {
 	int		i;
 
-	i = 63;
+	i = -1;
 	while (cmd_data->envp[++i] != NULL)
 	{
 		if (ft_strncmp(var, cmd_data->envp[i], ft_strlen(var)) == 0 && \
 		cmd_data->envp[i][ft_strlen(var)] == '=')
 		{
 			exe_bltns_unset_recreate(var, cmd_data);
-			break;
+			break ;
 		}
 	}
 }
