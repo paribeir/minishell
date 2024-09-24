@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/23 07:26:24 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/24 11:48:40 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ char	*heredoc_handler(t_token *token, t_cmd *cmd_data)
 	return (filename);
 }
 
-
-//expanding env vars knowing there are no single quotes
+//expanding env vars ignoring single quotes
 char	*expand_heredoc(char *str, t_cmd *cmd_data)
 {
 	char	*sum;
@@ -112,37 +111,18 @@ char	*expand_heredoc(char *str, t_cmd *cmd_data)
 	return (sum);
 }
 
-/*char *aux_str_join(char *str1, char *str2)
-{
-    char *temp;
-
-    temp = ft_strjoin(str1, str2);
-    if (!temp)
-        return (NULL);
-    if (str1)
-        free(str1);
-    return (temp);
-}*/
 char *aux_str_join(char *str1, char *str2)
 {
     char *temp;
 
-    // If str1 is NULL, just return a copy of str2
     if (!str1)
-        return (ft_strdup(str2)); // Assuming ft_strdup duplicates the string
-
-    // If str2 is NULL, return str1 unchanged
+        return (ft_strdup(str2));
     if (!str2)
         return (str1);
-
-    // Join str1 and str2 into a new allocated string
     temp = ft_strjoin(str1, str2);
     if (!temp)
-        return (NULL); // Return NULL if allocation failed
-
-    // Free the old str1 as it's no longer needed
+        return (NULL);
     free(str1);
-    
     return (temp);
 }
 
