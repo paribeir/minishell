@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:37:53 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 21:46:16 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/15 18:47:48 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	var_in_squote(char *str)
 	i = 0;
 	in_squote = 0; //false
 	in_dquote = 0; //false
-	while (str[i])
+	while (str && str[i])
 	{
 		if (str[i] == '\'' && !in_dquote)
 			in_squote = !in_squote;
@@ -62,6 +62,20 @@ int	var_in_squote(char *str)
 		if (str[i] == '$')
 			return (in_squote);
 		i++;
+	}
+	return (0);
+}
+
+int	all_var_in_squote(char *str)
+{
+	while (str)
+	{
+		if (var_in_squote(str))
+			return (1);
+		else if (ft_strchr(str + 1, '$'))
+			str = ft_strchr(str, '$');
+		else
+			break ;
 	}
 	return (0);
 }

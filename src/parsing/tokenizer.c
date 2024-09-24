@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:06:04 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/10 16:03:40 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:31:59 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,21 @@ t_token	*process_tokens(char *input, t_token *head, t_cmd *cmd_data)
 		token = create_token();
 		start = &input[i];
 		if (ft_strchr(SPECIAL_CHARS, input[i]))
-			i += token_small(start, token);
+		{
+			if (token_small(start, token))
+				i += token_small(start, token);
+			else
+			{
+				free (token);
+				free_tokens(&head);
+				return (NULL); //mem leaks
+			}
+		}
 		else
 			i += token_big(start, token);
 		add_token(start, &head, token);
 	}
-	if (check_syntax(&head))
+	if (token_check_syntax(&head)) //mem leaks
 		return (g_status = 2, NULL);
 	if (head)
 		variable_expansion(&head, cmd_data);
@@ -47,7 +56,6 @@ The tokenizer's role is to break the input into meaningful tokens:
 - Checks syntax;
 - Returns head of linked list on success, NULL on failure.
 */
-
 t_token	*tokenizer(char *input, t_cmd *cmd_data)
 {
 	t_token	*head;
@@ -58,13 +66,4 @@ t_token	*tokenizer(char *input, t_cmd *cmd_data)
 	if (input[i])
 		head = process_tokens(&input[i], head, cmd_data);
 	return (head);
-}
-
-/*skips whitespace, creates and initializes tokens*/
-void	init_tokens(char *input, size_t *i, t_token **head)
-{
-	while (input[*i] && ft_strchr(IFS, input[*i]))
-		(*i)++;
-	if (input[*i])
-		*head = create_token();
 }

@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 21:39:37 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/10 15:07:38 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:30:05 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,45 @@ void	quotes_remove(t_token **token)
 	t_token *current = *token;
 	int	in_squote;
 	int	in_dquote;
+	int	len;
 	char	*new_str;
 
 	in_squote = 0;
 	in_dquote = 0;
-	new_str = allocate_new_str(ft_strlen(current->str));
+	if (!current || !current->str)
+		return ;
+	len = ft_strlen(current->str);
+	new_str = allocate_new_str(len);
 	if (!new_str) 
 		return ;
 	del_quotes(new_str, current->str, &in_squote, &in_dquote);	
-	ft_strlcpy(current->str, new_str, ft_strlen(current->str) + 1);	
+	ft_strlcpy(current->str, new_str, ft_strlen(new_str) + 1);	
 	free(new_str);
+}
+
+char	*quotes_remove_one_var(char *str) 
+{
+	int	i;
+	int	j;
+	char	*new_str;
+
+	new_str = allocate_new_str(ft_strlen(str));
+	if (!new_str) 
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (str[i] != '\"')
+		i++;
+	i++;
+	while (str[i]) 
+	{
+		if (str[i] == '\"')
+			break;
+		else
+			new_str[j++] = str[i];
+		i++;
+	}
+	return (new_str);
 }
 
 //TO DO--> Handle malloc error

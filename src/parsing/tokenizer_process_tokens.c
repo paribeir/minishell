@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 16:23:28 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/10 14:38:45 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:32:08 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,19 @@ int	token_small(char *input, t_token *token)
 		token->type = IO_FILE;
 	else if (input[i] == '&' || input[i] == '|')
 		token->type = OPERATOR;
-	else
+	/*else
 	{
-		ft_printf("Syntax error: invalid chars\n");
-		//exit (EXIT_FAILURE); //unrequired chars
-	}
+		ft_printf("minishell: syntax error near token \'%c\' (invalid char)\n", input[0]);
+		g_status = 2;
+		return (0);
+	}*/
 	while (input[i + 1] && input[i] == input[i + 1])
 		i++;
 	if (i > 1)
 	{
-		ft_printf("Syntax error: invalid operator\n");
-		//exit (EXIT_FAILURE); //invalid operator
+		ft_printf("minishell: syntax error near token \'%c%c\'\n", input[0], input[1]);
+		g_status = 2;
+		return (0);
 	}
 	token->subtype = add_subtype(input[i], input);
 	token->length = i + 1;
@@ -63,7 +65,7 @@ int	token_big(char *start, t_token *token)
 		else
 			break;
 	}
-	token->subtype = add_subtype(q, start); //idk if this make sense tbh
+	token->subtype = add_subtype(q, start);
 	token->type = CMD_WORD;
 	token->length = i;
 	return (i);

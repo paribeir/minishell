@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:38:33 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/08 20:08:24 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:29:48 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	variable_expansion(t_token **head, t_cmd *cmd_data)
 			current->next->str = heredoc_handler(current, cmd_data);
 		else if (current->type == CMD_WORD && (!current->prev || current->prev->subtype != HEREDOC))
 		{
-			if (strchr(current->str, '$')) //check for env_variables ($)
+			if (ft_strchr(current->str, '$')) //check for env_variables ($)
 				expand_env_vars(current, cmd_data);
 			/*if (strchr(current->str, '*')) //check for wildcards (*)
 				expand_wildcards(current);*/

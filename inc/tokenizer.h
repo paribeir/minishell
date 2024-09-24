@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patricia <patricia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:11:46 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/01 16:05:20 by patricia         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:32:40 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,38 +63,23 @@ typedef struct s_token {
 /*** Functions ***/
 //tokenizer.c
 t_token	*tokenizer(char *input, t_cmd *cmd_data);
+t_token	*process_tokens(char *input, t_token *head, t_cmd *cmd_data);
+
+//tokenizer_process_tokens.c
 int		token_small(char *input, t_token *token);
 int		token_big(char *start, t_token *token);
 void	add_token(char *start, t_token **head, t_token *token);
-void	init_tokens(char *input, size_t *i, t_token **head);
-t_token	*process_tokens(char *input, t_token *head, t_cmd *cmd_data);
 
 //tokenizer_utils.c
 t_token	*create_token(void);
 void	token_add_back(t_token **head, t_token *new_node);
 int	add_subtype(char q, char *input);
-int	check_syntax(t_token **head);
+int	token_check_syntax(t_token **head);
 
 //variable_expansion.c
 void	variable_expansion(t_token **head, t_cmd *cmd_data);
 
 char	*hex_to_dec(void *ptr);
 char *ptr_to_str(unsigned long number);
-
-/*
-	COMMAND,
-	ARGUMENT,
-	FLAG,
-	PIPE,
-	VARIABLE,
-	EXIT_VAL,
-	REDIRECTION,
-	SINGLE_QUOTE,
-	DOUBLE_QUOTE,
-	TOKEN_SPACE,
-	OPERATOR,
-	WILDCARD,
-	TOKEN_EOF,
-*/
 
 #endif

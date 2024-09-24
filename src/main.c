@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/03 19:33:01 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/11 15:01:37 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,7 @@
 
 int	g_status = 0;
 
-/*
-- initialize history.
-- start minishell loop.
-- if there is input, add it to the history.
-- else, exit and cleanup (cleanup needs to be implemented).
-*/
-
+/*debugger*/
 void	debug_print_cmds(t_cmd_list *cmd, int active)
 {
 	int			i;
@@ -38,6 +32,10 @@ void	debug_print_cmds(t_cmd_list *cmd, int active)
 	}
 }
 
+/*- initialize history.
+- start minishell loop.
+- if there is input, add it to the history and process it.
+- else, exit and cleanup.*/
 void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 {
 	char		*input;

@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/10 15:43:15 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/23 07:26:24 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	cleanup_memory(char *final_str, char *read_str, char *filename)
 		free(filename);
 }
 
+//add signal handling
 int	process_heredoc_loop(t_token *token, t_cmd *cmd_data, char **final_str, char *filename)
 {
 	char	*read_str;
@@ -56,34 +57,27 @@ int	process_heredoc_loop(t_token *token, t_cmd *cmd_data, char **final_str, char
 	while (read_str)
 	{
 		if (handle_heredoc_delimiter(token, read_str, *final_str, filename))
-			return (1);  // Delimiter found and file written
+			return (1);
 		read_str = process_heredoc_line(read_str, token, cmd_data);
 		if (!update_final_str(final_str, read_str, filename))
-			return (0);  // Memory error occurred
+			return (0);
 		free(read_str);
-		ft_putstr_fd(">>> ", STDOUT_FILENO);
+		ft_putstr_fd("heredoc > ", STDOUT_FILENO);
 		read_str = ft_get_next_line(0);
 	}
-	return (0);  // End of input or error
+	return (0);
 }
 char	*heredoc_handler(t_token *token, t_cmd *cmd_data)
 {
 	char	*final_str;
 	char	*filename;
 
-	ft_putstr_fd(">>> ", STDOUT_FILENO);
+	ft_putstr_fd("heredoc > ", STDOUT_FILENO);
 	filename = heredoc_setup(token, &final_str);
 	if (!final_str || !filename)
-	{
-		cleanup_memory(final_str, NULL, filename);
-		return (NULL);
-	}
+		return (cleanup_memory(final_str, NULL, filename), NULL);
 	if (!process_heredoc_loop(token, cmd_data, &final_str, filename))
-	{
-		cleanup_memory(final_str, NULL, filename);
-		return (NULL);
-	}
-	// Returning the filename, but remember to free it after use in the calling code
+		return (cleanup_memory(final_str, NULL, filename), NULL);
 	return (filename);
 }
 
@@ -118,13 +112,37 @@ char	*expand_heredoc(char *str, t_cmd *cmd_data)
 	return (sum);
 }
 
+/*char *aux_str_join(char *str1, char *str2)
+{
+    char *temp;
+
+    temp = ft_strjoin(str1, str2);
+    if (!temp)
+        return (NULL);
+    if (str1)
+        free(str1);
+    return (temp);
+}*/
 char *aux_str_join(char *str1, char *str2)
 {
-	char *temp;
+    char *temp;
 
-	temp = ft_strjoin(str1, str2);
+    // If str1 is NULL, just return a copy of str2
+    if (!str1)
+        return (ft_strdup(str2)); // Assuming ft_strdup duplicates the string
 
-	if (str1)
-		free(str1);
-	return (temp);
+    // If str2 is NULL, return str1 unchanged
+    if (!str2)
+        return (str1);
+
+    // Join str1 and str2 into a new allocated string
+    temp = ft_strjoin(str1, str2);
+    if (!temp)
+        return (NULL); // Return NULL if allocation failed
+
+    // Free the old str1 as it's no longer needed
+    free(str1);
+    
+    return (temp);
 }
+

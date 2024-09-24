@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:32:10 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/08 19:49:34 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/12 20:07:16 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	var_in_squote(char *str);
 //env_variables.c
 void	expand_env_vars(t_token	*token, t_cmd *cmd_data);
 void	add_expanded_var(char **current, char **str, t_cmd *cmd_data);
-void	add_literal(char **current, char **str);
+char	*add_literal(char **str);
 char	*get_var(char **str, t_cmd *cmd_data);
 
 //expansions.c
@@ -87,6 +87,7 @@ void	alloc_args(t_token *token, t_token *current, t_cmd_list **node, int nbr_arg
 int	init_args(t_cmd_list **node, int nbr_args);
 void	token_fusion_cmdwords(t_token **token);
 void	add_arguments_redirect(t_token *token, t_cmd_list **node);
+int	all_var_in_squote(char *str);
 
 
 

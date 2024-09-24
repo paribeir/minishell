@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:06:59 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/08 15:03:30 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:49:22 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,12 @@ int	add_subtype(char q, char *input)
 	return (0);
 }
 
-/*Small syntax check.
-A simple command can either be one or many IO_FILE(s) or CMD_WORD(s), or both.
-A pipe or operator must be followed by a IO_FILE or CMD_WORD
-(no consecutive pipes or operators allowed)
-Quotes must be closed*/
-//TO DO--> error!
-int	check_syntax(t_token **head)
+/*Small syntax check:
+1. A simple command can either be one or many IO_FILE(s) or CMD_WORD(s), or both.
+2. A pipe or operator must be followed by a IO_FILE or CMD_WORD
+(no consecutive pipes or operators allowed).
+3. Quotes must be closed.*/
+int	token_check_syntax(t_token **head)
 {
 	int	i;
 	t_token	*current;
@@ -90,12 +89,14 @@ int	check_syntax(t_token **head)
 	current = *head;
 	while (current)
 	{
-		if (i == 0 && current->type < CMD_WORD)
-			return (ft_printf("Syntax Error: a pipe or operator must be followed by either a cmd or redirect\n"));
-		else if (current->type == IO_FILE && (!current->next || current->next->type != CMD_WORD))
-			return (ft_printf("Syntax Error: redirect must be followed by FILE name bzw heredoc DELIMITER\n"));
-		else if ((current->subtype == SQUOTE || current->subtype == DQUOTE) && quotes_check(current))
-			return (ft_printf("Syntax Error: unclosed quotes\n"));
+		if ((i == 0 && current->type < CMD_WORD) || (current->type == IO_FILE && 
+		(!current->next || current->next->type != CMD_WORD)))
+			return (ft_printf("minishell: syntax error after \'%s\' token\n",
+			 current->str), free_tokens(head), 1);
+		else if ((current->subtype == SQUOTE || current->subtype == DQUOTE) &&
+		quotes_check(current))
+			return (free_tokens(head),
+			ft_printf("minishell: syntax error (unclosed quotes)\n"));
 		if (current->type < CMD_WORD)
 			i = 0;
 		else
