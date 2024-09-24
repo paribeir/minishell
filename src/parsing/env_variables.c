@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/24 12:12:50 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/24 12:14:20 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,12 +258,13 @@ char	*get_var_content(char *var_name, t_cmd *cmd_data)
 /*If '$' is followed by a '?', it will be expanded into the exit status of the last foreground process.
 If there are more characters after the '?', they are kept as is, not affecting the expansion.
 e.g. $?hello --> 0hello*/
-// get var for heredoc
+// This function orchestrates variable extraction and content fetching
 char	*get_var(char **str, t_cmd *cmd_data)
 {
 	char	*var_name;
 	char	*var_content;
 
+	var_name = extract_var_name(str);
 	if (!var_name)
 		return (NULL);
 	var_content = get_var_content(var_name, cmd_data);
