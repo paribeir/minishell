@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/03 19:33:25 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/12 16:48:55 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exe_bltns_exit(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe_bltns_export(t_cmd_list *cmd_list, t_cmd *env);
 void	exe_bltns_pwd(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe_bltns_unset(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
-void	exe_cleanup(t_cmd *cmd);
+void	exe_cleanup(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe_cleanup_aftercmd(t_cmd_list *cmd_list, t_cmd *cmd_data);
 void	exe_cleanup_strarray(char **strarray);
 void	exe_directs_append(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
