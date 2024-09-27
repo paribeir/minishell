@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/09/08 19:42:54 by paribeir         ###   ########.fr        #
+#    Updated: 2024/09/27 18:53:31 by paribeir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,8 +65,11 @@ exe/exe_with_pipes.c \
 exe/exe_without_pipes.c \
 exe/exe.c \
 main.c \
+parsing/env_variables_even_more.c \
+parsing/env_variables_more.c \
 parsing/env_variables.c \
 parsing/expansions.c \
+parsing/heredoc_expansion.c \
 parsing/heredoc_utils.c \
 parsing/heredoc.c \
 parsing/hex_to_str.c \
@@ -77,8 +80,7 @@ parsing/quotes_remove.c \
 parsing/quotes.c \
 parsing/tokenizer_process_tokens.c\
 parsing/tokenizer_utils.c \
-parsing/tokenizer.c \
-parsing/wildcard.c
+parsing/tokenizer.c
 
 SRCS_MINISHELL = $(addprefix $(SRC_DIR), $(SRC_MINISHELL))
 

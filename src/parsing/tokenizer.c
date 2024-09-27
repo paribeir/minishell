@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:06:04 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/11 11:31:59 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:16:16 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 /*self-written errors dont have specific error codes*/
 t_token	*process_tokens(char *input, t_token *head, t_cmd *cmd_data)
 {
-	t_token *token;
-	size_t i;
-	char *start;
+	t_token	*token;
+	size_t	i;
+	char	*start;
 
 	i = 0;
 	while (input[i])
@@ -25,7 +25,7 @@ t_token	*process_tokens(char *input, t_token *head, t_cmd *cmd_data)
 		while (input[i] && ft_strchr(IFS, input[i]))
 			i++;
 		if (!input[i])
-			break;
+			break ;
 		token = create_token();
 		start = &input[i];
 		if (ft_strchr(SPECIAL_CHARS, input[i]))

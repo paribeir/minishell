@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:37:53 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/15 18:47:48 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:13:38 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	var_in_squote(char *str)
 	int	in_dquote;
 
 	i = 0;
-	in_squote = 0; //false
-	in_dquote = 0; //false
+	in_squote = 0;
+	in_dquote = 0;
 	while (str && str[i])
 	{
 		if (str[i] == '\'' && !in_dquote)
@@ -79,33 +79,3 @@ int	all_var_in_squote(char *str)
 	}
 	return (0);
 }
-
-//is the wildcard (*) inside any quotes?
-/*
-int	wild_in_quote(char *str, char *c)
-{
-	int	i;
-	int	in_squote;
-	int	in_dquote;
-
-	i = 0;
-	in_squote = 0; //false
-	in_dquote = 0; //false
-	while (str[i])
-	{
-		if (str[i] == '\'' && !in_dquote)
-			in_squote = !in_squote;
-		else if (str[i] == '\"' && !in_squote)
-			in_dquote = !in_dquote;
-		if (str[i] == '*')
-		{
-			if (in_squote)
-				*c = '\'';
-			else if (in_dquote)
-				*c = '\"';
-			return (in_squote || in_dquote); //id there is a '*' inside any quotes, it returns 1. Otherwise it returns 0.
-		}
-		i++;
-	}
-	return (0);
-}*/

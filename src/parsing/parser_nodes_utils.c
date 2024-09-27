@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_nodes_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 21:27:27 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/17 09:40:07 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:09:43 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_token	*token_fusion(t_token *t)
 {
 	t_token	*token;
-	int	flag;
+	int		flag;
 
 	token = t;
 	flag = 0;
@@ -27,7 +27,7 @@ t_token	*token_fusion(t_token *t)
 		{
 			token_fusion_cmdwords(&token);
 			if (!token)
-				continue ; 
+				continue ;
 			is_bltin(&token, flag);
 			flag = 1;
 			while (token && token->next && token->next->type == CMD_WORD)
@@ -73,12 +73,11 @@ void	redir_token_fusion(t_token **t)
 	token->next = temp;
 }
 
-
 //is this command a builtin?
 void	is_bltin(t_token **token, int flag)
 {
 	if (flag || !(*token))
-		return;
+		return ;
 	(*token)->subtype = BINARY;
 	if (!ft_strncmp("echo", (*token)->str, ft_strlen("echo") + 1))
 		(*token)->subtype = BLTIN_ECHO;

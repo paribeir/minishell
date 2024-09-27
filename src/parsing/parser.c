@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/06 23:48:13 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:10:25 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*The parser analyzes the tokens to form syntactically valid commands.
-It further processes the tokens to create a ready-to-use linked list of commands.*/
+/*The parser analyzes the tokens
+to form syntactically valid commands.
+It further processes the tokens
+to create a ready-to-use linked list of commands.*/
 t_cmd_list	*parse_tokens(t_token **token)
 {
 	t_token		*current;
@@ -47,9 +49,11 @@ void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 	while (current && current->type > PIPE)
 	{
 		(void) type;
-		if (!current->str[0] && !(current->subtype == SQUOTE || current->subtype == DQUOTE))
+		if (!current->str[0] && \
+		!(current->subtype == SQUOTE || current->subtype == DQUOTE))
 			g_status = 0;
-		else if (current->subtype != ARGUMENT && current->subtype != DQUOTE && current->subtype != SQUOTE)
+		else if (current->subtype != ARGUMENT && \
+		current->subtype != DQUOTE && current->subtype != SQUOTE)
 		{
 			node = create_cmd_node(current);
 			if (!node)
@@ -111,12 +115,12 @@ void	add_arguments(t_token *token, t_cmd_list **node)
 
 	current = NULL;
 	nbr_args = 0;
-	if (token->type == IO_FILE) //redirects
+	if (token->type == IO_FILE)
 	{
 		add_arguments_redirect(token, node);
 		return ;
 	}
-	else if (token->next) //if its a binary and there is something afterwards
+	else if (token->next)
 		nbr_args = count_args(token);
 	alloc_args(token, current, node, nbr_args);
 }

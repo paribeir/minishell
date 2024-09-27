@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:32:10 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/24 11:46:47 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:52:19 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,22 +73,25 @@ void	variable_expansion(t_token **head, t_cmd *cmd_data);
 
 //parser.c
 t_cmd_list	*parse_tokens(t_token **token);
+t_cmd_list	*create_cmd_node(t_token *token);
+t_token		*token_fusion(t_token *t);
+int		handle_var_expansion(char *str, int *i, char *new_str, t_cmd *cmd_data);
+int		all_var_in_squote(char *str);
+int		count_args(t_token *token);
+int		init_args(t_cmd_list **node, int nbr_args);
 void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type);
 void	free_tokens(t_token **head);
 void	node_add_back(t_cmd_list **head, t_cmd_list *new_node);
-t_token	*token_fusion(t_token *t);
 void	redir_token_fusion(t_token **t);
 void	is_bltin(t_token **token, int flag);
-t_cmd_list	*create_cmd_node(t_token *token);
 void	add_arguments(t_token *token, t_cmd_list **node);
 void	add_arguments_redirect(t_token *token, t_cmd_list **node);
-int	count_args(t_token *token);
 void	alloc_args(t_token *token, t_token *current, t_cmd_list **node, int nbr_args);
-int	init_args(t_cmd_list **node, int nbr_args);
 void	token_fusion_cmdwords(t_token **token);
 void	add_arguments_redirect(t_token *token, t_cmd_list **node);
-int	all_var_in_squote(char *str);
-
-
+char	*get_var_content(char *var_name, t_cmd *cmd_data);
+void	var_in_quote_exp(char *str, int *i, int *in_squote, int *in_dquote);
+char	*extract_var_name(char **str);
+char	*aux_str_join(char *str1, char *str2);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:06:59 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/11 14:49:22 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:15:47 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,21 @@ int	add_subtype(char q, char *input)
 3. Quotes must be closed.*/
 int	token_check_syntax(t_token **head)
 {
-	int	i;
 	t_token	*current;
+	int		i;
 
 	i = 0;
 	current = *head;
 	while (current)
 	{
-		if ((i == 0 && current->type < CMD_WORD) || (current->type == IO_FILE && 
-		(!current->next || current->next->type != CMD_WORD)))
-			return (ft_printf("minishell: syntax error after \'%s\' token\n",
-			 current->str), free_tokens(head), 1);
-		else if ((current->subtype == SQUOTE || current->subtype == DQUOTE) &&
+		if ((i == 0 && current->type < CMD_WORD) || \
+		(current->type == IO_FILE && (!current->next || \
+		current->next->type != CMD_WORD)))
+			return (ft_printf("minishell: syntax error after \'%s\' token\n", \
+			current->str), free_tokens(head), 1);
+		else if ((current->subtype == SQUOTE || current->subtype == DQUOTE) && \
 		quotes_check(current))
-			return (free_tokens(head),
+			return (free_tokens(head), \
 			ft_printf("minishell: syntax error (unclosed quotes)\n"));
 		if (current->type < CMD_WORD)
 			i = 0;

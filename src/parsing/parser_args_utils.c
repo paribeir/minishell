@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_args_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 21:24:20 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/06 22:30:01 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:09:09 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,22 @@ void	add_arguments_redirect(t_token *token, t_cmd_list **node)
 
 int	count_args(t_token *token)
 {
-	int	args;
 	t_token	*current;
+	int		args;
 
 	args = 0;
 	current = token->next;
 	while (current && current->type > PIPE)
 	{
-		if (current->subtype == 0 || current->subtype == DQUOTE || current->subtype == SQUOTE)
+		if (current->subtype == 0 || current->subtype == DQUOTE \
+		|| current->subtype == SQUOTE)
 			args++;
 		current = current->next;
 	}
 	return (args);
 }
 
-
-int init_args(t_cmd_list **node, int nbr_args)
+int	init_args(t_cmd_list **node, int nbr_args)
 {
 	(*node)->arguments = (char **)ft_calloc((nbr_args + 1), sizeof(char *));
 	if (!(*node)->arguments)
@@ -75,18 +75,20 @@ int	duplicate_args(char **arguments, int *i, char *str)
 	return (0);
 }
 
-void	alloc_args(t_token *token, t_token *current, t_cmd_list **node, int nbr_args)
+void	alloc_args(t_token *token, t_token *current, \
+t_cmd_list **node, int nbr_args)
 {
-	int i;
+	int	i;
 
-	i = 0;	
+	i = 0;
 	current = token->next;
 	if (init_args(node, nbr_args))
 		return ;
 	while (current && current->type > PIPE)
 	{
-		if (!(current->subtype == 0 && !current->str[0]) && 
-		(current->subtype == 0 || current->subtype == SQUOTE || current->subtype == DQUOTE))
+		if (!(current->subtype == 0 && !current->str[0]) && \
+		(current->subtype == 0 || \
+		current->subtype == SQUOTE || current->subtype == DQUOTE))
 		{
 			if (duplicate_args((*node)->arguments, &i, current->str))
 			{

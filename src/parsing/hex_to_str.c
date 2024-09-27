@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   hex_to_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 20:24:23 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/10 16:19:51 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:07:22 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 //handle zero case
-char	*handle_zero_case(void) 
+char	*handle_zero_case(void)
 {
 	char	*str;
-	
+
 	str = (char *)ft_calloc(2, 1);
 	if (str == NULL) 
 	{
@@ -28,11 +28,11 @@ char	*handle_zero_case(void)
 }
 
 //calculate the length of the string required to store the number
-int	calculate_length(unsigned long number) 
+int	calculate_length(unsigned long number)
 {
-	int len;
-	unsigned long temp;
-	
+	unsigned long	temp;
+	int				len;
+
 	len = 0;
 	temp = number;
 	while (temp > 0) 
@@ -44,7 +44,7 @@ int	calculate_length(unsigned long number)
 }
 
 //convert nbr to string
-void	convert_to_string(char *str, unsigned long number, int len) 
+void	convert_to_string(char *str, unsigned long number, int len)
 {
 	char	*end;
 
@@ -57,13 +57,13 @@ void	convert_to_string(char *str, unsigned long number, int len)
 	}
 }
 
-char	*ptr_to_str(unsigned long number) 
+char	*ptr_to_str(unsigned long number)
 {
-	int	len;
 	char	*str;
-	
+	int		len;
+
 	if (number == 0) 
-		return handle_zero_case();	
+		return (handle_zero_case());
 	len = calculate_length(number);
 	str = (char *)ft_calloc(len + 1, 1);
 	if (str == NULL) 
