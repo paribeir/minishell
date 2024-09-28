@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/24 10:56:36 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/28 08:55:56 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 	}
 	else if (!input)
 	{
+		write(1, "exit\n", 5);
 		exe_cleanup(cmd_list, cmd_data);
 		exit(EXIT_SUCCESS);
 	}

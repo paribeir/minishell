@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 08:43:25 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/12 16:54:24 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/28 08:27:03 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	exe_bin_perm(char *path, t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
-	struct stat	path_stats;
+	DIR	*directory;
 
-	stat(path, &path_stats);
-	if (S_ISDIR(path_stats.st_mode))
+	directory = opendir(path);
+	if (directory)
 	{
 		exe_err_long(NULL, ERR_BIN_IS_FOLDER);
 		exe_cleanup(cmd_list_item, cmd_data);
@@ -63,7 +63,7 @@ char	*exe_bin_get_bin_path_search(char *binary, t_cmd *cmd_data)
 			return (exe_cleanup_strarray(paths_arr), free(paths_str), path);
 		free(path);
 	}
-	return (exe_cleanup_strarray(paths_arr), free(paths_str), NULL);
+	return (exe_cleanup_strarray(paths_arr), free(paths_str), binary);
 }
 
 char	*exe_bin_get_bin_path(t_cmd_list *cmd_list_item, t_cmd *cmd_data)

@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:13:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/27 10:23:41 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/28 08:13:29 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*exe_env_get_var_address(char *var, t_cmd *cmd_data)
 			exe_cleanup_strarray(env_var);
 			return (cmd_data->envp[i]);
 		}
+		exe_cleanup_strarray(env_var);
 		i++;
 	}
 	return (NULL);
