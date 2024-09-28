@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/08/30 11:45:33 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/28 16:28:55 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,18 @@ typedef struct s_exit_status
 
 typedef struct s_cmd
 {
-	int		saved_stdin;
-	int		saved_stdout;
-	int		pipe[2];
-	int		tmp_read_pipe_fd;
-	int		wr_to_pipe;
-	int		rd_from_pipe;
-	char	**envp;
-	int		pipe_scenario;
-	int		subshell_running;
-	int		stop_exe;
-	t_list	*exit_codes;
+	int			saved_stdin;
+	int			saved_stdout;
+	int			pipe[2];
+	int			tmp_read_pipe_fd;
+	int			wr_to_pipe;
+	int			rd_from_pipe;
+	char		**envp;
+	int			pipe_scenario;
+	int			subshell_running;
+	int			stop_exe;
+	t_list		*exit_codes;
+	t_cmd_list	*cmd_list_head;
 }	t_cmd;
 
 /*** Error Messages ***/

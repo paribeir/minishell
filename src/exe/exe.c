@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/03 17:29:50 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/28 17:05:30 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	exe_init_cmd_data(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	cmd_data->rd_from_pipe = -1;
 	cmd_data->pipe_scenario = -1;
 	cmd_data->stop_exe = -1;
+	cmd_data->cmd_list_head = cmd_list_item;
 	while (cmd_list_item && cmd_data->pipe_scenario == -1)
 	{
 		if (cmd_list_item->type == T_PIPE)
