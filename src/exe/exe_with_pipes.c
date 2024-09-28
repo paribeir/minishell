@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 08:13:34 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/12 16:50:49 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/28 14:46:41 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,13 @@ void	exe_with_pipes_map(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	t_token_subtype	t;
 
-	while (cmd_list_item && cmd_data->subshell_running == 1)
-	{
-		t = cmd_list_item->type;
-		if (t == BINARY)
-			exe_bin(cmd_list_item, cmd_data);
-		else if (t == BLTIN_ECHO || t == BLTIN_CD || t == BLTIN_PWD || \
-		t == BLTIN_EXPORT || t == BLTIN_UNSET || t == BLTIN_ENV || \
-		t == BLTIN_EXIT)
-			exe_bltns(cmd_list_item, cmd_data);
-		else if (cmd_list_item->type == T_PIPE)
-			cmd_data->subshell_running = -1;
-		cmd_list_item = cmd_list_item->next;
-	}
+	t = cmd_list_item->type;
+	if (t == BINARY)
+		exe_bin(cmd_list_item, cmd_data);
+	else if (t == BLTIN_ECHO || t == BLTIN_CD || t == BLTIN_PWD || \
+	t == BLTIN_EXPORT || t == BLTIN_UNSET || t == BLTIN_ENV || \
+	t == BLTIN_EXIT)
+		exe_bltns(cmd_list_item, cmd_data);
 }
 
 void	exe_with_pipes_start_pipe(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
@@ -74,7 +68,7 @@ void	exe_with_pipes_start_pipe(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		exe_pipe_closing_child(cmd_data);
 		exe_set_in_out(cmd_list_item, cmd_data);
 		exe_with_pipes_map(cmd_list_item, cmd_data);
-		exe_cleanup(cmd_list_item, cmd_data);
+		exe_cleanup(cmd_data);
 		exit(EXIT_SUCCESS);
 	}
 	exe_with_pipes_store_pid(pid, cmd_data);
@@ -90,7 +84,7 @@ void	exe_with_pipes(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 			cmd_data->subshell_running = 1;
 			exe_with_pipes_start_pipe(cmd_list_item, cmd_data);
 		}
-		if (cmd_list_item->type == T_PIPE)
+		else if (cmd_list_item->type == T_PIPE)
 		{
 			cmd_data->subshell_running = -1;
 			cmd_data->rd_from_pipe = 1;

@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 08:43:25 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/28 08:27:03 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/28 14:45:31 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exe_bin_perm(char *path, t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	if (directory)
 	{
 		exe_err_long(NULL, ERR_BIN_IS_FOLDER);
-		exe_cleanup(cmd_list_item, cmd_data);
+		exe_cleanup(cmd_data);
 		exit(126);
 	}
 	else if (access(path, F_OK) == -1)
@@ -29,13 +29,13 @@ void	exe_bin_perm(char *path, t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 			exe_err_long(NULL, ERR_BIN_NO_SUCH_FOLDER);
 		else
 			exe_err_long(NULL, ERR_BIN_NOT_FOUND);
-		exe_cleanup(cmd_list_item, cmd_data);
+		exe_cleanup(cmd_data);
 		exit(127);
 	}
 	else if (access(path, X_OK) == -1)
 	{
 		exe_err_long(NULL, ERR_BIN_NON_EXECUTABEL);
-		exe_cleanup(cmd_list_item, cmd_data);
+		exe_cleanup(cmd_data);
 		exit(126);
 	}
 }

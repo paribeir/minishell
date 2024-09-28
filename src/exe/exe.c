@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/03 17:29:50 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/28 14:40:49 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	exe_init_cmd_data(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	}
 	cmd_data->subshell_running = -1;
 	cmd_data->exit_codes = NULL;
+	cmd_data->cmd_list_head = cmd_list_item;
 }
 
 void	exe_reset_in_out(t_cmd *cmd_data)
