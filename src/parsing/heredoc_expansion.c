@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_expansion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:29:42 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/27 18:52:05 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:20:43 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

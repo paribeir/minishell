@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 19:18:11 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 17:10:35 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:20:38 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	heredoc_signals_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		ft_putstr_fd("\nheredoc > ", STDOUT_FILENO);
+		g_signum = SIGINT;
+		//ft_putstr_fd("\nheredoc > ", STDOUT_FILENO);
 		return ;
 	}
 }

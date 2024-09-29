@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 19:10:43 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 17:01:05 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:20:40 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ char *final_str, char *filename)
 {
 	if (!read_str || is_heredoc_delimiter(token, read_str))
 	{
+		if (!read_str)
+			ft_printf("\nminishell: warning: here-document delimited by end-of-file (wanted '%s')\n", token->next->str);
 		free(token->next->str);
 		if (write_heredoc_to_file(filename, final_str) < 0)
 		{
