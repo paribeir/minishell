@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/29 15:54:49 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 21:37:27 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	exe_cleanup(t_cmd *cmd_data);
 void	exe_cleanup_aftercmd(t_cmd *cmd_data);
 void	exe_cleanup_strarray(char **strarray);
 void	exe_directs_append(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
+void	exe_directs_del_tmp_heredoc(t_cmd_list *cmd_list_item);
 void	exe_directs_here_doc(t_cmd_list *cmd_list_item);
 void	exe_directs_redir_in(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe_directs_redir_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
