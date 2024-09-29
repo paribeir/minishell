@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 18:54:46 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:25:08 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,22 @@ void	initial_setup(t_cmd *cmd_data)
 {
 	cmd_data->saved_stdin = dup(STDIN_FILENO);
 	cmd_data->saved_stdout = dup(STDOUT_FILENO);
-	cmd_data->cmd_list_head = NULL;
-	cmd_data->exit_codes = NULL;
 	cmd_data->exit_code = 0;
 }
 
-/*- initialize history.
-- start minishell loop.
-- if there is input, add it to the history and process it.
-- else, exit and cleanup.*/
+void	reset_cmd_data(t_cmd *cmd_data)
+{
+	cmd_data->cmd_list_head = NULL;
+	cmd_data->exit_codes = NULL;
+}
+
 void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 {
 	char		*input;
 	t_token		*tokens;
 
 	exe_signals_default();
+	reset_cmd_data(cmd_data);
 	input = readline(BLUE "Mini🐚 > " NS);
 	if (input)
 	{
@@ -97,7 +98,7 @@ int	main(int argc, char *argv[], char *envp[])
 	cmd_data.envp = exe_env_cpy(envp);
 	cmd_list = NULL;
 	exe_increase_shlvl(&cmd_data);
-	initial_setup(&cmd_data);
+	setup_cmd_data(&cmd_data);
 	while (1)
 		minishell(cmd_list, &cmd_data);
 }
