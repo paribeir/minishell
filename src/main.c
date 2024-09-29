@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 21:58:56 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 21:13:26 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	setup_cmd_data(t_cmd *cmd_data)
 
 void	reset_cmd_data(t_cmd *cmd_data)
 {
+	cmd_data->saved_stdin = dup(STDIN_FILENO);
+	cmd_data->saved_stdout = dup(STDOUT_FILENO);
 	cmd_data->cmd_list_head = NULL;
 	cmd_data->exit_codes = NULL;
 }
