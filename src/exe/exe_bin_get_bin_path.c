@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 08:43:25 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/28 17:11:07 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 18:31:15 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	exe_bin_perm(char *path, t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	{
 		exe_err_long(NULL, ERR_BIN_IS_FOLDER);
 		exe_cleanup(cmd_data);
+		free(path);
 		exit(126);
 	}
 	else if (access(path, F_OK) == -1)
@@ -30,12 +31,14 @@ void	exe_bin_perm(char *path, t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 		else
 			exe_err_long(NULL, ERR_BIN_NOT_FOUND);
 		exe_cleanup(cmd_data);
+		free(path);
 		exit(127);
 	}
 	else if (access(path, X_OK) == -1)
 	{
 		exe_err_long(NULL, ERR_BIN_NON_EXECUTABEL);
 		exe_cleanup(cmd_data);
+		free(path);
 		exit(126);
 	}
 }
@@ -63,7 +66,8 @@ char	*exe_bin_get_bin_path_search(char *binary, t_cmd *cmd_data)
 			return (exe_cleanup_strarray(paths_arr), free(paths_str), path);
 		free(path);
 	}
-	return (exe_cleanup_strarray(paths_arr), free(paths_str), binary);
+	return (exe_cleanup_strarray(paths_arr), free(paths_str), \
+	ft_strdup(binary));
 }
 
 char	*exe_bin_get_bin_path(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
