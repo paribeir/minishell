@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 19:10:43 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/27 12:53:49 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 17:01:05 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	write_heredoc_to_file(char *filename, char *final_str)
 int	handle_heredoc_delimiter(t_token *token, char *read_str, \
 char *final_str, char *filename)
 {
-	if (is_heredoc_delimiter(token, read_str))
+	if (!read_str || is_heredoc_delimiter(token, read_str))
 	{
 		free(token->next->str);
 		if (write_heredoc_to_file(filename, final_str) < 0)

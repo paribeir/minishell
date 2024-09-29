@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 16:35:22 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 17:03:12 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ char **final_str, char *filename)
 	while (read_str)
 	{
 		if (handle_heredoc_delimiter(token, read_str, *final_str, filename))
+		{
+			exe_signals_processing();
 			return (1);
+		}
 		read_str = process_heredoc_line(read_str, token, cmd_data);
 		if (!update_final_str(final_str, read_str, filename))
 			return (0);
@@ -68,7 +71,10 @@ char **final_str, char *filename)
 		read_str = ft_get_next_line(0); //I want to be able to catch a cmd d (or eof) here
 	}
 	if (!read_str)
+	{
+		handle_heredoc_delimiter(token, read_str, *final_str, filename);
 		ft_putstr_fd("\nEOF (Ctrl+D) detected, exiting heredoc.\n", STDOUT_FILENO);
+	}
 	exe_signals_processing();
 	return (1);
 }
