@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:14:00 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/29 15:46:45 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 18:01:01 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	exe_bltns_exit(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	if (cmd_list_item->arguments[0] && cmd_list_item->arguments[1])
 	{
 		exe_err_long(NULL, ERR_TOO_MANY_ARGS);
-		if (cmd_data->pipe_scenario == 0)
+		if (cmd_data->pipe_scenario == -1)
 			ft_putstr_fd("exit\n", 1);
 		exe_cleanup(cmd_data);
 		exit(1);
 	}
 	exe_bltns_exe_check_arg(cmd_list_item, cmd_data);
-	if (cmd_data->pipe_scenario == 0)
+	if (cmd_data->pipe_scenario == -1)
 		ft_putstr_fd("exit\n", 1);
 	exe_cleanup(cmd_data);
 	exit(EXIT_SUCCESS);
