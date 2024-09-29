@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 00:46:53 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/29 14:10:31 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 14:44:36 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,14 @@
  * cmd_data->tmp_read_pipe_fd.
  */
 
-void	exe_init_cmd_data(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
+void	exe_setup(t_cmd *cmd_data, t_cmd_list *cmd_list_item)
 {
-	cmd_data->saved_stdin = dup(STDIN_FILENO);
-	cmd_data->saved_stdout = dup(STDOUT_FILENO);
 	cmd_data->pipe[0] = -1;
 	cmd_data->pipe[1] = -1;
 	cmd_data->wr_to_pipe = -1;
 	cmd_data->rd_from_pipe = -1;
 	cmd_data->pipe_scenario = -1;
 	cmd_data->stop_exe = -1;
-	cmd_data->cmd_list_head = cmd_list_item;
 	while (cmd_list_item && cmd_data->pipe_scenario == -1)
 	{
 		if (cmd_list_item->type == T_PIPE)
@@ -50,7 +47,7 @@ void	exe_reset_in_out(t_cmd *cmd_data)
 
 void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data)
 {
-	exe_init_cmd_data(cmd_list_item, cmd_data);
+	exe_setup(cmd_data, cmd_list_item);
 	if (cmd_data->pipe_scenario == 1)
 		exe_with_pipes(cmd_list_item, cmd_data);
 	else
