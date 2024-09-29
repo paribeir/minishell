@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 15:50:21 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 17:16:51 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,3 +83,7 @@ typedef struct s_cmd
 # define NS	"\033[0m"
 
 #endif
+
+/*** Functions ***/
+
+void	debug_print_cmds(t_cmd_list *cmd, int active);
