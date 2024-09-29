@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:24:36 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/03 19:15:26 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 14:13:41 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	exe_bltns_cd_check_input(t_cmd_list *cmd_list_item)
 	{
 		exe_err_long(NULL, ERR_CD_TOO_MANY_ARGS);
 		g_status = 1;
+		return (1);
 	}
 	return (0);
 }
@@ -44,7 +45,8 @@ void	exe_bltns_cd(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	char	pwd[PATH_MAX];
 
 	g_status = 0;
-	exe_bltns_cd_check_input(cmd_list_item);
+	if (exe_bltns_cd_check_input(cmd_list_item) == 1)
+		return ;
 	target = exe_bltns_cd_get_target(cmd_list_item, cmd_data);
 	if (chdir(target) == 0)
 	{

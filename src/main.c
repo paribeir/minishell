@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/28 17:12:10 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 14:11:36 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 		add_history(input);
 		tokens = tokenizer(input, cmd_data);
 		cmd_list = parse_tokens(&tokens);
-		debug_print_cmds(cmd_list, 0);
+		cmd_data->exit_codes = NULL;
 		exe(cmd_list, cmd_data);
 		exe_cleanup_aftercmd(cmd_data);
 	}
