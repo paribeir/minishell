@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/27 18:50:53 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:49:49 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_var_name(char *str, int *i)
 
 	j = 0;
 	dest = ft_calloc(ft_strlen(&str[*i]) + 1, 1);
-	if (str[*i] == '$') 
+	if (str[*i] == '$')
 		(*i)++;
 	if (str[*i] == '?')
 	{
@@ -79,7 +79,7 @@ char	*util_get_var(char *var, t_cmd *cmd_data)
 	char	*exp_var;
 
 	if (var && var[0] == '?')
-		exp_var = ft_itoa(g_status);
+		exp_var = ft_itoa(cmd_data->exit_code);
 	else if (ft_strlen(var) == 1 && var[0] == '$')
 		exp_var = ft_strdup("$");
 	else

@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/28 17:10:36 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 15:54:49 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*exe_bin_get_bin_path(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe_bltns(t_cmd_list *cmd_list_item, t_cmd *cmd);
 void	exe_bltns_cd(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe_bltns_echo(t_cmd_list *cmd_list_item, t_cmd *cmd);
-void	exe_bltns_env(char **envp);
+void	exe_bltns_env(char **envp, t_cmd *cmd_data);
 void	exe_bltns_exit(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe_bltns_export(t_cmd_list *cmd_list, t_cmd *env);
 void	exe_bltns_pwd(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
@@ -46,7 +46,6 @@ void	exe_fd_checker(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe_pipe_closing_child(t_cmd *cmd_data);
 void	exe_pipe_closing_parent(t_cmd *cmd_data);
 void	exe_set_in_out(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
-void	exe_set_status(int status_nb);
 void	exe_signals_default(void);
 void	exe_signals_processing(void);
 void	exe_with_pipes(t_cmd_list *cmd_list_item, t_cmd *cmd_data);

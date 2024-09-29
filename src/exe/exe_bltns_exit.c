@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:14:00 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/28 17:11:30 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 15:46:45 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	exe_bltns_exe_check_arg(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 
 void	exe_bltns_exit(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
-	g_status = 0;
+	cmd_data->exit_code = 0;
 	if (cmd_list_item->arguments[0] && cmd_list_item->arguments[1])
 	{
 		exe_err_long(NULL, ERR_TOO_MANY_ARGS);

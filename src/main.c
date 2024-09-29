@@ -6,13 +6,11 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 15:40:29 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 15:56:01 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	g_status = 0;
 
 /*debugger*/
 void	debug_print_cmds(t_cmd_list *cmd, int active)
@@ -38,6 +36,7 @@ void	initial_setup(t_cmd *cmd_data)
 	cmd_data->saved_stdout = dup(STDOUT_FILENO);
 	cmd_data->cmd_list_head = NULL;
 	cmd_data->exit_codes = NULL;
+	cmd_data->exit_code = 0;
 }
 
 /*- initialize history.
@@ -56,7 +55,7 @@ void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 		exe_signals_processing();
 		add_history(input);
 		tokens = tokenizer(input, cmd_data);
-		cmd_list = parse_tokens(&tokens);
+		cmd_list = parse_tokens(&tokens, cmd_data);
 		exe(cmd_list, cmd_data);
 		exe_cleanup_aftercmd(cmd_data);
 	}

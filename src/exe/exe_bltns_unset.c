@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:20:32 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/15 17:53:51 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 15:47:30 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	exe_bltns_unset(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	int		j;
 	char	*var;
 
-	g_status = 0;
+	cmd_data->exit_code = 0;
 	j = -1;
 	while (cmd_list_item->arguments[++j])
 	{

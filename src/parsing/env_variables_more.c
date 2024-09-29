@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_variables_more.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:42:39 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/27 18:52:40 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:49:41 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ char	*get_var_content(char *var_name, t_cmd *cmd_data)
 
 	if (var_name[0] == '?')
 	{
-		result = ft_itoa(g_status);
+		result = ft_itoa(cmd_data->exit_code);
 		return (result);
 	}
 	var_content = exe_env_get_var(var_name, cmd_data);

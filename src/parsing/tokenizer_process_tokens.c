@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_process_tokens.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 16:23:28 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/27 15:14:13 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 16:00:34 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 
-int	token_small(char *input, t_token *token)
+int	token_small(char *input, t_token *token, t_cmd *cmd_data)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ int	token_small(char *input, t_token *token)
 	{
 		ft_printf("minishell: syntax error near token \
 		\'%c%c\'\n", input[0], input[1]);
-		g_status = 2;
+		cmd_data->exit_code = 2;
 		return (0);
 	}
 	token->subtype = add_subtype(input[i], input);

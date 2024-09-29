@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/09/27 19:24:33 by paribeir         ###   ########.fr        #
+#    Updated: 2024/09/29 15:54:37 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,6 @@ exe/exe_get_exit_status.c \
 exe/exe_pipe_closing_child.c \
 exe/exe_pipe_closing_parent.c \
 exe/exe_set_in_out.c \
-exe/exe_set_status.c \
 exe/exe_signals.c \
 exe/exe_with_pipes.c \
 exe/exe_without_pipes.c \

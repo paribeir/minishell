@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:02:37 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/03 17:30:21 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 15:46:50 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	exe_bltns_echo(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	int		n_flag;
 	int		start;
 
-	g_status = 0;
+	cmd_data->exit_code = 0;
 	(void) cmd_data;
 	args = cmd_list_item->arguments;
 	n_flag = 0;

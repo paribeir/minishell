@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:20:32 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/03 18:07:51 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 15:53:56 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,22 @@ void	exe_bltns_export_sort(char **cpy)
  * @param	cmd_list The current node of our command list.
  * @return	Returns 0 on success and -1 on error.
  */
-int	exe_bltns_export_check_input(char *s)
+int	exe_bltns_export_check_input(char *s, t_cmd * cmd_data)
 {
 	int	i;
 
 	i = 0;
 	if (s[0] == '-')
 		return (exe_err_long(NULL, ERR_BLTN_EXPORT_NO_OPTIONS), \
-		exe_set_status(1), 1);
+		cmd_data->exit_code = 1, 1);
 	if (ft_strchr(VALID_CHARACTERS_START, s[0]) == 0)
 		return (exe_err_long(NULL, ERR_EXPORT_INVALID_ID), \
-		exe_set_status(1), 1);
+		cmd_data->exit_code = 1, 1);
 	while (s[++i] != '\0')
 	{
 		if (ft_strchr(VALID_CHARACTERS_LATER, s[i]) == 0)
 			return (exe_err_long(NULL, ERR_EXPORT_INVALID_ID), \
-			exe_set_status(1), 1);
+			cmd_data->exit_code = 1, 1);
 	}
 	return (0);
 }
@@ -88,17 +88,17 @@ void	exe_bltns_export_save_val(char *str, t_cmd *cmd_data)
 	if (ft_strncmp(str, "=", 1) == 0)
 	{
 		exe_err_long(NULL, ERR_EXPORT_INVALID_ID);
-		exe_set_status(1);
+		cmd_data->exit_code = 1;
 	}
 	else if (ft_strchr(str, '='))
 	{
 		str_arr = ft_split(str, '=');
-		if (exe_bltns_export_check_input(str_arr[0]) == 0)
+		if (exe_bltns_export_check_input(str_arr[0], cmd_data) == 0)
 			exe_env_set_var(str_arr[0], str_arr[1], cmd_data);
 		exe_cleanup_strarray(str_arr);
 	}
 	else
-		if (exe_bltns_export_check_input(str) == 0)
+		if (exe_bltns_export_check_input(str, cmd_data) == 0)
 			exe_env_set_var(str, "", cmd_data);
 }
 
@@ -107,7 +107,7 @@ void	exe_bltns_export(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	char	**cpy;
 	int		i;
 
-	g_status = 0;
+	cmd_data->exit_code = 0;
 	i = -1;
 	if (cmd_list_item->arguments[0] == NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:24:36 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/29 14:13:41 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 15:47:01 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ char	*exe_bltns_cd_get_target(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	return (target);
 }
 
-int	exe_bltns_cd_check_input(t_cmd_list *cmd_list_item)
+int	exe_bltns_cd_check_input(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	if (cmd_list_item->arguments[1])
 	{
 		exe_err_long(NULL, ERR_CD_TOO_MANY_ARGS);
-		g_status = 1;
+		cmd_data->exit_code = 1;
 		return (1);
 	}
 	return (0);
@@ -44,8 +44,8 @@ void	exe_bltns_cd(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	char	*var_val;
 	char	pwd[PATH_MAX];
 
-	g_status = 0;
-	if (exe_bltns_cd_check_input(cmd_list_item) == 1)
+	cmd_data->exit_code = 0;
+	if (exe_bltns_cd_check_input(cmd_list_item, cmd_data) == 1)
 		return ;
 	target = exe_bltns_cd_get_target(cmd_list_item, cmd_data);
 	if (chdir(target) == 0)
@@ -60,7 +60,7 @@ void	exe_bltns_cd(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 	else
 	{
 		free(target);
-		g_status = 1;
+		cmd_data->exit_code = 1;
 		exe_err_long(NULL, ERR_CD_NO_SUCH_DIRECTORY);
 	}
 }

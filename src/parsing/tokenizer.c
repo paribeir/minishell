@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:06:04 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/27 15:16:16 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 16:00:41 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_token	*process_tokens(char *input, t_token *head, t_cmd *cmd_data)
 		start = &input[i];
 		if (ft_strchr(SPECIAL_CHARS, input[i]))
 		{
-			if (token_small(start, token))
-				i += token_small(start, token);
+			if (token_small(start, token, cmd_data))
+				i += token_small(start, token, cmd_data);
 			else
 			{
 				free (token);
@@ -44,7 +44,7 @@ t_token	*process_tokens(char *input, t_token *head, t_cmd *cmd_data)
 		add_token(start, &head, token);
 	}
 	if (token_check_syntax(&head)) //mem leaks
-		return (g_status = 2, NULL);
+		return (cmd_data->exit_code = 2, NULL);
 	if (head)
 		variable_expansion(&head, cmd_data);
     return (head);

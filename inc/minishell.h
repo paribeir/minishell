@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 15:40:35 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 15:50:21 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@
 # include "tokenizer.h"
 # include "parser.h"
 
-extern int	g_status;
-
 /*** Structs ***/
 
 typedef struct s_exit_status
@@ -57,6 +55,7 @@ typedef struct s_cmd
 	int			pipe_scenario;
 	int			subshell_running;
 	int			stop_exe;
+	int			exit_code;
 	t_list		*exit_codes;
 	t_cmd_list	*cmd_list_head;
 }	t_cmd;

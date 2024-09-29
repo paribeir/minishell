@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/27 15:10:25 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:57:28 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 to form syntactically valid commands.
 It further processes the tokens
 to create a ready-to-use linked list of commands.*/
-t_cmd_list	*parse_tokens(t_token **token)
+t_cmd_list	*parse_tokens(t_token **token, t_cmd *cmd_data)
 {
 	t_token		*current;
 	t_cmd_list	*head;
@@ -27,7 +27,7 @@ t_cmd_list	*parse_tokens(t_token **token)
 		return (NULL);
 	while (current)
 	{
-		reorder_tokens(current, &head, REDIR_IN);
+		reorder_tokens(current, &head, REDIR_IN, cmd_data);
 		while (current && current->type != PIPE && current->type != OPERATOR)
 			current = current->next;
 		if (current)
@@ -40,7 +40,8 @@ t_cmd_list	*parse_tokens(t_token **token)
 	return (head);
 }
 
-void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
+void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type, \
+t_cmd *cmd_data)
 {
 	t_cmd_list	*node;
 	t_token		*current;
@@ -51,7 +52,7 @@ void	reorder_tokens(t_token *token, t_cmd_list **head, t_token_subtype type)
 		(void) type;
 		if (!current->str[0] && \
 		!(current->subtype == SQUOTE || current->subtype == DQUOTE))
-			g_status = 0;
+			cmd_data->exit_code = 0;
 		else if (current->subtype != ARGUMENT && \
 		current->subtype != DQUOTE && current->subtype != SQUOTE)
 		{
