@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 19:25:17 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 21:13:52 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ typedef struct s_cmd
 /*** Colors ***/
 
 # define BLUE	"\033[1;36m"
+# define RED     "\033[1;31m"
+# define PURPLE  "\033[1;35m"
 # define NS	"\033[0m"
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 17:49:18 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 21:57:17 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 
 	exe_signals_default();
 	reset_cmd_data(cmd_data);
-	input = readline(BLUE "Mini🐚 > " NS);
+	input = readline(RED "MiniHell🔥 > " NS);
 	if (input)
 	{
 		exe_signals_processing();
