@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 19:30:16 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 17:49:18 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,7 @@
 
 int	g_signum = 0;
 
-/*debugger*/
-/*void	debug_print_cmds(t_cmd_list *cmd, int active)
-{
-	int			i;
-
-	while (active != 0 && cmd)
-	{
-		i = -1;
-		ft_printf("Type: %d\n", cmd->type);
-		if (cmd->binary)
-			ft_printf("	Binary: %s\n", cmd->binary);
-		if (cmd->type != T_PIPE && cmd->type != AND_IF && cmd->type != OR_IF)
-			while (cmd->arguments && cmd->arguments[++i])
-				ft_printf("	Argument %d: %s\n", i, cmd->arguments[i]);
-		cmd = cmd->next;
-	}
-}*/
-
-void	initial_setup(t_cmd *cmd_data)
+void	setup_cmd_data(t_cmd *cmd_data)
 {
 	cmd_data->saved_stdin = dup(STDIN_FILENO);
 	cmd_data->saved_stdout = dup(STDOUT_FILENO);
@@ -98,7 +80,7 @@ int	main(int argc, char *argv[], char *envp[])
 	cmd_data.envp = exe_env_cpy(envp);
 	cmd_list = NULL;
 	exe_increase_shlvl(&cmd_data);
-	reset_cmd_data(&cmd_data);
+	setup_cmd_data(&cmd_data);
 	while (1)
 		minishell(cmd_list, &cmd_data);
 }
