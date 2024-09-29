@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+         #
+#    By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/09/27 18:53:31 by paribeir         ###   ########.fr        #
+#    Updated: 2024/09/27 19:24:33 by paribeir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ parsing/env_variables_even_more.c \
 parsing/env_variables_more.c \
 parsing/env_variables.c \
 parsing/expansions.c \
+parsing/heredoc_signals.c \
 parsing/heredoc_expansion.c \
 parsing/heredoc_utils.c \
 parsing/heredoc.c \

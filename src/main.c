@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 14:11:36 by jdach            ###   ########.fr       */
+/*   Updated: 2024/09/29 16:32:19 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 		add_history(input);
 		tokens = tokenizer(input, cmd_data);
 		cmd_list = parse_tokens(&tokens);
-		cmd_data->exit_codes = NULL;
 		exe(cmd_list, cmd_data);
 		exe_cleanup_aftercmd(cmd_data);
 	}
@@ -88,6 +87,7 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argv;
 	cmd_data.envp = exe_env_cpy(envp);
 	exe_increase_shlvl(&cmd_data);
+	cmd_data.exit_codes = NULL;
 	cmd_list = NULL;
 	while (1)
 		minishell(cmd_list, &cmd_data);

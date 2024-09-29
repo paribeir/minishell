@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/27 14:30:24 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 16:35:22 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+void	heredoc_signals_set(void);
 
 //--> TO-DO: Add return value if gnl fails
 //eval if we need a check before quote removal
@@ -53,7 +54,8 @@ char **final_str, char *filename)
 {
 	char	*read_str;
 
-	read_str = ft_get_next_line(0);
+	heredoc_signals_set();
+	read_str = ft_get_next_line(0); //I want to be able to catch a cmd d (or eof) here
 	while (read_str)
 	{
 		if (handle_heredoc_delimiter(token, read_str, *final_str, filename))
@@ -63,9 +65,12 @@ char **final_str, char *filename)
 			return (0);
 		free(read_str);
 		ft_putstr_fd("heredoc > ", STDOUT_FILENO);
-		read_str = ft_get_next_line(0);
+		read_str = ft_get_next_line(0); //I want to be able to catch a cmd d (or eof) here
 	}
-	return (0);
+	if (!read_str)
+		ft_putstr_fd("\nEOF (Ctrl+D) detected, exiting heredoc.\n", STDOUT_FILENO);
+	exe_signals_processing();
+	return (1);
 }
 
 char	*heredoc_handler(t_token *token, t_cmd *cmd_data)
