@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 19:25:08 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:30:16 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	g_signum = 0;
 
 /*debugger*/
-void	debug_print_cmds(t_cmd_list *cmd, int active)
+/*void	debug_print_cmds(t_cmd_list *cmd, int active)
 {
 	int			i;
 
@@ -30,7 +30,7 @@ void	debug_print_cmds(t_cmd_list *cmd, int active)
 				ft_printf("	Argument %d: %s\n", i, cmd->arguments[i]);
 		cmd = cmd->next;
 	}
-}
+}*/
 
 void	initial_setup(t_cmd *cmd_data)
 {
@@ -98,7 +98,7 @@ int	main(int argc, char *argv[], char *envp[])
 	cmd_data.envp = exe_env_cpy(envp);
 	cmd_list = NULL;
 	exe_increase_shlvl(&cmd_data);
-	setup_cmd_data(&cmd_data);
+	reset_cmd_data(&cmd_data);
 	while (1)
 		minishell(cmd_list, &cmd_data);
 }
