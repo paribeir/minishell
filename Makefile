@@ -6,7 +6,7 @@
 #    By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/10/01 22:16:02 by paribeir         ###   ########.fr        #
+#    Updated: 2024/10/01 23:22:55 by paribeir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,6 @@ exe/exe_with_pipes.c \
 exe/exe_without_pipes.c \
 exe/exe.c \
 main.c \
-parsing/banner.c \
 parsing/env_variables_even_more.c \
 parsing/env_variables_more.c \
 parsing/env_variables.c \

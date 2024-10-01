@@ -6,12 +6,12 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 22:09:06 by paribeir          #+#    #+#             */
-/*   Updated: 2024/10/01 22:33:19 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/01 23:22:16 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
+/*
 void	banner(void)
 {
 	ft_putstr_fd("\n", STDOUT_FILENO);
@@ -25,3 +25,4 @@ void	banner(void)
 	ft_putstr_fd(RED "    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n" NS, STDOUT_FILENO);
 	ft_putstr_fd("\n", STDOUT_FILENO);
 }
+*/

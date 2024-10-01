@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/10/01 22:15:33 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/01 23:23:19 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void) argc;
 	(void) argv;
-	banner();
+	//banner();
 	cmd_data.envp = exe_env_cpy(envp);
 	cmd_list = NULL;
 	exe_increase_shlvl(&cmd_data);
