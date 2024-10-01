@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/30 16:49:33 by jdach            ###   ########.fr       */
+/*   Updated: 2024/10/01 22:15:33 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_signum = 0;
+void	banner(void);
 
 void	setup_cmd_data(t_cmd *cmd_data)
 {
@@ -81,6 +82,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void) argc;
 	(void) argv;
+	banner();
 	cmd_data.envp = exe_env_cpy(envp);
 	cmd_list = NULL;
 	exe_increase_shlvl(&cmd_data);

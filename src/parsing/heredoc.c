@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/10/01 20:21:22 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/01 22:03:41 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	cleanup_memory(char *final_str, char *read_str, char *filename)
 		free(filename);
 }
 
-//add signal handling
 int	process_heredoc_loop(t_token *token, t_cmd *cmd_data, \
 char **final_str, char *filename)
 {
@@ -57,7 +56,7 @@ char **final_str, char *filename)
 	heredoc_signals_set();
 	read_str = readline(PURPLE "😈 > " NS);
 	if (g_signum == SIGINT)
-		return (free(token->next->str), exe_signals_processing(), cleanup_memory(*final_str, NULL, NULL), g_signum = 0, 1);
+		return (free(token->next->str), exe_signals_processing(), cleanup_memory(*final_str, NULL, NULL), 1);
 	while (read_str && g_signum != SIGINT)
 	{
 		if (handle_heredoc_delimiter(token, read_str, *final_str, filename))
@@ -69,8 +68,10 @@ char **final_str, char *filename)
 		read_str = readline(PURPLE "😈 > " NS);
 	}
 	if (g_signum == SIGINT)
-		return (exe_signals_processing(), free(token->next->str), cleanup_memory(*final_str, NULL, NULL), g_signum = 0, 1);
-	return (exe_signals_processing(), g_signum = 0, 1);
+		return (exe_signals_processing(), free(token->next->str), cleanup_memory(*final_str, NULL, NULL), 1);
+	else if (!read_str)
+		handle_heredoc_delimiter(token, read_str, *final_str, filename);
+	return (exe_signals_processing(), 1);
 }
 
 char	*heredoc_handler(t_token *token, t_cmd *cmd_data)

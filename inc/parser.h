@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:32:10 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 16:01:26 by jdach            ###   ########.fr       */
+/*   Updated: 2024/10/01 22:00:45 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*add_literal(char **str);
 char	*get_var(char **str, t_cmd *cmd_data);
 
 //expansions.c
-void	variable_expansion(t_token **head, t_cmd *cmd_data);
+int	variable_expansion(t_token **head, t_cmd *cmd_data);
 
 //parser.c
 t_cmd_list	*parse_tokens(t_token **token, t_cmd *cmd_data);

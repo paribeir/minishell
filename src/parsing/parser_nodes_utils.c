@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 21:27:27 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/29 15:17:29 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/01 22:06:21 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,7 @@ t_token	*token_fusion(t_token *t)
 	while (token)
 	{
 		if ((token->type == IO_FILE || token->subtype == HEREDOC))
-		{
-			if (!token->next->str) //check if this is needed
-				return (ft_printf("Syntax error\n"), NULL);
 			redir_token_fusion(&token);
-		}
 		else if (token->type == CMD_WORD)
 		{
 			token_fusion_cmdwords(&token);

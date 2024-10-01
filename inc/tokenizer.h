@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:11:46 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 16:00:17 by jdach            ###   ########.fr       */
+/*   Updated: 2024/10/01 22:00:39 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,6 @@ t_token	*create_token(void);
 void	token_add_back(t_token **head, t_token *new_node);
 int	add_subtype(char q, char *input);
 int	token_check_syntax(t_token **head);
-
-//variable_expansion.c
-void	variable_expansion(t_token **head, t_cmd *cmd_data);
 
 char	*hex_to_dec(void *ptr);
 char *ptr_to_str(unsigned long number);

@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 21:13:52 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/01 22:22:09 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef struct s_cmd
 }	t_cmd;
 
 /*** Error Messages ***/
-
 # define ERR_ECHO_FLAGS "Only flag '-n' may be used with echo command\n"
 # define ERR_EXPORT_INVALID_ID "not a valid identifier"
 # define ERR_CD_TOO_MANY_ARGS "too many arguments"
@@ -80,7 +79,7 @@ typedef struct s_cmd
 # define ERR_BLTN_EXPORT_NO_OPTIONS "export: Minshell allows no options"
 
 /*** Colors ***/
-
+# define BOLD	"\033[1m"
 # define BLUE	"\033[1;36m"
 # define RED     "\033[1;31m"
 # define PURPLE  "\033[1;35m"
