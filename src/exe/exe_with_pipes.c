@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 08:13:34 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/29 10:50:43 by jdach            ###   ########.fr       */
+/*   Updated: 2024/10/01 17:22:48 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exe_with_pipes_store_pid(int pid, t_cmd *cmd_data)
 	t_exit_status	*exit_status;
 
 	exit_status = malloc(sizeof(t_exit_status));
-	exit_status->exit_status = 99999;
+	exit_status->exit_status = 0;
 	exit_status->pid = pid;
 	exit_status_list_item = ft_lstnew(exit_status);
 	ft_lstadd_back(&cmd_data->exit_codes, exit_status_list_item);

@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:20:32 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/29 15:53:56 by jdach            ###   ########.fr       */
+/*   Updated: 2024/10/01 17:38:38 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	exe_bltns_export_sort(char **cpy)
  * @param	cmd_list The current node of our command list.
  * @return	Returns 0 on success and -1 on error.
  */
-int	exe_bltns_export_check_input(char *s, t_cmd * cmd_data)
+int	exe_bltns_export_check_input(char *s, t_cmd *cmd_data)
 {
 	int	i;
 

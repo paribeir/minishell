@@ -6,17 +6,15 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 08:43:25 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/29 18:31:15 by jdach            ###   ########.fr       */
+/*   Updated: 2024/10/01 17:36:42 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exe_bin_perm(char *path, t_cmd_list *cmd_list_item, t_cmd *cmd_data)
+void	exe_bin_perm(char *path, t_cmd_list *cmd_list_item, t_cmd *cmd_data, \
+DIR *directory)
 {
-	DIR	*directory;
-
-	directory = opendir(path);
 	if (directory)
 	{
 		exe_err_long(NULL, ERR_BIN_IS_FOLDER);
@@ -53,7 +51,8 @@ char	*exe_bin_get_bin_path_search(char *binary, t_cmd *cmd_data)
 
 	paths_str = exe_env_get_var("PATH", cmd_data);
 	if (paths_str == NULL)
-		exe_err_long(binary, ERR_BIN_NO_SUCH_FOLDER);
+		return (exe_err_long(binary, ERR_BIN_NO_SUCH_FOLDER), \
+		cmd_data->exit_code = 127, NULL);
 	paths_arr = ft_split(paths_str, ':');
 	i = -1;
 	while (paths_arr[++i] != NULL)
@@ -73,11 +72,16 @@ char	*exe_bin_get_bin_path_search(char *binary, t_cmd *cmd_data)
 char	*exe_bin_get_bin_path(t_cmd_list *cmd_list_item, t_cmd *cmd_data)
 {
 	char	*path;
+	DIR		*directory;
 
 	if (ft_strchr(cmd_list_item->binary, '/'))
 		path = ft_strdup(cmd_list_item->binary);
 	else
 		path = exe_bin_get_bin_path_search(cmd_list_item->binary, cmd_data);
-	exe_bin_perm(path, cmd_list_item, cmd_data);
+	if (path != NULL)
+	{
+		directory = opendir(path);
+		exe_bin_perm(path, cmd_list_item, cmd_data, directory);
+	}
 	return (path);
 }
