@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/10/01 20:21:22 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:47:31 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ char **final_str, char *filename)
 		free(read_str);
 		read_str = readline(PURPLE "😈 > " NS);
 	}
+	if (read_str == NULL)
+		ft_putstr_fd(ERR_HEREDOC_EOF, 2);
 	if (g_signum == SIGINT)
 		return (exe_signals_processing(), free(token->next->str), cleanup_memory(*final_str, NULL, NULL), g_signum = 0, 1);
 	return (exe_signals_processing(), g_signum = 0, 1);
@@ -78,7 +80,7 @@ char	*heredoc_handler(t_token *token, t_cmd *cmd_data)
 	char	*final_str;
 	char	*filename;
 
-	//ft_putstr_fd(PURPLE "😈 > " NS, STDOUT_FILENO);
+	final_str = ""; // JOH: We need to set an empty string otherwise later parts of the command fail in a pip scenario. For exmaple if we have a command like "<< stop | echo hi" and immediately hit ctrl+d
 	filename = heredoc_setup(token, &final_str);
 	if (!final_str || !filename)
 		return (cleanup_memory(final_str, NULL, filename), NULL);

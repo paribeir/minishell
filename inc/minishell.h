@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 21:13:52 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:47:28 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_cmd
 # define ERR_BIN_NON_EXECUTABEL "Permission denied"
 # define ERR_BIN_NO_SUCH_FOLDER "No such file or directory"
 # define ERR_BLTN_EXPORT_NO_OPTIONS "export: Minshell allows no options"
+# define ERR_HEREDOC_EOF "mininshell: warning: here-document at line 1 delimited by end-of-file\n"
 
 /*** Colors ***/
 

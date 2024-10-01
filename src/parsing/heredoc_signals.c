@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_signals.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 19:18:11 by paribeir          #+#    #+#             */
-/*   Updated: 2024/10/01 20:56:39 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:27:32 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 //reset to the initial minishell prompt
 void	heredoc_signals_handler(int signum)
 {
-
+	write(1, "SIGINT received", 16);
 	g_signum = signum;
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -26,6 +26,12 @@ void	heredoc_signals_handler(int signum)
 	rl_done = 1;
 	//write(1, "hello", 6);
 	return ;
+}
+
+void	heredoc_eof(int signum)
+{
+	(void)signum;
+	write(1, "hello", 6);
 }
 
 void	heredoc_signals_set(void)
