@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 21:45:08 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/01 20:21:22 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ char **final_str, char *filename)
 	char	*read_str;
 
 	heredoc_signals_set();
-	read_str = ft_get_next_line(0);
-	/*if (g_signum == SIGINT)
-		return (exe_signals_processing(), 1);*/
-	while (read_str)
+	read_str = readline(PURPLE "😈 > " NS);
+	if (g_signum == SIGINT)
+		return (free(token->next->str), exe_signals_processing(), cleanup_memory(*final_str, NULL, NULL), g_signum = 0, 1);
+	while (read_str && g_signum != SIGINT)
 	{
 		if (handle_heredoc_delimiter(token, read_str, *final_str, filename))
 			return (exe_signals_processing(), 1);
@@ -66,14 +66,11 @@ char **final_str, char *filename)
 		if (!update_final_str(final_str, read_str, filename))
 			return (0);
 		free(read_str);
-		ft_putstr_fd(PURPLE "😈 > " NS, STDOUT_FILENO);
-		read_str = ft_get_next_line(0);
-		/*if (g_signum == SIGINT)
-			return (exe_signals_processing(), 1);*/
+		read_str = readline(PURPLE "😈 > " NS);
 	}
-	if (!read_str)
-		handle_heredoc_delimiter(token, read_str, *final_str, filename);
-	return (exe_signals_processing(), 1);
+	if (g_signum == SIGINT)
+		return (exe_signals_processing(), free(token->next->str), cleanup_memory(*final_str, NULL, NULL), g_signum = 0, 1);
+	return (exe_signals_processing(), g_signum = 0, 1);
 }
 
 char	*heredoc_handler(t_token *token, t_cmd *cmd_data)
@@ -81,7 +78,7 @@ char	*heredoc_handler(t_token *token, t_cmd *cmd_data)
 	char	*final_str;
 	char	*filename;
 
-	ft_putstr_fd(PURPLE "😈 > " NS, STDOUT_FILENO);
+	//ft_putstr_fd(PURPLE "😈 > " NS, STDOUT_FILENO);
 	filename = heredoc_setup(token, &final_str);
 	if (!final_str || !filename)
 		return (cleanup_memory(final_str, NULL, filename), NULL);
