@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_variables_more.c                               :+:      :+:    :+:   */
+/*   env_variables_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:42:39 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 15:49:41 by jdach            ###   ########.fr       */
+/*   Updated: 2024/10/02 14:55:56 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void	add_expanded_var(char **current, char **str, t_cmd *cmd_data)
 	var = get_var(str, cmd_data);
 	if (var)
 	{
-		total = (char *)ft_calloc(strlen(*current) + \
-		strlen(var) + 1, sizeof(char));
+		total = (char *)ft_calloc(ft_strlen(*current) + \
+		ft_strlen(var) + 1, sizeof(char));
 		if (total)
 		{
 			ft_strlcpy(total, *current, ft_strlen(*current) + \
@@ -112,26 +112,4 @@ char	*add_literal(char **str)
 	sum = aux_str_join(sum, total);
 	free(total);
 	return (sum);
-}
-
-
-//gets the variable content by name and returns it (heredoc)
-char	*get_var_content(char *var_name, t_cmd *cmd_data)
-{
-	char	*var_content;
-	char	*result;
-
-	if (var_name[0] == '?')
-	{
-		result = ft_itoa(cmd_data->exit_code);
-		return (result);
-	}
-	var_content = exe_env_get_var(var_name, cmd_data);
-	if (!var_content)
-		return (ft_strdup(""));
-
-	result = ft_strdup(var_content);
-	free(var_content);
-
-	return (result);
 }

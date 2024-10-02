@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 19:10:43 by paribeir          #+#    #+#             */
-/*   Updated: 2024/10/01 21:48:53 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:47:31 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_heredoc_delimiter(t_token *token, char *read_str)
 char	*process_heredoc_line(char *read_str, t_token *token, t_cmd *cmd_data)
 {
 	char	*old_read_str;
-	char *temp;
+	char	*temp;
 
 	if (ft_strchr(read_str, '$') && (token->next->subtype != SQUOTE && \
 	token->next->subtype != DQUOTE))
@@ -46,7 +46,6 @@ char	*process_heredoc_line(char *read_str, t_token *token, t_cmd *cmd_data)
 	return (read_str);
 }
 
-
 int	write_heredoc_to_file(char *filename, char *final_str)
 {
 	int	fd;
@@ -65,7 +64,8 @@ char *final_str, char *filename)
 	if (!read_str || is_heredoc_delimiter(token, read_str))
 	{
 		if (!read_str)
-			ft_printf("minishell: warning: here-document delimited by end-of-file (wanted '%s')\n", token->next->str);
+			ft_printf("minishell: warning: here-document delimited by \
+			end-of-file (wanted '%s')\n", token->next->str);
 		free(token->next->str);
 		if (write_heredoc_to_file(filename, final_str) < 0)
 		{
@@ -77,7 +77,3 @@ char *final_str, char *filename)
 	}
 	return (0);
 }
-
-
-
-

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 00:07:18 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 15:49:49 by jdach            ###   ########.fr       */
+/*   Updated: 2024/10/02 14:25:40 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-char	*quotes_remove_one_var(char *str);
 
 void	var_in_quote_exp(char *str, int *i, int *in_squote, int *in_dquote)
 {

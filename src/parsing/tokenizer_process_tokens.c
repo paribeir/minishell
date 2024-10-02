@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_process_tokens.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 16:23:28 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/29 16:00:34 by jdach            ###   ########.fr       */
+/*   Updated: 2024/10/02 14:46:59 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	token_small(char *input, t_token *token, t_cmd *cmd_data)
 {
@@ -71,7 +70,7 @@ void	add_token(char *start, t_token **head, t_token *token)
 	token->str = (char *)ft_calloc(token->length + 1, sizeof(char));
 	if (!token->str)
 	{
-		ft_printf("malloc failed: token str\n");
+		ft_putstr_fd("minishell: malloc error\n", STDERR_FILENO);
 		return ;
 	}
 	ft_strlcpy(token->str, start, token->length + 1);

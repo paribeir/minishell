@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_nodes_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 21:27:27 by patricia          #+#    #+#             */
-/*   Updated: 2024/10/01 22:06:21 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:37:17 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	token_fusion_cmdwords(t_token **token)
 	}
 }
 
-//cat redirs
 void	redir_token_fusion(t_token **t)
 {
 	t_token	*token;
@@ -73,7 +72,8 @@ void	redir_token_fusion(t_token **t)
 	token->next = temp;
 }
 
-//is this command a builtin?
+/*Checks if a certain command is a builtin and, if true, 
+assigns it the right subtype.*/
 void	is_bltin(t_token **token, int flag)
 {
 	if (flag || !(*token))
@@ -101,7 +101,7 @@ t_cmd_list	*create_cmd_node(t_token *token)
 
 	node = (t_cmd_list *)malloc(sizeof(t_cmd_list));
 	if (!node)
-		return (NULL);
+		return (ft_putstr_fd("minishell: malloc error\n", STDERR_FILENO), NULL);
 	node->type = token->subtype;
 	node->binary = NULL;
 	node->arguments = NULL;
@@ -110,7 +110,7 @@ t_cmd_list	*create_cmd_node(t_token *token)
 		node->binary = ft_strdup(token->str);
 		if (!node->binary)
 		{
-			ft_printf("Memory allocation error\n");
+			ft_putstr_fd("minishell: String duplication error\n", STDERR_FILENO);
 			return (NULL);
 		}
 	}

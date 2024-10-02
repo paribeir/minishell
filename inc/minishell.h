@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:56 by paribeir          #+#    #+#             */
-/*   Updated: 2024/10/01 22:22:09 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:53:24 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@
 # include "tokenizer.h"
 # include "parser.h"
 
-extern int g_signum;
+extern int	g_signum;
 
 /*** Structs ***/
-
 typedef struct s_exit_status
 {
 	int	exit_status;
@@ -85,8 +84,7 @@ typedef struct s_cmd
 # define PURPLE  "\033[1;35m"
 # define NS	"\033[0m"
 
-#endif
-
 /*** Functions ***/
-
 void	debug_print_cmds(t_cmd_list *cmd, int active);
+
+#endif

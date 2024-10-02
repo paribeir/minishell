@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:11:46 by paribeir          #+#    #+#             */
-/*   Updated: 2024/10/01 22:00:39 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:52:22 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,26 @@ typedef enum s_token_type {
 
 typedef enum s_token_subtype
 {
-	ARGUMENT, //0
-	AND_IF, //1
-	BINARY, //2
-	DQUOTE, //3
-	OR_IF, //4
-	T_PIPE, //5
-	HEREDOC, //6
-	REDIR_IN, //7
-	REDIR_OUT, //8
-	REDIR_APPEND, //9
-	SQUOTE, //10
-	BLTIN, //11
-	BLTIN_ECHO, //12
- 	BLTIN_CD, //13
-	BLTIN_PWD, //14
-	BLTIN_EXPORT, //15
-	BLTIN_UNSET, //16
-	BLTIN_ENV, //17
-	BLTIN_EXIT //18
+	ARGUMENT,
+	AND_IF,
+	BINARY,
+	DQUOTE,
+	OR_IF,
+	T_PIPE,
+	HEREDOC,
+	REDIR_IN,
+	REDIR_OUT,
+	REDIR_APPEND,
+	SQUOTE,
+	BLTIN,
+	BLTIN_ECHO,
+	BLTIN_CD,
+	BLTIN_PWD,
+	BLTIN_EXPORT,
+	BLTIN_UNSET,
+	BLTIN_ENV,
+	BLTIN_EXIT
 }	t_token_subtype;
-
 
 /*** Linked list - Tokens ***/
 typedef struct s_token {
@@ -73,10 +72,9 @@ void	add_token(char *start, t_token **head, t_token *token);
 //tokenizer_utils.c
 t_token	*create_token(void);
 void	token_add_back(t_token **head, t_token *new_node);
-int	add_subtype(char q, char *input);
-int	token_check_syntax(t_token **head);
-
 char	*hex_to_dec(void *ptr);
-char *ptr_to_str(unsigned long number);
+char	*ptr_to_str(unsigned long number);
+int		add_subtype(char q, char *input);
+int		token_check_syntax(t_token **head);
 
 #endif

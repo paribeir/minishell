@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/10/01 23:23:19 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:49:03 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	exe_increase_shlvl(t_cmd *cmd_data)
 	free(new_shlvl_str);
 }
 
+//what about the banner()?
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_cmd		cmd_data;
@@ -82,7 +83,6 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void) argc;
 	(void) argv;
-	//banner();
 	cmd_data.envp = exe_env_cpy(envp);
 	cmd_list = NULL;
 	exe_increase_shlvl(&cmd_data);

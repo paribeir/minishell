@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:06:59 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/27 15:15:47 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:40:05 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_token	*create_token(void)
 	new_token = (t_token *)malloc(sizeof(t_token));
 	if (!new_token)
 	{
-		ft_printf("Malloc error in create_node\n");
+		ft_putstr_fd("minishell: malloc error\n", STDERR_FILENO);
 		return (NULL);
 	}
 	new_token->type = 0;
@@ -97,7 +97,8 @@ int	token_check_syntax(t_token **head)
 		else if ((current->subtype == SQUOTE || current->subtype == DQUOTE) && \
 		quotes_check(current))
 			return (free_tokens(head), \
-			ft_printf("minishell: syntax error (unclosed quotes)\n"));
+			ft_putstr_fd("minishell: syntax error (unclosed quotes)\n", \
+			STDERR_FILENO), 2);
 		if (current->type < CMD_WORD)
 			i = 0;
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:00:07 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/29 15:57:28 by jdach            ###   ########.fr       */
+/*   Updated: 2024/10/02 14:47:19 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ t_cmd *cmd_data)
 		{
 			node = create_cmd_node(current);
 			if (!node)
-			{
-				ft_printf("Failed to create node\n");
 				break ;
-			}
 			node_add_back(head, node);
 		}
 		current = current->next;
@@ -94,7 +91,6 @@ void	free_tokens(t_token **head)
 void	node_add_back(t_cmd_list **head, t_cmd_list *new_node)
 {
 	t_cmd_list	*temp;
-
 
 	if (!*head)
 		*head = new_node;

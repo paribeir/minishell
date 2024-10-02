@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 20:24:23 by paribeir          #+#    #+#             */
-/*   Updated: 2024/09/27 15:07:22 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:32:39 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*handle_zero_case(void)
 	str = (char *)ft_calloc(2, 1);
 	if (str == NULL) 
 	{
-		ft_printf("malloc error\n");
+		ft_putstr_fd("minishell: malloc error\n", STDERR_FILENO);
 		return (NULL);
 	}
 	str[0] = '0';
@@ -68,7 +68,7 @@ char	*ptr_to_str(unsigned long number)
 	str = (char *)ft_calloc(len + 1, 1);
 	if (str == NULL) 
 	{
-		ft_printf("malloc error\n");
+		ft_putstr_fd("minishell: malloc error\n", STDERR_FILENO);
 		return (NULL);
 	}
 	convert_to_string(str, number, len);

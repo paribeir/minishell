@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expansions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:38:33 by paribeir          #+#    #+#             */
-/*   Updated: 2024/10/01 22:01:46 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:02:21 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//TO DO: Wildcard
-/*if (strchr(current->str, '*'))
-	expand_wildcards(current);*/
 int	variable_expansion(t_token **head, t_cmd *cmd_data)
 {
 	t_token	*current;

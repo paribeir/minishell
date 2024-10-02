@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 21:24:20 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/27 15:09:09 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:34:51 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ void	add_arguments_redirect(t_token *token, t_cmd_list **node)
 	(*node)->arguments = (char **)malloc(2 * sizeof(char *));
 	if (!(*node)->arguments)
 	{
-		ft_printf("Malloc error");
+		ft_putstr_fd("Malloc error\n", STDERR_FILENO);
 		return ;
 	}
 	(*node)->arguments[0] = ft_strdup(token->str);
 	if (!(*node)->arguments[0])
 	{
-		ft_printf("String duplication error");
+		ft_putstr_fd("minishell: String duplication error\n", \
+		STDERR_FILENO);
 		return ;
 		free((*node)->arguments);
 		(*node)->arguments = NULL;
@@ -54,7 +55,7 @@ int	init_args(t_cmd_list **node, int nbr_args)
 	(*node)->arguments = (char **)ft_calloc((nbr_args + 1), sizeof(char *));
 	if (!(*node)->arguments)
 	{
-		ft_printf("Malloc error\n");
+		ft_putstr_fd("minishell: malloc error\n", STDERR_FILENO);
 		return (1);
 	}
 	return (0);
@@ -65,7 +66,7 @@ int	duplicate_args(char **arguments, int *i, char *str)
 	arguments[*i] = ft_strdup(str);
 	if (!arguments[*i])
 	{
-		ft_printf("String duplication error\n");
+		ft_putstr_fd("minishell: String duplication error\n", STDERR_FILENO);
 		while (*i > 0)
 			free(arguments[--(*i)]);
 		free(arguments);
@@ -98,7 +99,5 @@ t_cmd_list **node, int nbr_args)
 		}
 		current = current->next;
 	}
-	if (i > nbr_args)
-		ft_printf("DEBUG!\n");
 	(*node)->arguments[i] = NULL;
 }

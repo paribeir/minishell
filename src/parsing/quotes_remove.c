@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 21:39:37 by patricia          #+#    #+#             */
-/*   Updated: 2024/09/27 15:12:43 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:37:29 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*allocate_new_str(size_t len)
 	new_str = (char *)ft_calloc(len + 1, sizeof(char));
 	if (!new_str) 
 	{
-		ft_printf("Malloc error in quote removal\n");
+		ft_putstr_fd("minishell: malloc error\n", STDERR_FILENO);
 		return (NULL);
 	}
 	return (new_str);

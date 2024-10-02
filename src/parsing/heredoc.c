@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:49:00 by paribeir          #+#    #+#             */
-/*   Updated: 2024/10/01 22:55:54 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:03:09 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-void	heredoc_signals_set(void);
 
-//--> TO-DO: Add return value if gnl fails
-//eval if we need a check before quote removal
-//Does this work with more than one heredoc?
 char	*heredoc_setup(t_token *token, char **final_str)
 {
 	*final_str = ft_strdup("");
@@ -56,7 +52,8 @@ char **final_str, char *filename)
 	heredoc_signals_set();
 	read_str = readline(PURPLE "😈 > " NS);
 	if (g_signum == SIGINT)
-		return (free(token->next->str), exe_signals_processing(), cleanup_memory(*final_str, NULL, NULL), 1);
+		return (free(token->next->str), exe_signals_processing(), \
+		cleanup_memory(*final_str, NULL, NULL), cmd_data->exit_code = 130, 1);
 	while (read_str && g_signum != SIGINT)
 	{
 		if (handle_heredoc_delimiter(token, read_str, *final_str, filename))
@@ -68,7 +65,8 @@ char **final_str, char *filename)
 		read_str = readline(PURPLE "😈 > " NS);
 	}
 	if (g_signum == SIGINT)
-		return (exe_signals_processing(), free(token->next->str), cleanup_memory(*final_str, NULL, NULL), 1);
+		return (exe_signals_processing(), free(token->next->str), \
+		cleanup_memory(*final_str, NULL, NULL), cmd_data->exit_code = 130, 1);
 	else if (!read_str)
 		handle_heredoc_delimiter(token, read_str, *final_str, filename);
 	return (exe_signals_processing(), 1);
@@ -79,7 +77,6 @@ char	*heredoc_handler(t_token *token, t_cmd *cmd_data)
 	char	*final_str;
 	char	*filename;
 
-	//ft_putstr_fd(PURPLE "😈 > " NS, STDOUT_FILENO);
 	filename = heredoc_setup(token, &final_str);
 	if (!final_str || !filename)
 		return (cleanup_memory(final_str, NULL, filename), NULL);
