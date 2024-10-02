@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
+#    By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/10/02 16:25:34 by jdach            ###   ########.fr        #
+#    Updated: 2024/10/02 16:31:06 by paribeir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ SRC_DIR = src/
 
 #SOURCEFILES
 SRC_MINISHELL = \
-debug_print.c \
 exe/exe_bin.c \
 exe/exe_bin_args.c \
 exe/exe_bin_get_bin_path.c \
