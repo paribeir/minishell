@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+         #
+#    By: jdach <jdach@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/10/02 15:01:37 by paribeir         ###   ########.fr        #
+#    Updated: 2024/10/02 16:25:34 by jdach            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ exe/exe_env_set_var.c \
 exe/exe_err.c \
 exe/exe_fd_checker.c \
 exe/exe_get_exit_status.c \
+exe/exe_increase_shlvl.c \
 exe/exe_pipe_closing_child.c \
 exe/exe_pipe_closing_parent.c \
 exe/exe_set_in_out.c \

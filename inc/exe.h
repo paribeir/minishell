@@ -6,7 +6,7 @@
 /*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:56:38 by jdach             #+#    #+#             */
-/*   Updated: 2024/09/29 21:37:27 by jdach            ###   ########.fr       */
+/*   Updated: 2024/10/02 16:25:18 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void	exe_signals_processing(void);
 void	exe_with_pipes(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe_without_pipes(t_cmd_list *cmd_list_item, t_cmd *cmd_data);
 void	exe(t_cmd_list	*cmd_list_item, t_cmd *cmd_data);
+void	exe_increase_shlvl(t_cmd *cmd_data);
 
 #endif

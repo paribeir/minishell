@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdach <jdach@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:27:29 by paribeir          #+#    #+#             */
-/*   Updated: 2024/10/02 15:01:14 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:27:10 by jdach            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ void	reset_cmd_data(t_cmd *cmd_data)
 	cmd_data->exit_codes = NULL;
 }
 
+void	check_g_signum(t_cmd *cmd_data)
+{
+	if (g_signum == SIGINT)
+		cmd_data->exit_code = 130;
+	else if (g_signum == SIGQUIT)
+		cmd_data->exit_code = 131;
+	g_signum = 0;
+}
+
 void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 {
 	char		*input;
@@ -42,12 +51,14 @@ void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 	input = readline(RED "MiniHell🔥 > " NS);
 	if (input)
 	{
+		check_g_signum(cmd_data);
 		exe_signals_processing();
 		add_history(input);
 		tokens = tokenizer(input, cmd_data);
 		cmd_list = parse_tokens(&tokens, cmd_data);
 		exe(cmd_list, cmd_data);
 		exe_cleanup_aftercmd(cmd_data);
+		free(input);
 	}
 	else if (!input)
 	{
@@ -59,23 +70,6 @@ void	minishell(t_cmd_list *cmd_list, t_cmd *cmd_data)
 		write(1, "", 0);
 }
 
-void	exe_increase_shlvl(t_cmd *cmd_data)
-{
-	char	*old_shlvl_str;
-	int		old_shlvl;
-	int		new_shlvl;
-	char	*new_shlvl_str;
-
-	old_shlvl_str = exe_env_get_var("SHLVL", cmd_data);
-	old_shlvl = ft_atoi(old_shlvl_str);
-	free(old_shlvl_str);
-	new_shlvl = old_shlvl + 1;
-	new_shlvl_str = ft_itoa(new_shlvl);
-	exe_env_set_var("SHLVL", new_shlvl_str, cmd_data);
-	free(new_shlvl_str);
-}
-
-//what about the banner()?
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_cmd		cmd_data;
@@ -83,7 +77,6 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void) argc;
 	(void) argv;
-	banner();
 	cmd_data.envp = exe_env_cpy(envp);
 	cmd_list = NULL;
 	exe_increase_shlvl(&cmd_data);
