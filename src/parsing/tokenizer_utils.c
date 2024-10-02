@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:06:59 by paribeir          #+#    #+#             */
-/*   Updated: 2024/10/02 14:40:05 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:22:55 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ void	token_add_back(t_token **head, t_token *new_node)
 	}
 }
 
+/*
+Sets small token's subtype.
+Add for bonus:
+else if (input[1] && q == '&' && input[1] == '&')
+	return (AND_IF);
+else if (input[1] && q == '|' && input[1] == '|')
+	return (OR_IF);
+*/
 int	add_subtype(char q, char *input)
 {
 	if (q == '\'')
@@ -66,10 +74,6 @@ int	add_subtype(char q, char *input)
 		return (REDIR_IN);
 	else if (q == '>')
 		return (REDIR_OUT);
-	else if (input[1] && q == '&' && input[1] == '&')
-		return (AND_IF);
-	else if (input[1] && q == '|' && input[1] == '|')
-		return (OR_IF);
 	else if (q == '|' && (!input[1] || (input[1] && input[1] != '|')))
 		return (T_PIPE);
 	return (0);

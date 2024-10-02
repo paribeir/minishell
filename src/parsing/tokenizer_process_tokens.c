@@ -6,12 +6,14 @@
 /*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 16:23:28 by patricia          #+#    #+#             */
-/*   Updated: 2024/10/02 14:46:59 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:20:50 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*else if (input[i] == '&' || input[i] == '|')
+		token->type = CMD_WORD;*/
 int	token_small(char *input, t_token *token, t_cmd *cmd_data)
 {
 	int	i;
@@ -21,8 +23,6 @@ int	token_small(char *input, t_token *token, t_cmd *cmd_data)
 		token->type = PIPE;
 	else if (input[i] == '<' || input[i] == '>')
 		token->type = IO_FILE;
-	else if (input[i] == '&' || input[i] == '|')
-		token->type = OPERATOR;
 	while (input[i + 1] && input[i] == input[i + 1])
 		i++;
 	if (i > 1)

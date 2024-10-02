@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:11:46 by paribeir          #+#    #+#             */
-/*   Updated: 2024/10/02 14:52:22 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:20:03 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*** Macros ***/
 //IFS stands for Internal Field Separator
 # define IFS		" \t\n"
-# define SPECIAL_CHARS	"|&<>"
+# define SPECIAL_CHARS	"|<>"
 
 /*** enum ***/
 typedef enum s_token_type {
