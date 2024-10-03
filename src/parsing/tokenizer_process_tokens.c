@@ -6,7 +6,7 @@
 /*   By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 16:23:28 by patricia          #+#    #+#             */
-/*   Updated: 2024/10/02 15:20:50 by paribeir         ###   ########.fr       */
+/*   Updated: 2024/10/03 12:50:46 by paribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,24 @@ int	token_small(char *input, t_token *token, t_cmd *cmd_data)
 	int	i;
 
 	i = 0;
+	if (input[i] == '|' && !input[i + 1])
+		i += 3;
 	if (input[i] == '|' && input[i + 1] != '|')
+		token->type = PIPE;
+	else if (input[i] == '|' && !input[i + 1])
 		token->type = PIPE;
 	else if (input[i] == '<' || input[i] == '>')
 		token->type = IO_FILE;
+	else
+		token->type = CMD_WORD;
 	while (input[i + 1] && input[i] == input[i + 1])
 		i++;
 	if (i > 1)
 	{
 		ft_printf("minishell: syntax error near token \
-		\'%c%c\'\n", input[0], input[1]);
+\'%c%c\'\n", input[0], input[1]);
 		cmd_data->exit_code = 2;
-		return (0);
+		return (cmd_data->exit_code = 2, 0);
 	}
 	token->subtype = add_subtype(input[i], input);
 	token->length = i + 1;

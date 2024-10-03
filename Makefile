@@ -6,7 +6,7 @@
 #    By: paribeir <paribeir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 15:45:03 by paribeir          #+#    #+#              #
-#    Updated: 2024/10/02 16:33:07 by paribeir         ###   ########.fr        #
+#    Updated: 2024/10/02 17:24:26 by paribeir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ endif
 
 #NAMES
 NAME = minishell
-NAME_BONUS = minishell_bonus
 
 #DIRECTORIES
 OBJ_DIR = obj/
@@ -31,6 +30,7 @@ SRC_DIR = src/
 
 #SOURCEFILES
 SRC_MINISHELL = \
+banner.c \
 exe/exe_bin.c \
 exe/exe_bin_args.c \
 exe/exe_bin_get_bin_path.c \
@@ -86,28 +86,14 @@ parsing/tokenizer.c
 
 SRCS_MINISHELL = $(addprefix $(SRC_DIR), $(SRC_MINISHELL))
 
-SRC_MINISHELL_BONUS =
-SRCS_MINISHELL_BONUS = $(addprefix $(SRC_DIR), $(SRC_MINISHELL_BONUS))
-
 #OBJECTFILES
 OBJ_MINISHELL = $(SRC_MINISHELL:.c=.o)
 OBJS_MINISHELL = $(addprefix $(OBJ_DIR), $(OBJ_MINISHELL))
-
-OBJ_MINISHELL_BONUS = $(SRC_MINISHELL_BONUS:.c=.o)
-OBJS_MINISHELL_BONUS = $(addprefix $(OBJ_DIR), $(OBJ_MINISHELL_BONUS))
 
 #HEADERFILES
 INCS = -I inc/
 
 all: $(NAME)
-
-bonus: $(NAME_BONUS)
-
-tester: re
-	if [ ! -d "minishell_tester" ]; then \
-	  git clone https://github.com/LucasKuhn/minishell_tester.git; \
-	fi
-	cd minishell_tester && ./tester
 
 $(NAME): $(OBJS_MINISHELL)
 	make -C $(LIB_DIR)libft
@@ -120,12 +106,10 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 clean:
 	make clean -C $(LIB_DIR)libft
 	rm -rf $(OBJ_DIR)
-	rm -rf minishell_tester
 
 fclean: clean
 	make fclean -C $(LIB_DIR)libft
 	rm -f $(NAME)
-	rm -f $(NAME_BONUS)
 
 re: fclean all
 
