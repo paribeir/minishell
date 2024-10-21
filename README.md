@@ -8,7 +8,7 @@
 
 - Displays a prompt and waits for user input
 - Has a history
-- Runs binaries and bulabsolute paths
+- Runs binaries and built-ins, also with absolute paths
 - Supports the following built-in commands:
   - `echo` with `-n` option
   - `cd` (change directory)
