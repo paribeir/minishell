@@ -1,4 +1,4 @@
-# MiniShell
+# Minishell
 
 ## Overview
 
