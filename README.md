@@ -19,7 +19,7 @@
   - `exit` (exit the shell)
 - Supports pipes (`|`)
 - Supports redirect in `<`, redirect out `>`, append `>>`)
-- Supports heredoc `<<`, with special attention to bash's specific behaviour (var expansion, signal handling, quotes)
+- Supports heredoc `<<`, with special attention to bash's heredoc-specific behaviour (var expansion, signal handling, quotes)
 - Environment variables
 - single (`'`) and double (`"`) work quotes like in Bash
 - Basic signal handling for `Ctrl+C`, `Ctrl+D`, and `Ctrl+\`
