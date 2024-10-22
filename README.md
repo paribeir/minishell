@@ -24,6 +24,6 @@
 - Supports pipes (`|`)
 - Supports redirect in `<`, redirect out `>`, and append `>>`
 - Supports heredoc `<<`, with special attention to bash's heredoc-specific behaviour (var expansion, signal handling, quotes)
-- Environment variables (including `$?`, with the same error codes as bash)
+- Environment variables (including `$?`)
 - Single (`'`) and double (`"`) quotes
 - Signal handling for `Ctrl+C`, `Ctrl+D`, and `Ctrl+\`
