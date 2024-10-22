@@ -6,7 +6,7 @@
 
 ## Overview
 
-**Mini(s)hell** is a Unix-like shell written in C that mimics Bash. It has a history, allows you to run binaries and built-ins, handles pipes, redirections, heredocs and signals.
+**Mini(s)hell** is a unix-like shell written in C that mimics Bash. It has a history, allows you to run binaries and built-ins, handles pipes, redirections, heredocs and signals.
 
 ## Features
 
