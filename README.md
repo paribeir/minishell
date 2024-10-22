@@ -1,4 +1,4 @@
-# Minishell
+# Minishell 🔥 - 101/100
 
 <p align="center">
 <img src="https://github.com/user-attachments/assets/fb4c5361-65d3-43af-8634-f9dae24e1636" alt="Minishell banner"/>
