@@ -26,4 +26,4 @@
 - Supports heredoc `<<`, with special attention to bash's heredoc-specific behaviour (var expansion, signal handling, quotes)
 - Environment variables (including `$?`, with the same error codes as bash)
 - Single (`'`) and double (`"`) quotes
-- Basic signal handling for `Ctrl+C`, `Ctrl+D`, and `Ctrl+\`
+- Signal handling for `Ctrl+C`, `Ctrl+D`, and `Ctrl+\`
