@@ -22,7 +22,7 @@
   - `env` (list environment variables)
   - `exit` (exit the shell)
 - Supports pipes (`|`)
-- Supports redirect in `<`, redirect out `>`, append `>>`)
+- Supports redirect in `<`, redirect out `>`, and append `>>`
 - Supports heredoc `<<`, with special attention to bash's heredoc-specific behaviour (var expansion, signal handling, quotes)
 - Environment variables (including `$?`, with the same error codes as bash)
 - Single (`'`) and double (`"`) quotes
